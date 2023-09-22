@@ -27,3 +27,5 @@ Route::get('/dashboard', function () {
 Route::resource('/projek',\App\Http\Controllers\ProjekController::class);
 Route::get('projek/edit/{id}', '\App\Http\Controllers\ProjekController@edit');
 Route::post('projek/update/{id}', '\App\Http\Controllers\ProjekController@update');
+
+Route::get('/cekLogin', '\App\Http\Controllers\LoginController@cekLogin')->name('login.cekLogin');
