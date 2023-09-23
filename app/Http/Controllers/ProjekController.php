@@ -16,9 +16,17 @@ class ProjekController extends Controller
     {
         //get posts
         $projek = Projek::get();
+
         //render view with posts
         return view('projek.index', compact('projek'));
     }
+
+    // public function indexbyidSupervisor($id)
+    // {
+    //     $projek = Projek::where('id_supervisor','=',$id)->get();
+    //     //render view with posts
+    //     return view('projek.index', compact('projek'));
+    // }
 
     public function create()
     {

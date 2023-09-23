@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Projek extends Model
+class Client extends Model
 {
     use HasFactory;
 
@@ -16,12 +16,9 @@ class Projek extends Model
     */
     
     protected $fillable = [
-        'id_supervisor',
-        'id_tim',
-        'id_client',
-        'judul',
-        'deskripsi',
-        'status',
-        'persen',
-    ];
+        'id',
+        'nama',
+        'username',
+        'password',
+    ];    
 }
