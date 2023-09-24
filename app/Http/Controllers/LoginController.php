@@ -33,7 +33,8 @@ class LoginController extends Controller
             }else{
                 $supervisor = Supervisor::where('username','=',$request->username)->where('password','=',$request->password)->first();
                 $projek = Projek::where('id_supervisor','=',$supervisor->id)->get();
-                return view('projek.index', compact('projek'))->with(['success' => 'Berhasil Login']);;
+                $id = $supervisor->id;
+                return view('projek.indexBySupervisor', compact('projek', 'id'))->with(['success' => 'Berhasil Login']);;
                 // return redirect()->route('projek.index',$supervisor->id)->with(['success' => 'Berhasil Login']);
             }
         }else if($request->role=='Tim'){
@@ -45,7 +46,8 @@ class LoginController extends Controller
             }else{
                 $tim = Tim::where('username','=',$request->username)->where('password','=',$request->password)->first();
                 $projek = Projek::where('id_tim','=',$tim->id)->get();
-                return view('projek.index', compact('projek'))->with(['success' => 'Berhasil Login']);;
+                $id = $tim->id;
+                return view('projek.indexByTim', compact('projek','id'))->with(['success' => 'Berhasil Login']);;
             }
         }else if($request->role=='Client'){
             $data = Client::where('username','=',$request->username)->where('password','=',$request->password)->get();
@@ -56,7 +58,8 @@ class LoginController extends Controller
             }else{
                 $client = Client::where('username','=',$request->username)->where('password','=',$request->password)->first();
                 $projek = Projek::where('id_client','=',$client->id)->get();
-                return view('projek.index', compact('projek'))->with(['success' => 'Berhasil Login']);;
+                $id = $client->id;
+                return view('projek.indexByClient', compact('projek', 'id'))->with(['success' => 'Berhasil Login']);;
             }
         }else{
             return redirect('')->withErrors('Username dan password yang dimasukan tidak sesuai')->withInput();

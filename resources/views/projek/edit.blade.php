@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-md btn-primary">UPDATE</button>
-                                <a href="{{ route('projek.index') }}" class="btn btn-sm btn-warning" style="font-size : 18px;">CANCEL</a>
+                                <a href="{{ route('projek.indexbyidTim', $projek->id_tim) }}" class="btn btn-sm btn-warning" style="font-size : 18px;">CANCEL</a>
                             </form>
                         </div>
                         <!-- /.card-body -->
