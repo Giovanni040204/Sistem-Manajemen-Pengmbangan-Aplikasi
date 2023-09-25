@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('dashboardAdmin')
 
 @section('content')
     <div class="content-header">
@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <a href="{{ url('departemen')}}">Projek</a>
+                            <a href="{{ url('projek')}}">Projek</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -27,9 +27,6 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6">
-                    <a href="{{ route('projek.create') }}" class="btn btn-md btn-success mb-3">TAMBAH PROJEK</a>
-                </div>
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
@@ -41,7 +38,6 @@
                                             <th class="text-center">Deskripsi Projek</th>
                                             <th class="text-center">Status Projek</th>
                                             <th class="text-center">Presentasi Projek</th>
-                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,15 +47,7 @@
                                             <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
                                             <td class="text-center">{{$item->persen }}%</td>
-                                            <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.destroy', $item->id) }}" method="POST">
-                                                    <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                                </form>
-                                            </td>
-                                            </tr>
+                                        </tr>
                                             @empty
                                             <div class="alert alert-danger">
                                                 Data projek belum tersedia

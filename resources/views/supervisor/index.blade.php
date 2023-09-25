@@ -1,17 +1,17 @@
-@extends('dashboardSupervisor')
+@extends('dashboardAdmin')
 
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Projek</h1>
+                    <h1 class="m-0">Supervisor</h1>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('projek.indexbyidSupervisor', $id) }}">Projek</a>
+                            <a href="{{ route('supervisor.index') }}">Supervisor</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -28,7 +28,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <a href="{{ route('projek.createProjek', $id) }}" class="btn btn-md btn-success mb-3">TAMBAH PROJEK</a>
+                    <a href="{{ route('supervisor.create') }}" class="btn btn-md btn-success mb-3">TAMBAH SUPERVISOR</a>
                 </div>
                 <div class="col-12">
                     <div class="card">
@@ -37,23 +37,21 @@
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">Judul Projek</th>
-                                            <th class="text-center">Deskripsi Projek</th>
-                                            <th class="text-center">Status Projek</th>
-                                            <th class="text-center">Presentasi Projek</th>
+                                            <th class="text-center">Nama Supervisor</th>
+                                            <th class="text-center">Username</th>
+                                            <th class="text-center">Password</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($projek as $item)
+                                        @forelse ($supervisor as $item)
                                         <tr>
-                                            <td class="text-center">{{$item->judul }}</td>
-                                            <td class="text-center">{{$item->deskripsi }}</td>
-                                            <td class="text-center">{{$item->status }}</td>
-                                            <td class="text-center">{{$item->persen }}%</td>
+                                            <td class="text-center">{{$item->nama }}</td>
+                                            <td class="text-center">{{$item->username }}</td>
+                                            <td class="text-center">{{$item->password }}</td>
                                             <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.destroy', $item->id) }}" method="POST">
-                                                    {{-- <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a> --}}
+                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('supervisor.destroy', $item->id) }}" method="POST">
+                                                    <a href="{{ route('supervisor.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>

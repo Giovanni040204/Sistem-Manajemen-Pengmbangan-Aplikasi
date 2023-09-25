@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('dashboardTim')
 
 @section('content')
     <div class="content-header">
@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <a href="{{ url('projek')}}">Projek</a>
+                            <a href="{{ route('projek.indexbyidTim', $id) }}">Projek</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>

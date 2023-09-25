@@ -36,13 +36,20 @@ class ProjekController extends Controller
         $projek = Projek::where('id_tim','=',$id)->get();
         //render view with posts
         return view('projek.indexByTim', compact('projek', 'id'));
-    }    
+    }   
+
+    public function indexbyidClient($id)
+    {
+        $projek = Projek::where('id_client','=',$id)->get();
+        //render view with posts
+        return view('projek.indexByClient', compact('projek', 'id'));
+    }     
 
     public function createProjek($id){
         $supervisor = Supervisor::whereId($id)->first();
         $client = Client::all();
         $tim = Tim::all();
-        return view('projek.create', compact('supervisor','client','tim'));
+        return view('projek.create', compact('supervisor','client','tim','id'));
         // return view('projek.create')->with('supervisor', $supervisor);
     }
 
@@ -98,8 +105,9 @@ class ProjekController extends Controller
     public function edit($id){
         $projek = Projek::whereId($id)->first();
         $status = ['Requirement Definiton','Design','Development','Intergration and Testing','Intallation and Acceptance'];
+        $id = $projek->id_tim;
         
-        return view('projek.edit', compact('status'))->with('projek', $projek);
+        return view('projek.edit', compact('status','id'))->with('projek', $projek);
     } 
 
     public function update(Request $request, $id){
