@@ -1,5 +1,5 @@
 @extends('dashboardTim')
-
+@include('sweetalert::alert')
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -76,4 +76,5 @@
             </div>
             <!-- /.container-fluid -->
         </div>
+        
     @endsection

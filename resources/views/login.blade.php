@@ -36,19 +36,19 @@
                                 @endif
                                 <form action="{{ route('login.cekLogin') }}" method="GET">
                                     @csrf
-                                    <div class="mb-3">
+                                    {{-- <div class="mb-3">
                                         <select class="form-control  @error('role') is-invalid @enderror" style="font-family: roboto;" name="role" value="{{ old('role') }}">
                                             <option value="" disabled selected hidden>Pilih Role</option>
                                             <option value='Supervisor'>Supervisor</option>
                                             <option value='Tim'>Tim</option>
                                             <option value='Client'>Client</option>
-                                        </select>
+                                        </select> --}}
                                         {{-- @error('role')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                         @enderror --}}
-                                    </div>
+                                    {{-- </div> --}}
                                     <div class="mb-3">
                                         <label for="username" class="form-label" style="font-family: roboto;">Username</label>
                                         <input type="text" value="{{ old('username') }}" name="username" class="form-control @error('username') is-invalid @enderror">

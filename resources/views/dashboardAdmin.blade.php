@@ -22,7 +22,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-                        <i class="fas fa-bars"></i>
+                        <i class="fas fa-bars">&nbsp;Admin</i>
                     </a>
                 </li>
             </ul>
@@ -100,19 +100,7 @@
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Daftar Supervisor</p>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('tim') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Daftar Tim</p>
-                            </a>
-                        </li> 
-                        <li class="nav-item">
-                            <a href="{{ url('client') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Daftar Client</p>
-                            </a>
-                        </li>                                                                          
+                        </li>                                                                        
                         <li class="nav-item">
                             <a href="{{ url('') }}" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
@@ -149,6 +137,8 @@
         
         <script src="resources/js/app.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        @include('sweetalert::alert')
+        
     </body>
     <script>
         @if (Session::has('success'))

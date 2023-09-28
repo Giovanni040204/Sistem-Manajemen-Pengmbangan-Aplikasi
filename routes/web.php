@@ -35,6 +35,9 @@ Route::post('projek/update/{id}', '\App\Http\Controllers\ProjekController@update
 
 Route::get('/cekLogin', '\App\Http\Controllers\LoginController@cekLogin')->name('login.cekLogin');
 Route::get('/projek/supervisor/index/{id}', '\App\Http\Controllers\ProjekController@indexbyidSupervisor')->name('projek.indexbyidSupervisor');
+Route::get('/tim/index/{id}', '\App\Http\Controllers\TimController@indexTim')->name('tim.indexTim');
+Route::get('/client/index/{id}', '\App\Http\Controllers\ClientController@indexClient')->name('client.indexClient');
+
 Route::get('/projek/supervisor/create/{id}', '\App\Http\Controllers\ProjekController@createProjek')->name('projek.createProjek');
 Route::get('/projek/supervisor/store/{id}', '\App\Http\Controllers\ProjekController@storeProjek')->name('projek.storeProjek');
 Route::get('/projek/tim/index/{id}', '\App\Http\Controllers\ProjekController@indexbyidTim')->name('projek.indexbyidTim');

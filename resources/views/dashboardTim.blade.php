@@ -22,7 +22,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-                        <i class="fas fa-bars"></i>
+                        <i class="fas fa-bars">&nbsp;Tim</i>
                     </a>
                 </li>
             </ul>
@@ -131,10 +131,7 @@
         
         <script src="resources/js/app.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        @include('sweetalert::alert')
+        
     </body>
-    <script>
-        @if (Session::has('success'))
-        toastr.success("{{ Session::get('success') }}")
-        @endif
-    </script>
 </html>

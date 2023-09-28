@@ -16,6 +16,11 @@ class TimController extends Controller
         return view('tim.index', compact('tim'));
     }
 
+    public function indexTim($id){
+        $tim = Tim::get();
+        return view('tim.index', compact('tim','id'));
+    }
+
     public function create()
     {
         return view('tim.create');

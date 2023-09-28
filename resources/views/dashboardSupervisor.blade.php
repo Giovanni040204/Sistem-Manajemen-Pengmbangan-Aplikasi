@@ -22,7 +22,8 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button">
-                        <i class="fas fa-bars"></i>
+                        <i class="fas fa-bars">&nbsp;Supervisor</i>
+                        
                     </a>
                 </li>
             </ul>
@@ -30,9 +31,9 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                    {{-- <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
-                    </a>
+                    </a> --}}
                     <div class="navbar-search-block">
                         <form class="form-inline">
                             <div class="input-group input-group-sm">
@@ -96,6 +97,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('tim.indexTim', $id) }}" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Daftar Tim</p>
+                            </a>
+                        </li> 
+                        <li class="nav-item">
+                            <a href="{{ route('client.indexClient', $id) }}" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Daftar Client</p>
+                            </a>
+                        </li>  
+                        <li class="nav-item">
                             <a href="{{ url('') }}" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Logout</p>
@@ -131,6 +144,7 @@
         
         <script src="resources/js/app.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        @include('sweetalert::alert')
     </body>
     <script>
         @if (Session::has('success'))

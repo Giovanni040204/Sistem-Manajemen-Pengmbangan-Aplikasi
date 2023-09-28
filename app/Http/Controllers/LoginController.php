@@ -13,11 +13,11 @@ class LoginController extends Controller
     public function cekLogin(Request $request)
     {
         $request->validate([
-            'role'=>'required',
+            // 'role'=>'required',
             'username'=>'required',
             'password'=>'required'
         ],[
-            'role.required'=>'Role wajib diisi',
+            // 'role.required'=>'Role wajib diisi',
             'username.required'=>'Username wajib diisi',
             'password.required'=>'Password wajib diisi',
         ]);
@@ -27,45 +27,41 @@ class LoginController extends Controller
             return view('projek.index', compact('projek'))->with(['success' => 'Berhasil Login']);;            
         }
 
-        if($request->role=='Supervisor'){
-            $data = Supervisor::where('username','=',$request->username)->where('password','=',$request->password)->get();
-            $cek = $data->count();
 
-            if($cek==0){
-                return redirect('')->withErrors('Username dan password yang dimasukan tidak sesuai')->withInput();
-            }else{
-                $supervisor = Supervisor::where('username','=',$request->username)->where('password','=',$request->password)->first();
-                $projek = Projek::where('id_supervisor','=',$supervisor->id)->get();
-                $id = $supervisor->id;
-                return view('projek.indexBySupervisor', compact('projek', 'id'))->with(['success' => 'Berhasil Login']);;
-                // return redirect()->route('projek.index',$supervisor->id)->with(['success' => 'Berhasil Login']);
-            }
-        }else if($request->role=='Tim'){
+        $data = Supervisor::where('username','=',$request->username)->where('password','=',$request->password)->get();
+        $cek = $data->count();
+        
+        if($cek==0){
             $data = Tim::where('username','=',$request->username)->where('password','=',$request->password)->get();
             $cek = $data->count();
 
             if($cek==0){
-                return redirect('')->withErrors('Username dan password yang dimasukan tidak sesuai')->withInput();
+                $data = Client::where('username','=',$request->username)->where('password','=',$request->password)->get();
+                $cek = $data->count();
+
+                if($cek==0){
+                    return redirect('')->withErrors('Username dan password yang dimasukan tidak sesuai')->withInput();
+                }else{
+                    $client = Client::where('username','=',$request->username)->where('password','=',$request->password)->first();
+                    $projek = Projek::where('id_client','=',$client->id)->get();
+                    $id = $client->id;
+                    $role = "Supervisor";
+                    return view('projek.indexByClient', compact('projek', 'id','role'))->with(['success' => 'Berhasil Login']);;
+                }
             }else{
                 $tim = Tim::where('username','=',$request->username)->where('password','=',$request->password)->first();
                 $projek = Projek::where('id_tim','=',$tim->id)->get();
                 $id = $tim->id;
-                return view('projek.indexByTim', compact('projek','id'))->with(['success' => 'Berhasil Login']);;
-            }
-        }else if($request->role=='Client'){
-            $data = Client::where('username','=',$request->username)->where('password','=',$request->password)->get();
-            $cek = $data->count();
-
-            if($cek==0){
-                return redirect('')->withErrors('Username dan password yang dimasukan tidak sesuai')->withInput();
-            }else{
-                $client = Client::where('username','=',$request->username)->where('password','=',$request->password)->first();
-                $projek = Projek::where('id_client','=',$client->id)->get();
-                $id = $client->id;
-                return view('projek.indexByClient', compact('projek', 'id'))->with(['success' => 'Berhasil Login']);;
+                $role = "Tim";
+                return view('projek.indexByTim', compact('projek','id','role'))->with(['success' => 'Berhasil Login']);;
             }
         }else{
-            return redirect('')->withErrors('Username dan password yang dimasukan tidak sesuai')->withInput();
+            $supervisor = Supervisor::where('username','=',$request->username)->where('password','=',$request->password)->first();
+            $projek = Projek::where('id_supervisor','=',$supervisor->id)->get();
+            $id = $supervisor->id;
+            $role = "Client";
+            return view('projek.indexBySupervisor', compact('projek', 'id','role'))->with(['success' => 'Berhasil Login']);;
+            // return redirect()->route('projek.index',$supervisor->id)->with(['success' => 'Berhasil Login']);
         }
     }
 }
