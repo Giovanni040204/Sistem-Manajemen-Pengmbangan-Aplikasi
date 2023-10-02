@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label class="font-weight-bold">Password Supervisor</label>
-                                        <input type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" placeholder="Masukkan Password Supervisor">
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" placeholder="Masukkan Password Supervisor">
                                         @error('password')
                                         <div class="invalid-feedback">
                                             {{ $message }}

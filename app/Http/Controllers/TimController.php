@@ -21,12 +21,12 @@ class TimController extends Controller
         return view('tim.index', compact('tim','id'));
     }
 
-    public function create()
+    public function createTim($id)
     {
-        return view('tim.create');
+        return view('tim.create', compact('id'));
     }
 
-    public function store(Request $request)
+    public function storeTim(Request $request, $id)
     {
         //Validasi Formulir
         $this->validate($request, [
@@ -42,34 +42,34 @@ class TimController extends Controller
             'password' => $request->password,
         ]);
             
-        return redirect()->route('tim.index')->with(['success' => 'Data Berhasil Disimpan']);
+        return redirect()->route('tim.indexTim', compact('id'))->with(['success' => 'Data Berhasil Disimpan']);
     }     
 
-    public function edit($id){
-        $tim = Tim::whereId($id)->first();
+    public function editTim($idc, $id){
+        $tim = Tim::whereId($idc)->first();
         
-        return view('tim.edit')->with('tim', $tim);
+        return view('tim.edit', compact('id'))->with('tim', $tim);
     } 
 
-    public function update(Request $request, $id){
+    public function updateTim(Request $request, $idc, $id){
         $this->validate($request, [
             'nama' => 'required',
             'username' => 'required',
             'password' => 'required',            
         ]);        
         
-        $tim = Tim::whereId($id)->first();
+        $tim = Tim::whereId($idc)->first();
         $tim->update($request->all());
 
-        return redirect()->route('tim.index')->with(['success' => 'Data Berhasil Diedit']);
+        return redirect()->route('tim.indexTim', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
 
-    public function destroy($id)
+    public function destroyTim($idc, $id)
     {
-        $tim = Tim::whereId($id)->first();
+        $tim = Tim::whereId($idc)->first();
 
-        Tim::find($id)->delete();
+        Tim::find($idc)->delete();
 
-        return redirect()->route('tim.index')->with(['success' => 'Data Berhasil Dihapus']);
+        return redirect()->route('tim.indexTim', compact('id'))->with(['success' => 'Data Berhasil Dihapus']);
     }  
 }

@@ -7,26 +7,50 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    public function index()
-    {
-        //get posts
-        $client = Client::get();
+    // public function index()
+    // {
+    //     //get posts
+    //     $client = Client::get();
 
-        //render view with posts
-        return view('client.index', compact('client'));
-    }
+    //     //render view with posts
+    //     return view('client.index', compact('client'));
+    // }
 
     public function indexClient($id){
         $client = Client::get();
-        return view('client.index', compact('client','id'));
+        return view('client.index', compact('client','id'))->with('id', $id);;
     }
 
-    public function create()
+    // public function create()
+    // {
+    //     return view('client.create');
+    // }
+
+    public function createClient($id)
     {
-        return view('client.create');
+        return view('client.create', compact('id'));
     }
 
-    public function store(Request $request)
+    // public function store(Request $request)
+    // {
+    //     //Validasi Formulir
+    //     $this->validate($request, [
+    //         'nama' => 'required',
+    //         'username' => 'required',
+    //         'password' => 'required',            
+    //     ]);
+
+    //     //Fungsi Simpan Data ke dalam Database
+    //     Client::create([
+    //         'nama' => $request->nama,
+    //         'username' => $request->username,
+    //         'password' => $request->password,
+    //     ]);
+            
+    //     return redirect()->route('client.indexClient')->with(['success' => 'Data Berhasil Disimpan']);
+    // }
+    
+    public function storeClient(Request $request, $id)
     {
         //Validasi Formulir
         $this->validate($request, [
@@ -42,26 +66,45 @@ class ClientController extends Controller
             'password' => $request->password,
         ]);
             
-        return redirect()->route('client.index')->with(['success' => 'Data Berhasil Disimpan']);
-    }     
-
-    public function edit($id){
-        $client = Client::whereId($id)->first();
-        
-        return view('client.edit')->with('client', $client);
+        return redirect()->route('client.indexClient', compact('id'))->with(['success' => 'Data Berhasil Disimpan']);
     } 
 
-    public function update(Request $request, $id){
+    // public function edit($id){
+    //     $client = Client::whereId($id)->first();
+        
+    //     return view('client.edit')->with('client', $client);
+    // }
+    
+    public function editClient($idc, $id){
+        $client = Client::whereId($idc)->first();
+        
+        return view('client.edit', compact('id'))->with('client', $client);
+    } 
+
+    // public function update(Request $request, $id){
+    //     $this->validate($request, [
+    //         'nama' => 'required',
+    //         'username' => 'required',
+    //         'password' => 'required',            
+    //     ]);        
+        
+    //     $client = Client::whereId($id)->first();
+    //     $client->update($request->all());
+
+    //     return redirect()->route('client.index')->with(['success' => 'Data Berhasil Diedit']);
+    // }
+
+    public function updateClient(Request $request, $idc, $id){
         $this->validate($request, [
             'nama' => 'required',
             'username' => 'required',
             'password' => 'required',            
         ]);        
         
-        $client = Client::whereId($id)->first();
+        $client = Client::whereId($idc)->first();
         $client->update($request->all());
 
-        return redirect()->route('client.index')->with(['success' => 'Data Berhasil Diedit']);
+        return redirect()->route('client.indexClient', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
 
     public function destroy($id)
@@ -71,5 +114,14 @@ class ClientController extends Controller
         Client::find($id)->delete();
 
         return redirect()->route('client.index')->with(['success' => 'Data Berhasil Dihapus']);
+    }  
+
+    public function destroyClient($idc, $id)
+    {
+        $client = Client::whereId($idc)->first();
+
+        Client::find($idc)->delete();
+
+        return redirect()->route('client.indexClient', compact('id'))->with(['success' => 'Data Berhasil Dihapus']);
     }  
 }

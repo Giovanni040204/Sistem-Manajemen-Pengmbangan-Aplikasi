@@ -35,12 +35,25 @@ Route::post('projek/update/{id}', '\App\Http\Controllers\ProjekController@update
 
 Route::get('/cekLogin', '\App\Http\Controllers\LoginController@cekLogin')->name('login.cekLogin');
 Route::get('/projek/supervisor/index/{id}', '\App\Http\Controllers\ProjekController@indexbyidSupervisor')->name('projek.indexbyidSupervisor');
+
 Route::get('/tim/index/{id}', '\App\Http\Controllers\TimController@indexTim')->name('tim.indexTim');
+Route::get('/tim/create/{id}', '\App\Http\Controllers\TimController@createTim')->name('tim.createTim');
+Route::get('/tim/store/{id}', '\App\Http\Controllers\TimController@storeTim')->name('tim.storeTim');
+Route::get('/supervisor/tim/edit/{idc}/{id}', '\App\Http\Controllers\TimController@editTim')->name('tim.editTim');
+Route::get('/supervisor/tim/update/{idc}/{id}', '\App\Http\Controllers\TimController@updateTim')->name('tim.updateTim');
+Route::get('/supervisor/tim/destroy/{idc}/{id}', '\App\Http\Controllers\TimController@destroyTim')->name('tim.destroyTim');
+
 Route::get('/client/index/{id}', '\App\Http\Controllers\ClientController@indexClient')->name('client.indexClient');
+Route::get('/client/create/{id}', '\App\Http\Controllers\ClientController@createClient')->name('client.createClient');
+Route::get('/client/store/{id}', '\App\Http\Controllers\ClientController@storeClient')->name('client.storeClient');
+Route::get('/supervisor/client/edit/{idc}/{id}', '\App\Http\Controllers\ClientController@editClient')->name('client.editClient');
+Route::get('/supervisor/client/update/{idc}/{id}', '\App\Http\Controllers\ClientController@updateClient')->name('client.updateClient');
+Route::get('/supervisor/client/destroy/{idc}/{id}', '\App\Http\Controllers\ClientController@destroyClient')->name('client.destroyClient');
 
 Route::get('/projek/supervisor/create/{id}', '\App\Http\Controllers\ProjekController@createProjek')->name('projek.createProjek');
 Route::get('/projek/supervisor/store/{id}', '\App\Http\Controllers\ProjekController@storeProjek')->name('projek.storeProjek');
 Route::get('/projek/tim/index/{id}', '\App\Http\Controllers\ProjekController@indexbyidTim')->name('projek.indexbyidTim');
+
 Route::get('/projek/client/index/{id}', '\App\Http\Controllers\ProjekController@indexbyidClient')->name('projek.indexbyidClient');
 
 Route::resource('/supervisor',\App\Http\Controllers\SupervisorController::class);

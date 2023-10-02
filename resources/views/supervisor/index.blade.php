@@ -39,7 +39,7 @@
                                         <tr>
                                             <th class="text-center">Nama Supervisor</th>
                                             <th class="text-center">Username</th>
-                                            <th class="text-center">Password</th>
+                                            {{-- <th class="text-center">Password</th> --}}
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -48,7 +48,7 @@
                                         <tr>
                                             <td class="text-center">{{$item->nama }}</td>
                                             <td class="text-center">{{$item->username }}</td>
-                                            <td class="text-center">{{$item->password }}</td>
+                                            {{-- <td class="text-center">{{$item->password }}</td> --}}
                                             <td class="text-center">
                                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('supervisor.destroy', $item->id) }}" method="POST">
                                                     <a href="{{ route('supervisor.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>

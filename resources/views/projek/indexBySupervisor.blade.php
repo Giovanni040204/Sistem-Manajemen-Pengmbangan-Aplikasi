@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('projek.indexbyidSupervisor', $id) }}">Projek</a>
+                            <a href="#">Projek</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -41,7 +41,7 @@
                                             <th class="text-center">Deskripsi Projek</th>
                                             <th class="text-center">Status Projek</th>
                                             <th class="text-center">Presentasi Projek</th>
-                                            <th class="text-center">Aksi</th>
+                                            {{-- <th class="text-center">Aksi</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,14 +51,14 @@
                                             <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
                                             <td class="text-center">{{$item->persen }}%</td>
-                                            <td class="text-center">
+                                            {{-- <td class="text-center">
                                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.destroy', $item->id) }}" method="POST">
-                                                    {{-- <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a> --}}
+                                                    <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
                                                 </form>
-                                            </td>
+                                            </td> --}}
                                             </tr>
                                             @empty
                                             <div class="alert alert-danger">

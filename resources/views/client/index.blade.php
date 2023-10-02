@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('client.index') }}">Client</a>
+                            <a href="#">Client</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -28,7 +28,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <a href="{{ route('client.create') }}" class="btn btn-md btn-success mb-3">TAMBAH CLIENT</a>
+                    <a href="{{ route('client.createClient', $id) }}" class="btn btn-md btn-success mb-3">TAMBAH CLIENT</a>
                 </div>
                 <div class="col-12">
                     <div class="card">
@@ -39,7 +39,7 @@
                                         <tr>
                                             <th class="text-center">Nama Client</th>
                                             <th class="text-center">Username</th>
-                                            <th class="text-center">Password</th>
+                                            {{-- <th class="text-center">Password</th> --}}
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -48,10 +48,10 @@
                                         <tr>
                                             <td class="text-center">{{$item->nama }}</td>
                                             <td class="text-center">{{$item->username }}</td>
-                                            <td class="text-center">{{$item->password }}</td>
+                                            {{-- <td class="text-center">{{$item->password }}</td> --}}
                                             <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('client.destroy', $item->id) }}" method="POST">
-                                                    <a href="{{ route('client.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('client.destroyClient', [$item->id, $id]) }}" method="GET">
+                                                    <a href="{{ route('client.editClient', [$item->id,  $id]) }}" class="btn btn-sm btn-primary">EDIT</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>

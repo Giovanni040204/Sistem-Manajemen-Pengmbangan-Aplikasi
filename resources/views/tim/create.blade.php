@@ -30,7 +30,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('tim.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('tim.storeTim', $id) }}" method="GET" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label class="font-weight-bold">Password Tim</label>
-                                        <input type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" placeholder="Masukkan Password Tim">
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" placeholder="Masukkan Password Tim">
                                         @error('password')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -63,7 +63,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-md btn-primary">SIMPAN</button>
 
-                                <a href="{{ route('tim.index') }}" class="btn btn-sm btn-warning" style="font-size : 18px;">CANCEL</a>
+                                <a href="{{ route('tim.indexTim', $id) }}" class="btn btn-sm btn-warning" style="font-size : 18px;">CANCEL</a>
                             </form>
                         </div>
                         <!-- /.card-body -->

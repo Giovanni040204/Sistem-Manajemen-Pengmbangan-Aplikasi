@@ -11,7 +11,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('tim.index') }}">Tim</a>
+                            <a href="#">Tim</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -28,7 +28,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <a href="{{ route('tim.create') }}" class="btn btn-md btn-success mb-3">TAMBAH TIM</a>
+                    <a href="{{ route('tim.createTim', $id) }}" class="btn btn-md btn-success mb-3">TAMBAH TIM</a>
                 </div>
                 <div class="col-12">
                     <div class="card">
@@ -39,7 +39,7 @@
                                         <tr>
                                             <th class="text-center">Nama Tim</th>
                                             <th class="text-center">Username</th>
-                                            <th class="text-center">Password</th>
+                                            {{-- <th class="text-center">Password</th> --}}
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -48,10 +48,10 @@
                                         <tr>
                                             <td class="text-center">{{$item->nama }}</td>
                                             <td class="text-center">{{$item->username }}</td>
-                                            <td class="text-center">{{$item->password }}</td>
+                                            {{-- <td class="text-center">{{$item->password }}</td> --}}
                                             <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('tim.destroy', $item->id) }}" method="POST">
-                                                    <a href="{{ route('tim.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('tim.destroyTim', [$item->id, $id]) }}" method="GET">
+                                                    <a href="{{ route('tim.editTim', [$item->id, $id]) }}" class="btn btn-sm btn-primary">EDIT</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>

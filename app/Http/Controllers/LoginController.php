@@ -46,7 +46,7 @@ class LoginController extends Controller
                     $projek = Projek::where('id_client','=',$client->id)->get();
                     $id = $client->id;
                     $role = "Supervisor";
-                    return view('projek.indexByClient', compact('projek', 'id','role'))->with(['success' => 'Berhasil Login']);;
+                    return view('projek.indexByClient', compact('projek', 'id','role'))->with(['success' => 'Berhasil Login']);
                 }
             }else{
                 $tim = Tim::where('username','=',$request->username)->where('password','=',$request->password)->first();
@@ -60,7 +60,7 @@ class LoginController extends Controller
             $projek = Projek::where('id_supervisor','=',$supervisor->id)->get();
             $id = $supervisor->id;
             $role = "Client";
-            return view('projek.indexBySupervisor', compact('projek', 'id','role'))->with(['success' => 'Berhasil Login']);;
+            return view('projek.indexBySupervisor', compact('projek', 'id','role'))->with(['success' => 'Berhasil Login']);
             // return redirect()->route('projek.index',$supervisor->id)->with(['success' => 'Berhasil Login']);
         }
     }
