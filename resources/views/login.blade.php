@@ -25,7 +25,7 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4" style="font-family: roboto;">LOGIN</h1>
                                 </div>
-                                @if($errors->any())
+                                {{-- @if($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
                                             @foreach($errors->all() as $item)
@@ -33,7 +33,7 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                @endif
+                                @endif --}}
                                 <form action="{{ route('login.cekLogin') }}" method="GET">
                                     @csrf
                                     {{-- <div class="mb-3">
@@ -79,7 +79,13 @@
         </div>
     </div>
     </div>   
+    @include('sweetalert::alert')
 </body>
+<script>
+    @if (Session::has('success'))
+    toastr.success("{{ Session::get('success') }}")
+    @endif
+</script>
 <style>
     .background-image{
         background-color: green;

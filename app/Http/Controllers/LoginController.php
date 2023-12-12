@@ -24,7 +24,7 @@ class LoginController extends Controller
 
         if($request->username=='admin' && $request->password=='admin'){
             $projek = Projek::all();
-            return view('projek.index', compact('projek'))->with(['success' => 'Berhasil Login']);;            
+            return view('projek.index', compact('projek'))->with(['success' => 'Berhasil Login']);            
         }
 
 

@@ -122,7 +122,7 @@ class ProjekController extends Controller
             if($request->persen < 0 || $request->persen > 20 ){
                 $id = $projek->id_tim;
                 $projek = Projek::where('id_tim','=',$id)->get();
-                return view('projek.indexByTim', compact('projek','id'))->with(['error' => 'Persen harus dalam range 0% - 20%']);
+                return redirect()->route('projek.indexbyidTim', compact('id'))->with(['errors' => 'Persen harus dalam range 0% - 20%']);
             }
         }else if($request->status == 'Design'){
             if($request->persen < 20 || $request->persen > 40 ){
@@ -155,7 +155,8 @@ class ProjekController extends Controller
 
         $id = $projek->id_tim;
         $projek = Projek::where('id_tim','=',$id)->get();
-        return view('projek.indexByTim', compact('projek','id'))->with(['success' => 'Data Berhasil Diedit']);;
+        // return view('projek.indexByTim', compact('projek','id'))->with(['success' => 'Data Berhasil Diedit']);;
+        return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
 
     public function destroy($id)
