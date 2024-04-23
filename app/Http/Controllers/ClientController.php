@@ -123,5 +123,35 @@ class ClientController extends Controller
         Client::find($idc)->delete();
 
         return redirect()->route('client.indexClient', compact('id'))->with(['success' => 'Data Berhasil Dihapus']);
-    }  
+    }
+    
+    public function indexPassword($id)
+    {
+        $client = Client::where('id','=',$id)->get();
+        //render view with posts
+        return view('client.indexPassword', compact('client', 'id'));
+    }
+
+    public function ubahPassword(Request $request, $id)
+    {
+        $client = Client::where('id','=',$id)->get();
+        // //render view with posts
+        $this->validate($request, [
+            'lama' => 'required',
+            'baru' => 'required',
+            'konfirmasi' => 'required',            
+        ]);
+
+        if($request->lama == $client->password){
+            if($request->baru == $client->konfirmasi){
+                $client->update($request->password);
+            }else{
+                return redirect('')->withErrors('Password baru dan konfirmasi berbeda')->withInput();
+            }
+        }else{
+            return redirect('')->withErrors('Password sebelumnya tidak sesuai')->withInput();
+        }
+
+        return view('client.indexPassword', compact('client', 'id'));
+    }
 }
