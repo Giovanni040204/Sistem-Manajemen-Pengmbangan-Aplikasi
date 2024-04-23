@@ -68,4 +68,5 @@ Route::resource('/client',\App\Http\Controllers\ClientController::class);
 Route::get('client/edit/{id}', '\App\Http\Controllers\ClientController@edit');
 Route::post('client/update/{id}', '\App\Http\Controllers\ClientController@update');
 
-Route::get('/client/password/{id}', '\App\Http\Controllers\ClientController@indexPassword')->name('client.indexPassword');
+Route::get('/client/indexPassword/{id}', '\App\Http\Controllers\ClientController@indexPassword')->name('client.indexPassword');
+Route::get('/client/ubahPassword/{id}', '\App\Http\Controllers\ClientController@ubahPassword')->name('client.ubahPassword');

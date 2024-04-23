@@ -134,7 +134,7 @@ class ClientController extends Controller
 
     public function ubahPassword(Request $request, $id)
     {
-        $client = Client::where('id','=',$id)->get();
+        $client = Client::where('id','=',$id)->first();
         // //render view with posts
         $this->validate($request, [
             'lama' => 'required',
@@ -143,15 +143,16 @@ class ClientController extends Controller
         ]);
 
         if($request->lama == $client->password){
-            if($request->baru == $client->konfirmasi){
-                $client->update($request->password);
+            if($request->baru == $request->konfirmasi){
+                $client->update(['password' => $request->baru]);
+                return redirect()->route('projek.indexbyidClient', compact('id'))->with(['success' => 'Password berhasil diubah']);
             }else{
-                return redirect('')->withErrors('Password baru dan konfirmasi berbeda')->withInput();
+                return redirect()->route('client.indexPassword', compact('id'))->withErrors('Password baru dan konfirmasi berbeda')->withInput();
             }
         }else{
-            return redirect('')->withErrors('Password sebelumnya tidak sesuai')->withInput();
+            return redirect()->route('client.indexPassword', compact('id'))->withErrors('Password sebelumnya tidak sesuai')->withInput();
         }
 
-        return view('client.indexPassword', compact('client', 'id'));
+        // return view('client.indexPassword', compact('client', 'id'));
     }
 }
