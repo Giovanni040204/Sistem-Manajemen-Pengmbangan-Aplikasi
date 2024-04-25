@@ -1,17 +1,17 @@
-@extends('dashboardClient')
+@extends('dashboardSupervisor')
 
 @section('content')
 <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Kelola Password Client</h1>
+                    <h1 class="m-0">Kelola Password Supervisor</h1>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <a href="#">Client</a>
+                            <a href="#">Supervisor</a>
                         </li>
                         <li class="breadcrumb-item active">Password</li>
                     </ol>
@@ -30,7 +30,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('client.ubahPassword', $id) }}" method="GET" enctype="multipart/form-data">
+                            <form action="{{ route('supervisor.ubahPassword', $id) }}" method="GET" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
@@ -63,7 +63,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-md btn-primary">UBAH</button>
 
-                                <a href="{{ route('projek.indexbyidClient', $id) }}" class="btn btn-sm btn-warning" style="font-size : 18px;">CANCEL</a>
+                                <a href="{{ route('projek.indexbyidSupervisor', $id) }}" class="btn btn-sm btn-warning" style="font-size : 18px;">CANCEL</a>
                             </form>
                         </div>
                         <!-- /.card-body -->

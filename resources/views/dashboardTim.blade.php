@@ -96,6 +96,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('tim.indexPassword', $id) }}" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Kelola Password</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ url('') }}" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Logout</p>

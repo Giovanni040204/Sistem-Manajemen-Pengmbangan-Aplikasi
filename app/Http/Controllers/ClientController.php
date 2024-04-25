@@ -136,10 +136,21 @@ class ClientController extends Controller
     {
         $client = Client::where('id','=',$id)->first();
         // //render view with posts
-        $this->validate($request, [
+        // $this->validate($request, [
+        //     'lama' => 'required',
+        //     'baru' => 'required',
+        //     'konfirmasi' => 'required',            
+        // ]);
+
+        $request->validate([
             'lama' => 'required',
             'baru' => 'required',
-            'konfirmasi' => 'required',            
+            'konfirmasi' => 'required',  
+        ],[
+            // 'role.required'=>'Role wajib diisi',
+            'lama.required'=>'Tidak boleh kosong',
+            'baru.required'=>'Tidak boleh kosong',
+            'konfirmasi.required'=>'Tidak boleh kosong',
         ]);
 
         if($request->lama == $client->password){
@@ -152,7 +163,5 @@ class ClientController extends Controller
         }else{
             return redirect()->route('client.indexPassword', compact('id'))->withErrors('Password sebelumnya tidak sesuai')->withInput();
         }
-
-        // return view('client.indexPassword', compact('client', 'id'));
     }
 }

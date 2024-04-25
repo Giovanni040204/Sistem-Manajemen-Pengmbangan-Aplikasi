@@ -107,6 +107,12 @@
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Daftar Client</p>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('supervisor.indexPassword', $id) }}" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Kelola Password</p>
+                            </a>
                         </li>  
                         <li class="nav-item">
                             <a href="{{ url('') }}" class="nav-link">

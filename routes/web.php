@@ -70,3 +70,9 @@ Route::post('client/update/{id}', '\App\Http\Controllers\ClientController@update
 
 Route::get('/client/indexPassword/{id}', '\App\Http\Controllers\ClientController@indexPassword')->name('client.indexPassword');
 Route::get('/client/ubahPassword/{id}', '\App\Http\Controllers\ClientController@ubahPassword')->name('client.ubahPassword');
+
+Route::get('/tim/indexPassword/{id}', '\App\Http\Controllers\TimController@indexPassword')->name('tim.indexPassword');
+Route::get('/tim/ubahPassword/{id}', '\App\Http\Controllers\TimController@ubahPassword')->name('tim.ubahPassword');
+
+Route::get('/supervisor/indexPassword/{id}', '\App\Http\Controllers\SupervisorController@indexPassword')->name('supervisor.indexPassword');
+Route::get('/supervisor/ubahPassword/{id}', '\App\Http\Controllers\SupervisorController@ubahPassword')->name('supervisor.ubahPassword');
