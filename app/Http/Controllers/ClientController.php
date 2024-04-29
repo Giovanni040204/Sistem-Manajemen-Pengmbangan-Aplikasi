@@ -164,4 +164,16 @@ class ClientController extends Controller
             return redirect()->route('client.indexPassword', compact('id'))->withErrors('Password sebelumnya tidak sesuai')->withInput();
         }
     }
+
+    public function show(){
+        $client = Client::get();
+        return view('client.indexAdmin', compact('client'));
+    }
+
+    public function resetPasswordClient($id){
+        $client = Client::where('id','=',$id)->first();
+        $passwordBaru = $client->username;
+        $client->update(['password' => $passwordBaru]);
+        return redirect()->route('client.indexAdmin')->with(['success' => 'Password Berhasil Direset']);
+    }
 }

@@ -101,7 +101,19 @@
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Daftar Supervisor</p>
                             </a>
-                        </li>                                                                        
+                        </li>  
+                        <li class="nav-item">
+                            <a href="{{ route('tim.indexAdmin') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Daftar Tim</p>
+                            </a>
+                        </li>   
+                        <li class="nav-item">
+                            <a href="{{ route('client.indexAdmin') }}" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Daftar Client</p>
+                            </a>
+                        </li>                                                                     
                         <li class="nav-item">
                             <a href="{{ url('') }}" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>

@@ -5,13 +5,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Supervisor</h1>
+                    <h1 class="m-0">Tim</h1>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('supervisor.index') }}">Supervisor</a>
+                            <a href="#">Tim</a>
                         </li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
@@ -27,9 +27,6 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6">
-                    <a href="{{ route('supervisor.create') }}" class="btn btn-md btn-success mb-3">TAMBAH SUPERVISOR</a>
-                </div>
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
@@ -37,36 +34,27 @@
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">Nama Supervisor</th>
+                                            <th class="text-center">Nama Tim</th>
                                             <th class="text-center">Username</th>
                                             {{-- <th class="text-center">Password</th> --}}
-                                            <th class="text-center">Aksi</th>
-                                            <th class="text-center">Password</th>
+                                            <th class="text-center">password</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($supervisor as $item)
+                                        @forelse ($tim as $item)
                                         <tr>
                                             <td class="text-center">{{$item->nama }}</td>
                                             <td class="text-center">{{$item->username }}</td>
                                             {{-- <td class="text-center">{{$item->password }}</td> --}}
                                             <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('supervisor.destroy', $item->id) }}" method="POST">
-                                                    <a href="{{ route('supervisor.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                                </form>
-                                            </td>
-                                            <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('supervisor.resetPasswordSupervisor', $item->id) }}" method="GET">
+                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('tim.resetPasswordTim', $item->id) }}" method="GET">
                                                     <button type="submit" class="btn btn-sm btn-warning">RESET</button>
                                                 </form>
                                             </td>
                                             </tr>
                                             @empty
                                             <div class="alert alert-danger">
-                                                Data supervisor belum tersedia
+                                                Data tim belum tersedia
                                             </div>
                                             @endforelse
                                         </tbody>

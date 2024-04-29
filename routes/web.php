@@ -76,3 +76,11 @@ Route::get('/tim/ubahPassword/{id}', '\App\Http\Controllers\TimController@ubahPa
 
 Route::get('/supervisor/indexPassword/{id}', '\App\Http\Controllers\SupervisorController@indexPassword')->name('supervisor.indexPassword');
 Route::get('/supervisor/ubahPassword/{id}', '\App\Http\Controllers\SupervisorController@ubahPassword')->name('supervisor.ubahPassword');
+
+Route::get('/client/indexAdmin', '\App\Http\Controllers\ClientController@indexAdmin')->name('client.indexAdmin');
+Route::get('/client/resetPasswordClient/{id}', '\App\Http\Controllers\ClientController@resetPasswordClient')->name('client.resetPasswordClient');
+
+Route::get('/tim/indexAdmin', '\App\Http\Controllers\TimController@indexAdmin')->name('tim.indexAdmin');
+Route::get('/tim/resetPasswordTim/{id}', '\App\Http\Controllers\TimController@resetPasswordTim')->name('tim.resetPasswordTim');
+
+Route::get('/supervisor/resetPasswordSupervisor/{id}', '\App\Http\Controllers\SupervisorController@resetPasswordSupervisor')->name('supervisor.resetPasswordSupervisor');

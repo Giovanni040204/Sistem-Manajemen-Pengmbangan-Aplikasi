@@ -111,5 +111,17 @@ class TimController extends Controller
         }else{
             return redirect()->route('tim.indexPassword', compact('id'))->withErrors('Password sebelumnya tidak sesuai')->withInput();
         }
-    }    
+    } 
+    
+    public function show(){
+        $tim = Tim::get();
+        return view('tim.indexAdmin', compact('tim'));
+    }
+
+    public function resetPasswordTim($id){
+        $tim = Tim::where('id','=',$id)->first();
+        $passwordBaru = $tim->username;
+        $tim->update(['password' => $passwordBaru]);
+        return redirect()->route('tim.indexAdmin')->with(['success' => 'Password Berhasil Direset']);
+    }
 }

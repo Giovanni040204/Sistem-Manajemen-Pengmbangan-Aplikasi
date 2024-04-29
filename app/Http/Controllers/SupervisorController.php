@@ -106,5 +106,13 @@ class SupervisorController extends Controller
         }else{
             return redirect()->route('supervisor.indexPassword', compact('id'))->withErrors('Password sebelumnya tidak sesuai')->withInput();
         }
-    }    
+    }
+
+    public function resetPasswordSupervisor($id){
+        $supervisor = Supervisor::where('id','=',$id)->first();
+        $passwordBaru = $supervisor->username;
+        $supervisor->update(['password' => $passwordBaru]);
+        
+        return redirect()->route('supervisor.index')->with(['success' => 'Password Berhasil Direset']);
+    }
 }
