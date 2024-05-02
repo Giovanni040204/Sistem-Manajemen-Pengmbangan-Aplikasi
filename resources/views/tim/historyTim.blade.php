@@ -39,6 +39,7 @@
                                             <th class="text-center">Nama Supervisor</th>
                                             <th class="text-center">Nama Tim</th>
                                             <th class="text-center">Nama Client</th>
+                                            <th class="text-center">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -49,6 +50,7 @@
                                             <td class="text-center">{{$item->parentSupervisor->nama }}</td>
                                             <td class="text-center">{{$item->parentTim->nama }}</td>
                                             <td class="text-center">{{$item->parentClient->nama }}</td>
+                                            <td class="text-center">{{$item->status }}</td>
                                         </tr>
                                             @empty
                                             <div class="alert alert-danger">

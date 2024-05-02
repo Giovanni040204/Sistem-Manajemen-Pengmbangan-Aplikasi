@@ -23,8 +23,7 @@ class LoginController extends Controller
         ]);
 
         if($request->username=='admin' && $request->password=='admin'){
-            $projek = Projek::all();
-            return view('projek.index', compact('projek'))->with(['success' => 'Berhasil Login']);            
+            return redirect()->route('projek.index')->with(['success' => 'Berhasil Login']);            
         }
 
 
@@ -45,22 +44,19 @@ class LoginController extends Controller
                     $client = Client::where('username','=',$request->username)->where('password','=',$request->password)->first();
                     $projek = Projek::where('id_client','=',$client->id)->get();
                     $id = $client->id;
-                    $role = "Supervisor";
-                    return view('projek.indexByClient', compact('projek', 'id','role'))->with(['success' => 'Berhasil Login']);
+                    return redirect()->route('projek.indexbyidClient', compact('projek','id'))->with(['success' => 'Berhasil Login']);
                 }
             }else{
                 $tim = Tim::where('username','=',$request->username)->where('password','=',$request->password)->first();
                 $projek = Projek::where('id_tim','=',$tim->id)->get();
                 $id = $tim->id;
-                $role = "Tim";
-                return view('projek.indexByTim', compact('projek','id','role'))->with(['success' => 'Berhasil Login']);;
+                return redirect()->route('projek.indexbyidTim', compact('projek','id'))->with(['success' => 'Berhasil Login']);;
             }
         }else{
             $supervisor = Supervisor::where('username','=',$request->username)->where('password','=',$request->password)->first();
             $projek = Projek::where('id_supervisor','=',$supervisor->id)->get();
             $id = $supervisor->id;
-            $role = "Client";
-            return view('projek.indexBySupervisor', compact('projek', 'id','role'))->with(['success' => 'Berhasil Login']);
+            return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Berhasil Login']);
             // return redirect()->route('projek.index',$supervisor->id)->with(['success' => 'Berhasil Login']);
         }
     }

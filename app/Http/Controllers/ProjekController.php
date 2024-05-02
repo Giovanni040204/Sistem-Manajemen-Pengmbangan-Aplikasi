@@ -18,7 +18,7 @@ class ProjekController extends Controller
     public function index()
     {
         //get posts
-        $projek = Projek::get();
+        $projek = Projek::where('persen','!=','101')->get();
 
         //render view with posts
         return view('projek.index', compact('projek'));
@@ -26,21 +26,21 @@ class ProjekController extends Controller
 
     public function indexbyidSupervisor($id)
     {
-        $projek = Projek::where('id_supervisor','=',$id)->get();
+        $projek = Projek::where('id_supervisor','=',$id)->where('status','!=', 'Selesai')->where('status','!=', 'Batal')->get();
         //render view with posts
         return view('projek.indexBySupervisor', compact('projek', 'id'));
     }
 
     public function indexbyidTim($id)
     {
-        $projek = Projek::where('id_tim','=',$id)->get();
+        $projek = Projek::where('id_tim','=',$id)->where('status','!=', 'Selesai')->where('status','!=', 'Batal')->get();
         //render view with posts
         return view('projek.indexByTim', compact('projek', 'id'));
     }   
 
     public function indexbyidClient($id)
     {
-        $projek = Projek::where('id_client','=',$id)->get();
+        $projek = Projek::where('id_client','=',$id)->where('status','!=', 'Selesai')->where('status','!=', 'Batal')->get();
         //render view with posts
         return view('projek.indexByClient', compact('projek', 'id'));
     }     
@@ -147,6 +147,13 @@ class ProjekController extends Controller
                 $id = $projek->id_tim;
                 $projek = Projek::where('id_tim','=',$id)->get();
                 return view('projek.indexByTim', compact('projek','id'))->with(['error' => 'Persen harus dalam range 80% - 100%']);;
+            }else if($request->persen == 100){
+                $projek->update(['status' => 'Selesai','persen' => '101']);
+
+                $id = $projek->id_tim;
+                $projek = Projek::where('id_tim','=',$id)->get();
+                // return view('projek.indexByTim', compact('projek','id'))->with(['success' => 'Data Berhasil Diedit']);;
+                return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'PROJEK TELAH SELESAI']);
             }
         }
 
@@ -170,27 +177,45 @@ class ProjekController extends Controller
 
         return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Projek Berhasil DIbatalkan']);
     } 
+
+    public function batalProjek($id)
+    {
+        $projek = Projek::whereId($id)->first();
+
+        $projek->update(['status' => 'Batal','persen' => '101']);
+
+        $id = $projek->id_supervisor;
+        $projek = Projek::where('id_supervisor','=',$id)->get();
+
+        return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Projek Berhasil DIbatalkan']);
+    } 
     
     public function projekSelesai(){
-        $projek = Projek::where('persen','=', '100')->get();
+        $projek = Projek::where('status','=', 'Selesai')->get();
         //render view with posts
         return view('projek.projekSelesai', compact('projek'));
     }
 
+    public function projekBatal(){
+        $projek = Projek::where('status','=', 'Batal')->get();
+        //render view with posts
+        return view('projek.projekBatal', compact('projek'));
+    }
+
     public function historySupervisor($id){
-        $projek = Projek::where('id_supervisor','=', $id)->where('persen','=', '100')->get();
+        $projek = Projek::where('id_supervisor','=', $id)->where('persen','=', '101')->get();
         //render view with posts
         return view('supervisor.historySupervisor', compact('projek','id'));
     }
 
     public function historyTim($id){
-        $projek = Projek::where('id_tim','=', $id)->where('persen','=', '100')->get();
+        $projek = Projek::where('id_tim','=', $id)->where('persen','=', '101')->get();
         //render view with posts
         return view('tim.historyTim', compact('projek','id'));
     }
 
     public function historyClient($id){
-        $projek = Projek::where('id_client','=', $id)->where('persen','=', '100')->get();
+        $projek = Projek::where('id_client','=', $id)->where('persen','=', '101')->get();
         //render view with posts
         return view('client.historyClient', compact('projek','id'));
     }

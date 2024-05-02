@@ -52,8 +52,7 @@
                                             <td class="text-center">{{$item->status }}</td>
                                             <td class="text-center">{{$item->persen }}%</td>
                                             <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.destroy', $item->id) }}" method="GET">
-                                                    @method('DELETE')
+                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.batalProjek', $item->id) }}" method="GET">
                                                     <button type="submit" class="btn btn-sm btn-danger">BATALKAN</button>
                                                 </form>
                                             </td>
