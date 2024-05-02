@@ -109,6 +109,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('projek.historySupervisor', $id) }}" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>History Projek</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('supervisor.indexPassword', $id) }}" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Kelola Password</p>

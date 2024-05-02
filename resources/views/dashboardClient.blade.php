@@ -96,6 +96,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('projek.historyClient', $id) }}" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>History Projek</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('client.indexPassword', $id) }}" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Kelola Password</p>

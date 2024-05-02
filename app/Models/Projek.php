@@ -24,4 +24,22 @@ class Projek extends Model
         'status',
         'persen',
     ];
+
+    public function parentSupervisor(){
+        return $this->hasOne('App\Models\Supervisor','id','id_supervisor')->withDefault([
+            'nama' => 'Tidak Ada',
+        ]);
+    }
+
+    public function parentTim(){
+        return $this->hasOne('App\Models\Tim','id','id_tim')->withDefault([
+            'nama' => 'Tidak Ada',
+        ]);
+    }
+
+    public function parentClient(){
+        return $this->hasOne('App\Models\Client','id','id_client')->withDefault([
+            'nama' => 'Tidak Ada',
+        ]);;
+    }
 }

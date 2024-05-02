@@ -33,6 +33,10 @@ Route::resource('/projek',\App\Http\Controllers\ProjekController::class);
 Route::get('projek/edit/{id}', '\App\Http\Controllers\ProjekController@edit');
 Route::post('projek/update/{id}', '\App\Http\Controllers\ProjekController@update');
 Route::get('supervisor/projek/{id}', '\App\Http\Controllers\ProjekController@destroy')->name('projek.destroy');
+Route::get('admin/projek', '\App\Http\Controllers\ProjekController@projekSelesai')->name('projek.projekSelesai');
+Route::get('history/projek/supervisor/{id}', '\App\Http\Controllers\ProjekController@historySupervisor')->name('projek.historySupervisor');
+Route::get('history/projek/tim/{id}', '\App\Http\Controllers\ProjekController@historyTim')->name('projek.historyTim');
+Route::get('history/projek/client/{id}', '\App\Http\Controllers\ProjekController@historyClient')->name('projek.historyClient');
 
 Route::get('/cekLogin', '\App\Http\Controllers\LoginController@cekLogin')->name('login.cekLogin');
 Route::get('/projek/supervisor/index/{id}', '\App\Http\Controllers\ProjekController@indexbyidSupervisor')->name('projek.indexbyidSupervisor');

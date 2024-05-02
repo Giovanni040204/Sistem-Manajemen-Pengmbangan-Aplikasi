@@ -169,5 +169,29 @@ class ProjekController extends Controller
         $projek = Projek::where('id_supervisor','=',$id)->get();
 
         return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Projek Berhasil DIbatalkan']);
-    }    
+    } 
+    
+    public function projekSelesai(){
+        $projek = Projek::where('persen','=', '100')->get();
+        //render view with posts
+        return view('projek.projekSelesai', compact('projek'));
+    }
+
+    public function historySupervisor($id){
+        $projek = Projek::where('id_supervisor','=', $id)->where('persen','=', '100')->get();
+        //render view with posts
+        return view('supervisor.historySupervisor', compact('projek','id'));
+    }
+
+    public function historyTim($id){
+        $projek = Projek::where('id_tim','=', $id)->where('persen','=', '100')->get();
+        //render view with posts
+        return view('tim.historyTim', compact('projek','id'));
+    }
+
+    public function historyClient($id){
+        $projek = Projek::where('id_client','=', $id)->where('persen','=', '100')->get();
+        //render view with posts
+        return view('client.historyClient', compact('projek','id'));
+    }
 }
