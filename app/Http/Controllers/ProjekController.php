@@ -74,7 +74,7 @@ class ProjekController extends Controller
 
         $projek = Projek::where('id_supervisor','=',$id)->get();
         //render view with posts
-        return view('projek.indexBySupervisor', compact('projek','id'))->with(['success' => 'Data Berhasil Disimpan']);
+        return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Data Berhasil Disimpan']);
     }
 
     public function create()
@@ -168,6 +168,6 @@ class ProjekController extends Controller
         $id = $projek->id_supervisor;
         $projek = Projek::where('id_supervisor','=',$id)->get();
 
-        return view('projek.indexBySupervisor', compact('projek','id'))->with(['success' => 'Data Berhasil Dihapus']);
+        return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Projek Berhasil DIbatalkan']);
     }    
 }

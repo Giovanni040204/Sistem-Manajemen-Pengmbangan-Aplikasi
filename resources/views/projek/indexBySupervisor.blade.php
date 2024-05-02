@@ -41,7 +41,7 @@
                                             <th class="text-center">Deskripsi Projek</th>
                                             <th class="text-center">Status Projek</th>
                                             <th class="text-center">Presentasi Projek</th>
-                                            {{-- <th class="text-center">Aksi</th> --}}
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,14 +51,12 @@
                                             <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
                                             <td class="text-center">{{$item->persen }}%</td>
-                                            {{-- <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.destroy', $item->id) }}" method="POST">
-                                                    <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                                    @csrf
+                                            <td class="text-center">
+                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.destroy', $item->id) }}" method="GET">
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+                                                    <button type="submit" class="btn btn-sm btn-danger">BATALKAN</button>
                                                 </form>
-                                            </td> --}}
+                                            </td>
                                             </tr>
                                             @empty
                                             <div class="alert alert-danger">
