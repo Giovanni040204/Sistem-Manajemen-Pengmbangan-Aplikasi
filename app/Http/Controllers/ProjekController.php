@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Projek;
 use App\Models\Supervisor;
 use App\Models\Tim;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 
 class ProjekController extends Controller
@@ -27,9 +28,14 @@ class ProjekController extends Controller
         return view('projek.index', compact('projek'));
     }
 
-    public function indexbyidSupervisor($id)
+    public function indexbyidSupervisor(Request $request, $id)
     {
-        $projek = Projek::where('id_supervisor','=',$id)->where('status','!=', 'Selesai')->where('status','!=', 'Batal')->get();
+        if($request->has('search')){
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_supervisor','=',$id)->where('persen','!=','101')->get();
+        }else{
+            $projek = Projek::where('id_supervisor','=',$id)->where('persen','!=','101')->get();
+        }
+        
         //render view with posts
         return view('projek.indexBySupervisor', compact('projek', 'id'));
     }
@@ -215,9 +221,13 @@ class ProjekController extends Controller
         return view('projek.projekBatal', compact('projek'));
     }
 
-    public function historySupervisor($id){
-        $projek = Projek::where('id_supervisor','=', $id)->where('persen','=', '101')->get();
-        //render view with posts
+    public function historySupervisor(Request $request, $id){
+        if($request->has('search')){
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_supervisor','=', $id)->where('persen','=', '101')->get();
+        }else{
+            $projek = Projek::where('id_supervisor','=', $id)->where('persen','=', '101')->get();
+        }
+        
         return view('supervisor.historySupervisor', compact('projek','id'));
     }
 

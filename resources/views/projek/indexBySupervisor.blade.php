@@ -30,6 +30,18 @@
                 <div class="col-sm-6">
                     <a href="{{ route('projek.createProjek', $id) }}" class="btn btn-md btn-success mb-3">TAMBAH PROJEK</a>
                 </div>
+                <div class="col-sm-6">
+                    <ol class="float-sm-right">
+                        <form action="{{ route('projek.indexbyidSupervisor', $id) }}" class="form-inline" method="GET">
+                            <input type="search" name="search" class="form-control float-right" placeholder="Masukan Judul Projek">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </ol>
+                </div>
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
@@ -59,7 +71,7 @@
                                             </tr>
                                             @empty
                                             <div class="alert alert-danger">
-                                                Data projek belum tersedia
+                                                Data Projek Tidak Tersedia
                                             </div>
                                             @endforelse
                                         </tbody>
