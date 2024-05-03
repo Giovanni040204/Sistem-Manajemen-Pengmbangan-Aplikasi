@@ -7,11 +7,14 @@ use Illuminate\Http\Request;
 
 class SupervisorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        //get posts
-        $supervisor = Supervisor::get();
-
+        if($request->has('search')){
+            $supervisor= Supervisor::where('nama','LIKE','%'.$request->search.'%')->get();
+        }else{
+            $supervisor = Supervisor::get();
+        }
+        
         //render view with posts
         return view('supervisor.index', compact('supervisor'));
     }

@@ -15,10 +15,13 @@ class ProjekController extends Controller
     *
     * @return void
     */
-    public function index()
+    public function index(Request $request)
     {
-        //get posts
-        $projek = Projek::where('persen','!=','101')->get();
+        if($request->has('search')){
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('persen','!=','101')->get();
+        }else{
+            $projek = Projek::where('persen','!=','101')->get();
+        }
 
         //render view with posts
         return view('projek.index', compact('projek'));
@@ -190,14 +193,24 @@ class ProjekController extends Controller
         return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Projek Berhasil DIbatalkan']);
     } 
     
-    public function projekSelesai(){
-        $projek = Projek::where('status','=', 'Selesai')->get();
+    public function projekSelesai(Request $request){
+        if($request->has('search')){
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('status','=', 'Selesai')->get();
+        }else{
+            $projek = Projek::where('status','=', 'Selesai')->get();
+        }
+        
         //render view with posts
         return view('projek.projekSelesai', compact('projek'));
     }
 
-    public function projekBatal(){
-        $projek = Projek::where('status','=', 'Batal')->get();
+    public function projekBatal(Request $request){
+        if($request->has('search')){
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('status','=', 'Batal')->get();
+        }else{
+            $projek = Projek::where('status','=', 'Batal')->get();
+        }
+        
         //render view with posts
         return view('projek.projekBatal', compact('projek'));
     }

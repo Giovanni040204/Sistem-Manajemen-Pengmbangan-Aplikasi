@@ -165,8 +165,13 @@ class ClientController extends Controller
         }
     }
 
-    public function show(){
-        $client = Client::get();
+    public function show(Request $request){
+        if($request->has('search')){
+            $client = Client::where('nama','LIKE','%'.$request->search.'%')->get();
+        }else{
+            $client = Client::get();
+        }
+        
         return view('client.indexAdmin', compact('client'));
     }
 

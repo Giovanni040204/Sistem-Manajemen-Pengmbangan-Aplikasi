@@ -30,6 +30,18 @@
                 <div class="col-sm-6">
                     <a href="{{ route('supervisor.create') }}" class="btn btn-md btn-success mb-3">TAMBAH SUPERVISOR</a>
                 </div>
+                <div class="col-sm-6">
+                    <ol class="float-sm-right">
+                        <form action="{{ route('supervisor.index') }}" class="form-inline" method="GET">
+                            <input type="search" name="search" class="form-control float-right" placeholder="Masukan Nama Supervisor">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </ol>
+                </div>                
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
@@ -66,7 +78,7 @@
                                             </tr>
                                             @empty
                                             <div class="alert alert-danger">
-                                                Data supervisor belum tersedia
+                                                Data Supervisor Tidak Tersedia
                                             </div>
                                             @endforelse
                                         </tbody>

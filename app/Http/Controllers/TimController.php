@@ -16,8 +16,13 @@ class TimController extends Controller
         return view('tim.index', compact('tim'));
     }
 
-    public function indexTim($id){
-        $tim = Tim::get();
+    public function indexTim(Request $request, $id){
+        if($request->has('search')){
+            $tim = Tim::where('nama','LIKE','%'.$request->search.'%')->get();
+        }else{
+            $tim = Tim::get();
+        }
+        
         return view('tim.index', compact('tim','id'));
     }
 
@@ -113,8 +118,12 @@ class TimController extends Controller
         }
     } 
     
-    public function show(){
-        $tim = Tim::get();
+    public function show(Request $request){
+        if($request->has('search')){
+            $tim = Tim::where('nama','LIKE','%'.$request->search.'%')->get();
+        }else{
+            $tim = Tim::get();
+        }
         return view('tim.indexAdmin', compact('tim'));
     }
 

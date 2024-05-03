@@ -27,7 +27,18 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-
+                <div class="col-sm-12">
+                    <ol class="float-sm-right">
+                        <form action="{{ route('client.indexAdmin') }}" class="form-inline" method="GET">
+                            <input type="search" name="search" class="form-control float-right" placeholder="Masukan Nama Client">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </ol>
+                </div>
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
@@ -55,7 +66,7 @@
                                             </tr>
                                             @empty
                                             <div class="alert alert-danger">
-                                                Data client belum tersedia
+                                                Data Client Tidak Tersedia
                                             </div>
                                             @endforelse
                                         </tbody>
