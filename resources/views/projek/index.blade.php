@@ -27,7 +27,22 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <form form action="{{ route('projek.index') }}" class="form-inline" method="GET">
+                        <select class="form-control"  name="tahap" id="tahap" value="{{ old('tahap') }}">
+                            <option value="" disabled selected hidden>Pilih Jenis Tahap</option>
+                            @foreach ($status as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>                    
+                    </form>
+                </div>
+                <div class="col-sm-6">
                     <ol class="float-sm-right">
                         <form action="{{ route('projek.index') }}" class="form-inline" method="GET">
                             <input type="search" name="search" class="form-control float-right" placeholder="Masukan Judul Projek">
@@ -50,6 +65,9 @@
                                             <th class="text-center">Deskripsi Projek</th>
                                             <th class="text-center">Status Projek</th>
                                             <th class="text-center">Presentasi Projek</th>
+                                            <th class="text-center">Supervisor</th>
+                                            <th class="text-center">Tim</th>
+                                            <th class="text-center">Client</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -59,6 +77,9 @@
                                             <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
                                             <td class="text-center">{{$item->persen }}%</td>
+                                            <td class="text-center">{{$item->parentSupervisor->nama }}</td>
+                                            <td class="text-center">{{$item->parentTim->nama }}</td>
+                                            <td class="text-center">{{$item->parentClient->nama }}</td>
                                         </tr>
                                             @empty
                                             <div class="alert alert-danger">

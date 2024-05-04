@@ -20,12 +20,15 @@ class ProjekController extends Controller
     {
         if($request->has('search')){
             $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('persen','!=','101')->get();
+        }else if($request->has('tahap')){
+            $projek = Projek::where('status','LIKE','%'.$request->tahap.'%')->where('persen','!=','101')->get();
         }else{
             $projek = Projek::where('persen','!=','101')->get();
         }
 
+        $status = ['Requirement Definiton','Design','Development','Intergration and Testing','Intallation and Acceptance'];
         //render view with posts
-        return view('projek.index', compact('projek'));
+        return view('projek.index', compact('projek','status'));
     }
 
     public function indexbyidSupervisor(Request $request, $id)
