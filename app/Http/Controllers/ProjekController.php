@@ -40,16 +40,24 @@ class ProjekController extends Controller
         return view('projek.indexBySupervisor', compact('projek', 'id'));
     }
 
-    public function indexbyidTim($id)
+    public function indexbyidTim(Request $request, $id)
     {
-        $projek = Projek::where('id_tim','=',$id)->where('status','!=', 'Selesai')->where('status','!=', 'Batal')->get();
+        if($request->has('search')){
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_tim','=',$id)->where('persen','!=','101')->get();
+        }else{
+            $projek = Projek::where('id_tim','=',$id)->where('persen','!=','101')->get();
+        }
         //render view with posts
         return view('projek.indexByTim', compact('projek', 'id'));
     }   
 
-    public function indexbyidClient($id)
+    public function indexbyidClient(Request $request, $id)
     {
-        $projek = Projek::where('id_client','=',$id)->where('status','!=', 'Selesai')->where('status','!=', 'Batal')->get();
+        if($request->has('search')){
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_client','=',$id)->where('persen','!=','101')->get();
+        }else{
+            $projek = Projek::where('id_client','=',$id)->where('persen','!=','101')->get();
+        }
         //render view with posts
         return view('projek.indexByClient', compact('projek', 'id'));
     }     
@@ -231,14 +239,24 @@ class ProjekController extends Controller
         return view('supervisor.historySupervisor', compact('projek','id'));
     }
 
-    public function historyTim($id){
-        $projek = Projek::where('id_tim','=', $id)->where('persen','=', '101')->get();
+    public function historyTim(Request $request, $id){
+        if($request->has('search')){
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_tim','=', $id)->where('persen','=', '101')->get();
+        }else{
+            $projek = Projek::where('id_tim','=', $id)->where('persen','=', '101')->get();
+        }
+        
         //render view with posts
         return view('tim.historyTim', compact('projek','id'));
     }
 
-    public function historyClient($id){
-        $projek = Projek::where('id_client','=', $id)->where('persen','=', '101')->get();
+    public function historyClient(Request $request, $id){
+        if($request->has('search')){
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_client','=', $id)->where('persen','=', '101')->get();
+        }else{
+            $projek = Projek::where('id_client','=', $id)->where('persen','=', '101')->get();
+        }
+        
         //render view with posts
         return view('client.historyClient', compact('projek','id'));
     }
