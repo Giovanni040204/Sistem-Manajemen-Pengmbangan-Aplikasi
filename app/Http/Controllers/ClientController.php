@@ -102,12 +102,11 @@ class ClientController extends Controller
     public function updateClient(Request $request, $idc, $id){
         $this->validate($request, [
             'nama' => 'required',
-            'username' => 'required',
-            'password' => 'required',            
+            'username' => 'required',           
         ]);        
         
         $client = Client::whereId($idc)->first();
-        $client->update($request->all());
+        $client->update(['nama' => $request->nama,'username' => $request->username]);
 
         return redirect()->route('client.indexClient', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }

@@ -51,7 +51,7 @@
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    {{-- <div class="form-group col-md-12">
                                         <label class="font-weight-bold">Password Client</label>
                                         <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ $client->password }}" placeholder="Masukkan Password Client">
                                         @error('password')
@@ -59,7 +59,7 @@
                                             {{ $message }}
                                         </div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <button type="submit" class="btn btn-md btn-primary">UPDATE</button>
                                 <a href="{{ route('client.indexClient', $id) }}" class="btn btn-sm btn-warning" style="font-size : 18px;">CANCEL</a>

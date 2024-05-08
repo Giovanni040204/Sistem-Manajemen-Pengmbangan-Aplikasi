@@ -51,7 +51,7 @@
                                         </div>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    {{-- <div class="form-group col-md-12">
                                         <label class="font-weight-bold">Password Supervisor</label>
                                         <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ $supervisor->password }}" placeholder="Masukkan Password Supervisor">
                                         @error('password')
@@ -59,7 +59,7 @@
                                             {{ $message }}
                                         </div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <button type="submit" class="btn btn-md btn-primary">UPDATE</button>
                                 <a href="{{ route('supervisor.index') }}" class="btn btn-sm btn-warning" style="font-size : 18px;">CANCEL</a>

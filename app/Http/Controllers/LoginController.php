@@ -39,7 +39,7 @@ class LoginController extends Controller
                 $cek = $data->count();
 
                 if($cek==0){
-                    return redirect('')->withErrors('Username dan password yang dimasukan tidak sesuai')->withInput();
+                    return redirect('')->with(['error' => 'Username dan Password Tidak Sesuai'])->withInput();
                 }else{
                     $client = Client::where('username','=',$request->username)->where('password','=',$request->password)->first();
                     $projek = Projek::where('id_client','=',$client->id)->get();

@@ -36,36 +36,23 @@
                                 @endif --}}
                                 <form action="{{ route('login.cekLogin') }}" method="GET">
                                     @csrf
-                                    {{-- <div class="mb-3">
-                                        <select class="form-control  @error('role') is-invalid @enderror" style="font-family: roboto;" name="role" value="{{ old('role') }}">
-                                            <option value="" disabled selected hidden>Pilih Role</option>
-                                            <option value='Supervisor'>Supervisor</option>
-                                            <option value='Tim'>Tim</option>
-                                            <option value='Client'>Client</option>
-                                        </select> --}}
-                                        {{-- @error('role')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror --}}
-                                    {{-- </div> --}}
                                     <div class="mb-3">
                                         <label for="username" class="form-label" style="font-family: roboto;">Username</label>
                                         <input type="text" value="{{ old('username') }}" name="username" class="form-control @error('username') is-invalid @enderror">
-                                        {{-- @error('username')
+                                        @error('username')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
-                                        @enderror --}}
+                                        @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label for="password" class="form-label" style="font-family: roboto;">Password</label>
                                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('username') }}">
-                                        {{-- @error('password')
+                                        @error('password')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
-                                        @enderror --}}
+                                        @enderror
                                     </div>
                                     <div class="mb-3 d-grid">
                                         <button name="submit" type="submit" class="btn btn-primary">Login</button>
@@ -82,8 +69,8 @@
     @include('sweetalert::alert')
 </body>
 <script>
-    @if (Session::has('success'))
-    toastr.success("{{ Session::get('success') }}")
+    @if (Session::has('error'))
+    toastr.error("{{ Session::get('error') }}")
     @endif
 </script>
 <style>

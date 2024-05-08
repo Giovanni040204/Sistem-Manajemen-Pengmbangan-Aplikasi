@@ -52,12 +52,11 @@ class SupervisorController extends Controller
     public function update(Request $request, $id){
         $this->validate($request, [
             'nama' => 'required',
-            'username' => 'required',
-            'password' => 'required',            
+            'username' => 'required',           
         ]);        
         
         $supervisor = Supervisor::whereId($id)->first();
-        $supervisor->update($request->all());
+        $supervisor->update(['nama' => $request->nama,'username' => $request->username]);
 
         return redirect()->route('supervisor.index')->with(['success' => 'Data Berhasil Diedit']);
     }

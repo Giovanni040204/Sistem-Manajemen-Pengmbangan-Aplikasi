@@ -142,31 +142,31 @@ class ProjekController extends Controller
             if($request->persen < 0 || $request->persen > 20 ){
                 $id = $projek->id_tim;
                 $projek = Projek::where('id_tim','=',$id)->get();
-                return redirect()->route('projek.indexbyidTim', compact('id'))->with(['errors' => 'Persen harus dalam range 0% - 20%']);
+                return redirect()->route('projek.indexbyidTim', compact('id'))->with(['error' => 'Persen harus dalam range 0% - 20%']);
             }
         }else if($request->status == 'Design'){
             if($request->persen < 20 || $request->persen > 40 ){
                 $id = $projek->id_tim;
                 $projek = Projek::where('id_tim','=',$id)->get();
-                return view('projek.indexByTim', compact('projek','id'))->with(['error' => 'Persen harus dalam range 20% - 40%']);;
+                return redirect()->route('projek.indexbyidTim', compact('id'))->with(['error' => 'Persen harus dalam range 20% - 40%']);
             }
         }else if($request->status == 'Development'){
             if($request->persen < 40 || $request->persen > 60 ){
                 $id = $projek->id_tim;
                 $projek = Projek::where('id_tim','=',$id)->get();
-                return view('projek.indexByTim', compact('projek','id'))->with(['error' => 'Persen harus dalam range 40% - 60%']);;
+                return redirect()->route('projek.indexbyidTim', compact('id'))->with(['error' => 'Persen harus dalam range 40% - 60%']);;
             }
         }else if($request->status == 'Intergration and Testing'){
             if($request->persen < 60 || $request->persen > 80 ){
                 $id = $projek->id_tim;
                 $projek = Projek::where('id_tim','=',$id)->get();
-                return view('projek.indexByTim', compact('projek','id'))->with(['error' => 'Persen harus dalam range 60% - 80%']);;
+                return redirect()->route('projek.indexbyidTim', compact('id'))->with(['error' => 'Persen harus dalam range 60% - 80%']);;
             }
         }else if($request->status == 'Intallation and Acceptance'){
             if($request->persen < 80 || $request->persen > 100 ){
                 $id = $projek->id_tim;
                 $projek = Projek::where('id_tim','=',$id)->get();
-                return view('projek.indexByTim', compact('projek','id'))->with(['error' => 'Persen harus dalam range 80% - 100%']);;
+                return redirect()->route('projek.indexbyidTim', compact('id'))->with(['error' => 'Persen harus dalam range 80% - 100%']);;
             }else if($request->persen == 100){
                 $projek->update(['status' => 'Selesai','persen' => '101']);
 

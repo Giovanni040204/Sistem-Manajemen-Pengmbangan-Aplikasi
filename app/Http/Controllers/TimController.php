@@ -59,12 +59,11 @@ class TimController extends Controller
     public function updateTim(Request $request, $idc, $id){
         $this->validate($request, [
             'nama' => 'required',
-            'username' => 'required',
-            'password' => 'required',            
+            'username' => 'required',          
         ]);        
         
         $tim = Tim::whereId($idc)->first();
-        $tim->update($request->all());
+        $tim->update(['nama' => $request->nama,'username' => $request->username]);
 
         return redirect()->route('tim.indexTim', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
