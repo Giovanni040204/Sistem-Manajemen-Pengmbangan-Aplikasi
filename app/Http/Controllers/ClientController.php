@@ -169,7 +169,7 @@ class ClientController extends Controller
         }
     }
 
-    public function show(Request $request){
+    public function indexAdmin(Request $request){
         if($request->has('search')){
             $client = Client::where('nama','LIKE','%'.$request->search.'%')->get();
         }else{
@@ -184,5 +184,9 @@ class ClientController extends Controller
         $passwordBaru = $client->username;
         $client->update(['password' => $passwordBaru]);
         return redirect()->route('client.indexAdmin')->with(['success' => 'Password Berhasil Direset']);
+    }
+
+    public function chatClient(){
+        return view('client.chat');
     }
 }

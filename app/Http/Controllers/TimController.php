@@ -117,7 +117,7 @@ class TimController extends Controller
         }
     } 
     
-    public function show(Request $request){
+    public function indexAdmin(Request $request){
         if($request->has('search')){
             $tim = Tim::where('nama','LIKE','%'.$request->search.'%')->get();
         }else{
