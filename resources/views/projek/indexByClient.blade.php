@@ -50,6 +50,7 @@
                                             <th class="text-center">Deskripsi Projek</th>
                                             <th class="text-center">Status Projek</th>
                                             <th class="text-center">Presentasi Projek</th>
+                                            <th class="text-center">Obrolan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -59,7 +60,10 @@
                                             <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
                                             <td class="text-center">{{$item->persen }}%</td>
-                                            </tr>
+                                            <td class="text-center">
+                                                <a href="{{ route('chat.indexClient', [$item->parentClient->id, $item->parentTim->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
+                                            </td>
+                                        </tr>
                                             @empty
                                             <div class="alert alert-danger">
                                                 Data projek belum tersedia

@@ -126,12 +126,12 @@
                                 <p>Daftar Projek Batal</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('client.chatClient') }}" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Chat</p>
                             </a>
-                        </li>                                                                   
+                        </li>                                                                    --}}
                         <li class="nav-item">
                             <a href="{{ url('') }}" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>

@@ -92,4 +92,4 @@ Route::get('/tim/resetPasswordTim/{id}', '\App\Http\Controllers\TimController@re
 
 Route::get('/supervisor/resetPasswordSupervisor/{id}', '\App\Http\Controllers\SupervisorController@resetPasswordSupervisor')->name('supervisor.resetPasswordSupervisor');
 
-Route::get('/projek/client/chat', '\App\Http\Controllers\ClientController@chatClient')->name('client.chatClient');
+Route::get('/chat/client/{idc}/{idt}', '\App\Http\Controllers\ChatController@indexClient')->name('chat.indexClient');
