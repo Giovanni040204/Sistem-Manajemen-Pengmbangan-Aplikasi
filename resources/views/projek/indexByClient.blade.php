@@ -61,7 +61,7 @@
                                             <td class="text-center">{{$item->status }}</td>
                                             <td class="text-center">{{$item->persen }}%</td>
                                             <td class="text-center">
-                                                <a href="{{ route('chat.indexClient', [$item->parentClient->id, $item->parentTim->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
+                                                <a href="{{ route('chat.indexClient', [$item->parentClient->id, $item->parentTim->id, $item->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
                                             </td>
                                         </tr>
                                             @empty

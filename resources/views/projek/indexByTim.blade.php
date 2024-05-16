@@ -51,6 +51,7 @@
                                             <th class="text-center">Status Projek</th>
                                             <th class="text-center">Presentasi Projek</th>
                                             <th class="text-center">Aksi</th>
+                                            <th class="text-center">Obrolan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,6 +68,9 @@
                                                     @method('DELETE')
                                                     {{-- <button type="submit" class="btn btn-sm btn-danger">HAPUS</button> --}}
                                                 </form>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('chat.indexTim', [$item->parentClient->id, $item->parentTim->id, $item->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
                                             </td>
                                             </tr>
                                             @empty

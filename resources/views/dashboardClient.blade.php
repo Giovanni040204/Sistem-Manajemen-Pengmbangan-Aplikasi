@@ -13,6 +13,8 @@
         <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body class="hold-transition sidebar-mini">
         <div class="wrapper">
@@ -126,7 +128,7 @@
             <!-- /.content-wrapper -->
             <!-- Main Footer -->
             <footer class="main-footer">
-                <!-- To the right -->
+                {{-- <!-- To the right -->
                 {{-- <div class="float-right d-none d-sm-inline"> 200710835</div>
                 <!-- Default to the left -->
                 <strong>Copyright &copy; {{ date('Y') }} <a href="#">AdminLTE.io</a>. </strong> All rights reserved. --}}

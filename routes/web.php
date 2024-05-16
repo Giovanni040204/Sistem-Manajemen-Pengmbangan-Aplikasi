@@ -92,4 +92,7 @@ Route::get('/tim/resetPasswordTim/{id}', '\App\Http\Controllers\TimController@re
 
 Route::get('/supervisor/resetPasswordSupervisor/{id}', '\App\Http\Controllers\SupervisorController@resetPasswordSupervisor')->name('supervisor.resetPasswordSupervisor');
 
-Route::get('/chat/client/{idc}/{idt}', '\App\Http\Controllers\ChatController@indexClient')->name('chat.indexClient');
+Route::get('/chat/index/client/{idc}/{idt}/{idp}', '\App\Http\Controllers\ChatController@indexClient')->name('chat.indexClient');
+Route::get('/chat/store/client/{idc}/{idt}/{idp}', '\App\Http\Controllers\ChatController@storeClient')->name('chat.storeClient');
+Route::get('/chat/index/tim/{idc}/{idt}/{idp}', '\App\Http\Controllers\ChatController@indexTim')->name('chat.indexTim');
+Route::get('/chat/store/tim/{idc}/{idt}/{idp}', '\App\Http\Controllers\ChatController@storeTim')->name('chat.storeTim');

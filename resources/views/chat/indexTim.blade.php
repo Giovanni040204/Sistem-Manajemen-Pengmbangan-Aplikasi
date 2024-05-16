@@ -1,11 +1,11 @@
-@extends('dashboardClient')
+@extends('dashboardTim')
 
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Chat Client</h1>
+                <h1 class="m-0">Chat Tim</h1>
             </div>
             <!-- /.col -->
             <div class="col-sm-6">
@@ -35,20 +35,20 @@
                 <form>
                     <div class="mb-3">
                         <?php 
-                            if($item->status == 'Client'){
+                            if($item->status == 'Tim'){
                                 if($cek == -1 || $cek==1){
                         ?>
-                                    <div class="form-text" style="text-align: right;"><b>{{$item->parentClient->nama}}</b></div>
+                                    <div class="form-text" style="text-align: right;"><b>{{$item->parentTim->nama}}</b></div>
                         <?php
                                 }
                         ?>
                                 <div class="form-text" style="text-align: right;">{{$item->isi}}</div>
                         <?php
                                 $cek = 0;
-                            }else if($item->status == 'Tim'){
+                            }else if($item->status == 'Client'){
                                 if($cek == -1 || $cek==0){
                         ?>
-                                    <div class="form-text"><b>{{$item->parentTim->nama}}</b></div>
+                                    <div class="form-text"><b>{{$item->parentClient->nama}}</b></div>
                         <?php
                                 }
                         ?>                            
@@ -63,7 +63,7 @@
                 @endforeach 
                 <div class="col-sm-12">
                     <ol class="float-sm-right">
-                        <form action="{{ route('chat.storeClient', [$idc, $idt, $idp]) }}" class="form-inline" method="GET">
+                        <form action="{{ route('chat.storeTim', [$idc, $idt, $idp]) }}" class="form-inline" method="GET">
                             <input type="isi" name="isi" class="form-control" placeholder="Masukan Pesan .......">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
