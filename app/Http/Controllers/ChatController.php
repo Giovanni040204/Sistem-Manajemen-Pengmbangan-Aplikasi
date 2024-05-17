@@ -21,6 +21,8 @@ class ChatController extends Controller
         //Validasi Formulir
         $this->validate($request, [
             'isi' => 'required',        
+        ],[
+            'isi.required'=>'Tidak boleh kosong',
         ]);
 
         $sekarang = Carbon::now();
@@ -51,7 +53,9 @@ class ChatController extends Controller
     {
         //Validasi Formulir
         $this->validate($request, [
-            'isi' => 'required',        
+            'isi' => 'required'        
+        ],[
+            'isi.required'=>'Tidak boleh kosong',
         ]);
 
         $sekarang = Carbon::now();

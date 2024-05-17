@@ -98,6 +98,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('jadwal.indexTim', $id) }}" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Daftar Jadwal</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('projek.historyTim', $id) }}" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>History Projek</p>

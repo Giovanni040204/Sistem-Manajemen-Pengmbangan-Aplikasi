@@ -31,7 +31,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                @foreach ($chat as $item)
+                @forelse ($chat as $item)
                 <form>
                     <div class="mb-3">
                         <?php 
@@ -60,29 +60,28 @@
                     </div>
                 </form>
                 <hr size="10px">
-                @endforeach 
-                <div class="col-sm-12">
-                    <ol class="float-sm-right">
-                        <form action="{{ route('chat.storeClient', [$idc, $idt, $idp]) }}" class="form-inline" method="GET">
-                            <input type="isi" name="isi" class="form-control" placeholder="Masukan Pesan .......">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fa fa-send"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </ol>
-                </div>
-                {{-- <div class="r-chat-box y-black-text r-chat-boxtype2 y-blue-bg y-white-text">
-                
-                </div>  --}}
-                {{-- @empty
+                @empty
                 <div class="alert alert-danger">
-                    Data projek belum tersedia
-                </div> --}}
-                         
+                    Belum Ada Obrolan
+                </div>
+                @endforelse 
+                {{-- <div class="r-chat-box y-black-text r-chat-boxtype2 y-blue-bg y-white-text">
+                </div>  --}}      
             </div>
         </div>
-    </div>      
+    </div>
+    <div class="form-group col-md-12">
+        <ol class="float-sm-right">
+            <form action="{{ route('chat.storeClient', [$idc, $idt, $idp]) }}" class="form-inline" method="GET">
+                <input type="text" class="form-control @error('isi') is-invalid @enderror" name="isi" value="{{ old('isi') }}" placeholder="Masukan Pesan .......">
+                @enderror
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-send"></i>
+                    </button>
+                </div>
+            </form>
+        </ol>
+    </div>     
 </div>
 @endsection

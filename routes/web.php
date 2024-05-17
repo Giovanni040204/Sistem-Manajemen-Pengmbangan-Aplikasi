@@ -96,3 +96,11 @@ Route::get('/chat/index/client/{idc}/{idt}/{idp}', '\App\Http\Controllers\ChatCo
 Route::get('/chat/store/client/{idc}/{idt}/{idp}', '\App\Http\Controllers\ChatController@storeClient')->name('chat.storeClient');
 Route::get('/chat/index/tim/{idc}/{idt}/{idp}', '\App\Http\Controllers\ChatController@indexTim')->name('chat.indexTim');
 Route::get('/chat/store/tim/{idc}/{idt}/{idp}', '\App\Http\Controllers\ChatController@storeTim')->name('chat.storeTim');
+
+Route::get('/jadwal/index/supervisor/{ids}', '\App\Http\Controllers\JadwalController@indexSupervisor')->name('jadwal.indexSupervisor');
+Route::get('/jadwal/create/supervisor/{id}', '\App\Http\Controllers\JadwalController@createJadwal')->name('jadwal.createJadwal');
+Route::get('/jadwal/store/supervisor/{ids}', '\App\Http\Controllers\JadwalController@storeSupervisor')->name('jadwal.storeSupervisor');
+Route::get('/jadwal/edit/supervisor/{idj}/{id}', '\App\Http\Controllers\JadwalController@editJadwal')->name('jadwal.editJadwal');
+Route::get('/jadwal/update/supervisor/{idj}/{ids}', '\App\Http\Controllers\JadwalController@updateJadwalBySupervisor')->name('jadwal.updateJadwalBySupervisor');
+Route::get('/jadwal/index/tim/{idt}', '\App\Http\Controllers\JadwalController@indexTim')->name('jadwal.indexTim');
+Route::get('/jadwal/update/tim/{idj}/{idt}', '\App\Http\Controllers\JadwalController@updateJadwalByTim')->name('jadwal.updateJadwalByTim');

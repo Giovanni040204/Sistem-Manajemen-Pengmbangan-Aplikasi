@@ -97,6 +97,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('jadwal.indexSupervisor', $id) }}" class="nav-link">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>Daftar Jadwal</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('tim.indexTim', $id) }}" class="nav-link">
                                 <i class="nav-icon far fa-circle"></i>
                                 <p>Daftar Tim</p>
