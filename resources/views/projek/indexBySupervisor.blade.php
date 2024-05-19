@@ -65,6 +65,7 @@
                                             <td class="text-center">{{$item->persen }}%</td>
                                             <td class="text-center">
                                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.batalProjek', $item->id) }}" method="GET">
+                                                    <a href="{{ route('progres.index', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
                                                     <button type="submit" class="btn btn-sm btn-danger">BATALKAN</button>
                                                 </form>
                                             </td>

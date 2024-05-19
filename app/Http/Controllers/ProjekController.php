@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\ProgresProjek;
 use App\Models\Projek;
 use App\Models\Supervisor;
 use App\Models\Tim;
+use Carbon\Carbon;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 
@@ -89,6 +91,15 @@ class ProjekController extends Controller
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
             'status' => 'Requirement Definiton',
+            'persen' => 0
+        ]);
+
+        $projekBaru = Projek::where('judul','=',$request->judul)->first();
+        $sekarang = Carbon::now();
+
+        ProgresProjek::create([
+            'id_projek' => $projekBaru->id,
+            'tanggal' => $sekarang,
             'persen' => 0
         ]);
 
@@ -179,10 +190,19 @@ class ProjekController extends Controller
 
         $projek->update($request->all());
 
+        $projekSekarang = $projek;
 
         $id = $projek->id_tim;
         $projek = Projek::where('id_tim','=',$id)->get();
-        // return view('projek.indexByTim', compact('projek','id'))->with(['success' => 'Data Berhasil Diedit']);;
+        
+        $sekarang = Carbon::now();
+
+        ProgresProjek::create([
+            'id_projek' => $projekSekarang->id,
+            'tanggal' => $sekarang,
+            'persen' => $projekSekarang->persen
+        ]);
+
         return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
 
