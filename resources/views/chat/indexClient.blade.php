@@ -74,7 +74,6 @@
         <ol class="float-sm-right">
             <form action="{{ route('chat.storeClient', [$idc, $idt, $idp]) }}" class="form-inline" method="GET">
                 <input type="text" class="form-control @error('isi') is-invalid @enderror" name="isi" value="{{ old('isi') }}" placeholder="Masukan Pesan .......">
-                @enderror
                 <div class="input-group-append">
                     <button type="submit" class="btn btn-default">
                         <i class="fa fa-send"></i>
