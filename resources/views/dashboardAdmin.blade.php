@@ -92,58 +92,53 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
                             <a href="{{ route('tampilanAdmin') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li> 
                         <li class="nav-item">
                             <a href="{{ url('projek') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-project-diagram"></i>
                                 <p>Daftar Projek</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('supervisor') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-user-tie"></i>
                                 <p>Daftar Supervisor</p>
                             </a>
                         </li>  
                         <li class="nav-item">
                             <a href="{{ route('tim.indexAdmin') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>Daftar Tim</p>
                             </a>
                         </li>   
                         <li class="nav-item">
                             <a href="{{ route('client.indexAdmin') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-user-friends"></i>
                                 <p>Daftar Client</p>
                             </a>
                         </li>  
                         <li class="nav-item">
                             <a href="{{ route('projek.projekSelesai') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-check-circle"></i>
                                 <p>Daftar Projek Selesai</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('projek.projekBatal') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-times-circle"></i>
                                 <p>Daftar Projek Batal</p>
                             </a>
-                        </li>
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('client.chatClient') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
-                                <p>Chat</p>
-                            </a>
-                        </li>                                                                    --}}
+                        </li>                                                                 
                         <li class="nav-item">
                             <a href="{{ url('') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>Logout</p>
                             </a>
                         </li>
+                        
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

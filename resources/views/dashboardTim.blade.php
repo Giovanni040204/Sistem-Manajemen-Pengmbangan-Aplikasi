@@ -93,40 +93,41 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <li class="nav-item">
                             <a href="{{ route('tampilanTim', $id) }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>  
                         <li class="nav-item">
                             <a href="{{ route('projek.indexbyidTim', $id) }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-project-diagram"></i>
                                 <p>Daftar Projek</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('jadwal.indexTim', $id) }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-calendar-alt"></i>
                                 <p>Daftar Jadwal</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('projek.historyTim', $id) }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-history"></i>
                                 <p>History Projek</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('tim.indexPassword', $id) }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-key"></i>
                                 <p>Kelola Password</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('') }}" class="nav-link">
-                                <i class="nav-icon far fa-circle"></i>
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p>Logout</p>
                             </a>
                         </li>
+                        
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

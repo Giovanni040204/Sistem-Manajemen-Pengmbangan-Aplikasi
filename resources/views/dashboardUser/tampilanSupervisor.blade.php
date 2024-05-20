@@ -1,6 +1,8 @@
 @extends('dashboardSupervisor')
 
 @section('content')
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,7 +68,6 @@
             background-color: #28a745; /* Hijau */
         }
     </style>
-    
 </head>
 <body>
     <div class="container">
@@ -97,4 +98,5 @@
         </div>
     </div>
 </body>
+</html>
 @endsection
