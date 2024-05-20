@@ -72,17 +72,17 @@
     <div class="container">
         <div class="card" onclick="window.location.href='{{ route('projek.indexbyidTim', $id) }}'">
             <h2>Daftar Projek</h2>
-            <p>Description of Card 1</p>
+            <p>Semua projek yang sedang dalam proses pengerjaan dapat dilihat disini</p>
             <i class="fas fa-cogs watermark"></i>
         </div>
         <div class="card" onclick="window.location.href='{{ route('jadwal.indexTim', $id) }}'">
             <h2>Daftar Jadwal</h2>
-            <p>Description of Card 2</p>
+            <p>List jadwal untuk melakukan pertemuan dapat dilihat disini</p>
             <i class="fas fa-user-tie watermark"></i>
         </div>
         <div class="card" onclick="window.location.href='{{ route('projek.historyTim', $id) }}'">
             <h2>History Projek</h2>
-            <p>Description of Card 3</p>
+            <p>List projek-projek yang dikerjakan, baik yang selesai maupun yang dibatalkan dapat dilihat disini</p>
             <i class="fas fa-users watermark"></i>
         </div>
     </div>

@@ -72,32 +72,32 @@
     <div class="container">
         <div class="card" onclick="window.location.href='{{ url('projek') }}'">
             <h2>Daftar Projek</h2>
-            <p>Description of Card 1</p>
+            <p>Semua projek yang sedang dalam proses pengerjaan dapat dilihat disini</p>
             <i class="fas fa-cogs watermark"></i>
         </div>
         <div class="card" onclick="window.location.href='{{ url('supervisor') }}'">
             <h2>Daftar Supervisor</h2>
-            <p>Description of Card 2</p>
+            <p>Semua user Supervisor dapat dilihat disini termasuk pengelolaan data Supervisor</p>
             <i class="fas fa-user-tie watermark"></i>
         </div>
         <div class="card" onclick="window.location.href='{{ route('tim.indexAdmin') }}'">
             <h2>Daftar Tim</h2>
-            <p>Description of Card 3</p>
+            <p>Semua user Tim dapat dilihat disini</p>
             <i class="fas fa-users watermark"></i>
         </div>
         <div class="card" onclick="window.location.href='{{ route('client.indexAdmin') }}'">
             <h2>Daftar Client</h2>
-            <p>Description of Card 1</p>
+            <p>Semua user Client dapat dilihat disini</p>
             <i class="fas fa-user-friends watermark"></i>
         </div>
         <div class="card" onclick="window.location.href='{{ route('projek.projekSelesai') }}'">
             <h2>List Projek Selesai</h2>
-            <p>Description of Card 2</p>
+            <p>List semua projek yang sudah selesai dikerjakan dapat dilihat disini</p>
             <i class="fas fa-check-circle watermark"></i>
         </div>
         <div class="card" onclick="window.location.href='{{ route('projek.projekBatal') }}'">
             <h2>List Projek Batal</h2>
-            <p>Description of Card 3</p>
+            <p>List semua projek yang dibatalkan dalam pengerjaannya dapat dilihat disini</p>
             <i class="fas fa-times-circle watermark"></i>
         </div>
     </div>
