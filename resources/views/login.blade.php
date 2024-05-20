@@ -69,6 +69,12 @@
     </div>
     </div>   
     @include('sweetalert::alert')
+    <script>
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(0);
+        };
+    </script>
 </body>
 <script>
     @if (Session::has('error'))
