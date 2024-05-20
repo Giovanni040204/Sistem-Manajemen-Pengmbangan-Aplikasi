@@ -64,6 +64,7 @@
                                             <td class="text-center">
                                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.destroy', $item->id) }}" method="POST">
                                                     <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                    <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     {{-- <button type="submit" class="btn btn-sm btn-danger">HAPUS</button> --}}

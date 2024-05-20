@@ -50,6 +50,7 @@
                                             <th class="text-center">Deskripsi Projek</th>
                                             <th class="text-center">Status Projek</th>
                                             <th class="text-center">Presentasi Projek</th>
+                                            <th class="text-center">Aksi</th>
                                             <th class="text-center">Obrolan</th>
                                         </tr>
                                     </thead>
@@ -60,6 +61,9 @@
                                             <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
                                             <td class="text-center">{{$item->persen }}%</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
+                                            </td>
                                             <td class="text-center">
                                                 <a href="{{ route('chat.indexClient', [$item->parentClient->id, $item->parentTim->id, $item->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
                                             </td>

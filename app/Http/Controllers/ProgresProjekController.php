@@ -9,13 +9,30 @@ use Illuminate\Support\Facades\DB;
 
 class ProgresProjekController extends Controller
 {
-    public function index($id, $idp){
+    public function indexSupervisor($id, $idp){
         $projek = Projek::where('id','=',$idp)->first();
         $data = ProgresProjek::select('tanggal', 'persen')->where('id_projek', '=', $idp)->get();
-        // dd($data->toArray()); // Cek data yang diterima
         
         $tanggal = ProgresProjek::select('tanggal')->get();
 
-        return view('progresProjek.progres', compact('projek','data','tanggal','id'));
+        return view('progresProjek.progresSupervisor', compact('projek','data','tanggal','id'));
+    }
+
+    public function indexTim($id, $idp){
+        $projek = Projek::where('id','=',$idp)->first();
+        $data = ProgresProjek::select('tanggal', 'persen')->where('id_projek', '=', $idp)->get();
+        
+        $tanggal = ProgresProjek::select('tanggal')->get();
+
+        return view('progresProjek.progresTim', compact('projek','data','tanggal','id'));
+    }
+
+    public function indexClient($id, $idp){
+        $projek = Projek::where('id','=',$idp)->first();
+        $data = ProgresProjek::select('tanggal', 'persen')->where('id_projek', '=', $idp)->get();
+        
+        $tanggal = ProgresProjek::select('tanggal')->get();
+
+        return view('progresProjek.progresClient', compact('projek','data','tanggal','id'));
     }
 }
