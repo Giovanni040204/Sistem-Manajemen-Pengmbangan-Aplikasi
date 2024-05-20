@@ -7,6 +7,13 @@
         <title>Line Chart with Date</title>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+        <style>
+            .scrollable-content {
+                max-height: 80vh; /* Adjust as needed */
+                overflow-y: auto;
+                padding: 20px;
+            }
+        </style>
     </head>
     <body>
         <div class="content-header">
@@ -27,10 +34,11 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-4">
+        <div class="container mt-4 scrollable-content">
             <div class="card mb-4">
                 <div class="card-body">
                     <form>
+                        <h3 class="text-center">Detail Projek</h3>
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-4">
@@ -84,6 +92,23 @@
                     <canvas id="myChart"></canvas>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-center">Aktivitas Projek</h3>
+                    <div>
+                        @forelse ($aktivitas as $item)
+                            <div class="activity-item mb-2">
+                                <span class="activity-point">•</span>
+                                <span class="activity-text">[{{ $item->tanggal }}] {{ $item->isi }}</span>
+                            </div>
+                        @empty
+                            <div class="alert alert-danger text-center">
+                                Data Projek Tidak Tersedia
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>       
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -146,5 +171,21 @@
                 });
             });
         </script>
+        <style>
+            .activity-item {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 10px;
+            }
+            .activity-point {
+                margin-right: 10px;
+                font-weight: bold;
+            }
+            .activity-text {
+                font-size: 14px;
+                color: #333;
+                text-align: left;
+            }
+        </style>
     </body>
 @endsection

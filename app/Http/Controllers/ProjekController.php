@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AktivitasProjek;
 use App\Models\Client;
 use App\Models\ProgresProjek;
 use App\Models\Projek;
@@ -97,7 +98,15 @@ class ProjekController extends Controller
         $projekBaru = Projek::where('judul','=',$request->judul)->first();
 
         $projek = Projek::where('id_supervisor','=',$id)->get();
-        //render view with posts
+        
+        $sekarang = Carbon::now();
+
+        AktivitasProjek::create([
+            'id_projek' => $projekBaru->id,
+            'tanggal' => $sekarang,
+            'isi' => 'Projek dibuat oleh ' . $projekBaru->parentSupervisor->nama . ' dan menunggu konfirmasi dari ' . $projekBaru->parentTim->nama
+        ]);
+
         return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Data Berhasil Disimpan']);
     }
 
@@ -123,7 +132,7 @@ class ProjekController extends Controller
             'persen' => 0
         ]);
             
-        return redirect()->route('projek.index')->with(['success' => 'Data Berhasil Disimpan']);
+        return redirect()->route('projek.index')->with(['success' => 'Data Berhasil Ditambahkan']);
     }    
 
     public function edit($id){
@@ -173,10 +182,18 @@ class ProjekController extends Controller
                 return redirect()->route('projek.indexbyidTim', compact('id'))->with(['error' => 'Persen harus dalam range 80% - 100%']);;
             }else if($request->persen == 100){
                 $projek->update(['status' => 'Selesai','persen' => '101']);
-
+                $projekSekarang = $projek;
                 $id = $projek->id_tim;
                 $projek = Projek::where('id_tim','=',$id)->get();
-                // return view('projek.indexByTim', compact('projek','id'))->with(['success' => 'Data Berhasil Diedit']);;
+
+                $sekarang = Carbon::now();
+
+                AktivitasProjek::create([
+                    'id_projek' => $projekSekarang->id,
+                    'tanggal' => $sekarang,
+                    'isi' => 'PROJEK TELAH SELESAI'
+                ]);
+
                 return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'PROJEK TELAH SELESAI']);
             }
         }
@@ -194,6 +211,12 @@ class ProjekController extends Controller
             'id_projek' => $projekSekarang->id,
             'tanggal' => $sekarang,
             'persen' => $projekSekarang->persen
+        ]);
+
+        AktivitasProjek::create([
+            'id_projek' => $projekSekarang->id,
+            'tanggal' => $sekarang,
+            'isi' => 'Persentase projek sudah ' . $projekSekarang->persen . '% pada tahap ' . $projekSekarang->status
         ]);
 
         return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
@@ -218,7 +241,16 @@ class ProjekController extends Controller
         $projek->update(['status' => 'Batal','persen' => '101']);
 
         $id = $projek->id_supervisor;
+        $projekSekarang = $projek;
         $projek = Projek::where('id_supervisor','=',$id)->get();
+
+        $sekarang = Carbon::now();
+
+        AktivitasProjek::create([
+            'id_projek' => $projekSekarang->id,
+            'tanggal' => $sekarang,
+            'isi' => 'Projek dibatalkan oleh ' . $projekSekarang->parentSupervisor->nama
+        ]);
 
         return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Projek Berhasil DIbatalkan']);
     } 
@@ -230,7 +262,7 @@ class ProjekController extends Controller
             $projek = Projek::where('status','=', 'Selesai')->get();
         }
         
-        //render view with posts
+        
         return view('projek.projekSelesai', compact('projek'));
     }
 
@@ -287,6 +319,12 @@ class ProjekController extends Controller
             'id_projek' => $idp,
             'tanggal' => $sekarang,
             'persen' => 0
+        ]);
+
+        AktivitasProjek::create([
+            'id_projek' => $idp,
+            'tanggal' => $sekarang,
+            'isi' => 'Projek sudah dikonfirmasi oleh ' . $projek->parentTim->nama
         ]);
 
         return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'Projek berhasil dikonfirmasi']);

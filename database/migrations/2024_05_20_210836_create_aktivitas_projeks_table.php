@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('aktivitas_projeks', function (Blueprint $table) {
             $table->id();
             $table->integer('id_projek'); 
-            $table->date('tanggal');
+            $table->datetime('tanggal');
             $table->string('isi');              
             $table->timestamps();
         });
