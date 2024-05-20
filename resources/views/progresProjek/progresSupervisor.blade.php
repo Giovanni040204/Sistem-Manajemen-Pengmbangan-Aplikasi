@@ -103,7 +103,7 @@
                             </div>
                         @empty
                             <div class="alert alert-danger text-center">
-                                Data Projek Tidak Tersedia
+                                Data Aktivitas Tidak Tersedia
                             </div>
                         @endforelse
                     </div>

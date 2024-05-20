@@ -7,23 +7,16 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">Projek</h1>
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">
-                            <a href="#">Projek</a>
-                        </li>
+                        <li class="breadcrumb-item"><a href="#">Projek</a></li>
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
+
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -59,45 +52,90 @@
                                     <tbody>
                                         @forelse ($projek as $item)
                                         <tr>
-                                            <td class="text-center">{{$item->judul }}</td>
-                                            <td class="text-center">{{$item->deskripsi }}</td>
-                                            <td class="text-center">{{$item->status }}</td>
-                                        <?php 
-                                            if($item->persen == -1){
-                                        ?>
+                                            <td class="text-center">{{ $item->judul }}</td>
+                                            <td class="text-center">{{ $item->deskripsi }}</td>
+                                            <td class="text-center">{{ $item->status }}</td>
+                                            @if ($item->persen == -1)
                                                 <td class="text-center">-</td>
                                                 <td class="text-center">-</td>
-                                        <?php
-                                            }else{ 
-                                        ?>
-                                            <td class="text-center">{{$item->persen }}%</td>
-                                            <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.batalProjek', $item->id) }}" method="GET">
+                                            @else
+                                                <td class="text-center">{{ $item->persen }}%</td>
+                                                <td class="text-center">
                                                     <a href="{{ route('progres.indexSupervisor', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
-                                                    <button type="submit" class="btn btn-sm btn-danger">BATALKAN</button>
-                                                </form>
-                                            </td>
-                                        <?php 
-                                            }
-                                        ?>
+                                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmModal{{ $item->id }}">
+                                                        BATALKAN
+                                                    </button>
+                                                </td>
+                                            @endif
                                         </tr>
-                                            @empty
-                                            <div class="alert alert-danger">
-                                                Data Projek Tidak Tersedia
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="confirmModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel{{ $item->id }}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmModalLabel{{ $item->id }}">Konfirmasi Pembatalan</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Apakah Anda yakin ingin membatalkan projek ini?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                        <form action="{{ route('projek.batalProjek', $item->id) }}" method="GET" class="d-inline">
+                                                            <button type="submit" class="btn btn-danger">Batal Projek</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            @endforelse
-                                        </tbody>
-                                    </table>                                 
-                                </div>
+                                        </div>
+                                        @empty
+                                        <div class="alert alert-danger">
+                                            Data Projek Tidak Tersedia
+                                        </div>
+                                        @endforelse
+                                    </tbody>
+                                </table>                                 
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.col-md-6 -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
         </div>
-    @endsection
+    </div>
+        <style>
+            .modal-content {
+                border-radius: 10px;
+            }
+            .modal-header {
+                background-color: #f8d7da;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+            
+            .modal-footer {
+                border-top: none;
+            }
+            
+            .btn-danger {
+                background-color: #dc3545;
+                border: none;
+            }
+            
+            .btn-danger:hover {
+                background-color: #c82333;
+            }
+            
+            .btn-secondary {
+                background-color: #6c757d;
+                border: none;
+            }
+            
+            .btn-secondary:hover {
+                background-color: #5a6268;
+            }
+        </style>
+    
+@endsection
