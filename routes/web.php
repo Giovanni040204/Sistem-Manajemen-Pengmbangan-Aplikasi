@@ -109,3 +109,8 @@ Route::get('/progresProjek/supervisor/index/{id}/{idp}', '\App\Http\Controllers\
 Route::get('/progresProjek/tim/index/{id}/{idp}', '\App\Http\Controllers\ProgresProjekController@indexTim')->name('progres.indexTim');
 Route::get('/progresProjek/Client/index/{id}/{idp}', '\App\Http\Controllers\ProgresProjekController@indexClient')->name('progres.indexClient');
 Route::get('/progresProjek/Admin/index/{idp}', '\App\Http\Controllers\ProgresProjekController@indexAdmin')->name('progres.indexAdmin');
+
+Route::get('/tampilan/admin', '\App\Http\Controllers\LoginController@tampilanAdmin')->name('tampilanAdmin');
+Route::get('/tampilan/supervisor/{id}', '\App\Http\Controllers\SupervisorController@tampilanSupervisor')->name('tampilanSupervisor');
+Route::get('/tampilan/client/{id}', '\App\Http\Controllers\ClientController@tampilanClient')->name('tampilanClient');
+Route::get('/tampilan/tim/{id}', '\App\Http\Controllers\TimController@tampilanTim')->name('tampilanTim');

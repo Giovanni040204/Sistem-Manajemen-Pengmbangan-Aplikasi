@@ -132,4 +132,8 @@ class TimController extends Controller
         $tim->update(['password' => $passwordBaru]);
         return redirect()->route('tim.indexAdmin')->with(['success' => 'Password Berhasil Direset']);
     }
+
+    public function tampilanTim($id){
+        return view('dashboardUser.tampilanTim', compact('id'));
+    }
 }

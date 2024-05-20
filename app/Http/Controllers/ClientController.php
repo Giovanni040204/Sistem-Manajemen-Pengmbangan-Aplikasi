@@ -185,4 +185,8 @@ class ClientController extends Controller
         $client->update(['password' => $passwordBaru]);
         return redirect()->route('client.indexAdmin')->with(['success' => 'Password Berhasil Direset']);
     }
+
+    public function tampilanClient($id){
+        return view('dashboardUser.tampilanClient', compact('id'));
+    }
 }

@@ -23,7 +23,7 @@ class LoginController extends Controller
         ]);
 
         if($request->username=='admin' && $request->password=='admin'){
-            return redirect()->route('projek.index')->with(['success' => 'Berhasil Login']);            
+            return redirect()->route('tampilanAdmin')->with(['success' => 'Berhasil Login']);            
         }
 
 
@@ -42,22 +42,22 @@ class LoginController extends Controller
                     return redirect('')->with(['error' => 'Username dan Password Tidak Sesuai'])->withInput();
                 }else{
                     $client = Client::where('username','=',$request->username)->where('password','=',$request->password)->first();
-                    $projek = Projek::where('id_client','=',$client->id)->get();
                     $id = $client->id;
-                    return redirect()->route('projek.indexbyidClient', compact('projek','id'))->with(['success' => 'Berhasil Login']);
+                    return redirect()->route('tampilanClient', compact('id'))->with(['success' => 'Berhasil Login']);
                 }
             }else{
                 $tim = Tim::where('username','=',$request->username)->where('password','=',$request->password)->first();
-                $projek = Projek::where('id_tim','=',$tim->id)->get();
                 $id = $tim->id;
-                return redirect()->route('projek.indexbyidTim', compact('projek','id'))->with(['success' => 'Berhasil Login']);;
+                return redirect()->route('tampilanTim', compact('id'))->with(['success' => 'Berhasil Login']);;
             }
         }else{
             $supervisor = Supervisor::where('username','=',$request->username)->where('password','=',$request->password)->first();
-            $projek = Projek::where('id_supervisor','=',$supervisor->id)->get();
             $id = $supervisor->id;
-            return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Berhasil Login']);
-            // return redirect()->route('projek.index',$supervisor->id)->with(['success' => 'Berhasil Login']);
+            return redirect()->route('tampilanSupervisor', compact('id'))->with(['success' => 'Berhasil Login']);
         }
+    }
+
+    public function tampilanAdmin(){
+        return view('dashboardUser.tampilanAdmin');
     }
 }

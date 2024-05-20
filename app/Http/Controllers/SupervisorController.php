@@ -117,4 +117,8 @@ class SupervisorController extends Controller
         
         return redirect()->route('supervisor.index')->with(['success' => 'Password Berhasil Direset']);
     }
+
+    public function tampilanSupervisor($id){
+        return view('dashboardUser.tampilanSupervisor', compact('id'));
+    }
 }
