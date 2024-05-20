@@ -60,6 +60,15 @@
                                             <td class="text-center">{{$item->judul }}</td>
                                             <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
+                                        <?php 
+                                            if($item->persen == -1){
+                                        ?>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                        <?php
+                                            }else{ 
+                                        ?>
                                             <td class="text-center">{{$item->persen }}%</td>
                                             <td class="text-center">
                                                 <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
@@ -67,6 +76,9 @@
                                             <td class="text-center">
                                                 <a href="{{ route('chat.indexClient', [$item->parentClient->id, $item->parentTim->id, $item->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
                                             </td>
+                                        <?php 
+                                            }
+                                        ?>
                                         </tr>
                                             @empty
                                             <div class="alert alert-danger">

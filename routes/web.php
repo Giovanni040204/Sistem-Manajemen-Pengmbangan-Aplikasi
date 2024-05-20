@@ -114,3 +114,5 @@ Route::get('/tampilan/admin', '\App\Http\Controllers\LoginController@tampilanAdm
 Route::get('/tampilan/supervisor/{id}', '\App\Http\Controllers\SupervisorController@tampilanSupervisor')->name('tampilanSupervisor');
 Route::get('/tampilan/client/{id}', '\App\Http\Controllers\ClientController@tampilanClient')->name('tampilanClient');
 Route::get('/tampilan/tim/{id}', '\App\Http\Controllers\TimController@tampilanTim')->name('tampilanTim');
+
+Route::get('/projek/konfirmasi/{id}/{idp}', '\App\Http\Controllers\ProjekController@konfirmasiProjek')->name('projek.konfirmasiProjek');

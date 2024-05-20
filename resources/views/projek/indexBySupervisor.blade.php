@@ -62,6 +62,14 @@
                                             <td class="text-center">{{$item->judul }}</td>
                                             <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
+                                        <?php 
+                                            if($item->persen == -1){
+                                        ?>
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">-</td>
+                                        <?php
+                                            }else{ 
+                                        ?>
                                             <td class="text-center">{{$item->persen }}%</td>
                                             <td class="text-center">
                                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.batalProjek', $item->id) }}" method="GET">
@@ -69,7 +77,10 @@
                                                     <button type="submit" class="btn btn-sm btn-danger">BATALKAN</button>
                                                 </form>
                                             </td>
-                                            </tr>
+                                        <?php 
+                                            }
+                                        ?>
+                                        </tr>
                                             @empty
                                             <div class="alert alert-danger">
                                                 Data Projek Tidak Tersedia

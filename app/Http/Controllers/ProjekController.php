@@ -90,18 +90,11 @@ class ProjekController extends Controller
             'id_client' => $request->id_client,
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
-            'status' => 'Requirement Definiton',
-            'persen' => 0
+            'status' => 'Belum Konfirmasi',
+            'persen' => -1
         ]);
 
         $projekBaru = Projek::where('judul','=',$request->judul)->first();
-        $sekarang = Carbon::now();
-
-        ProgresProjek::create([
-            'id_projek' => $projekBaru->id,
-            'tanggal' => $sekarang,
-            'persen' => 0
-        ]);
 
         $projek = Projek::where('id_supervisor','=',$id)->get();
         //render view with posts
@@ -126,7 +119,7 @@ class ProjekController extends Controller
             'id_user' => 0,
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
-            'status' => 'Requirement Definiton',
+            'status' => 'Belum Konfirmasi',
             'persen' => 0
         ]);
             
@@ -282,5 +275,20 @@ class ProjekController extends Controller
         
         //render view with posts
         return view('client.historyClient', compact('projek','id'));
+    }
+
+    public function konfirmasiProjek($id, $idp){
+        $projek = Projek::whereId($idp)->first();
+        $projek->update(['status' => 'Requirement Definiton','persen' => 0]);
+
+        $sekarang = Carbon::now();
+
+        ProgresProjek::create([
+            'id_projek' => $idp,
+            'tanggal' => $sekarang,
+            'persen' => 0
+        ]);
+
+        return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'Projek berhasil dikonfirmasi']);
     }
 }

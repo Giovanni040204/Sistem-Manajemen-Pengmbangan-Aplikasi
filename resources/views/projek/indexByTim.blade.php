@@ -60,19 +60,35 @@
                                             <td class="text-center">{{$item->judul }}</td>
                                             <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
-                                            <td class="text-center">{{$item->persen }}%</td>
-                                            <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.destroy', $item->id) }}" method="POST">
-                                                    <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                                    <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    {{-- <button type="submit" class="btn btn-sm btn-danger">HAPUS</button> --}}
-                                                </form>
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="{{ route('chat.indexTim', [$item->parentClient->id, $item->parentTim->id, $item->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
-                                            </td>
+                                            <?php 
+                                                if($item->persen == -1){
+                                            ?>
+                                                    <td class="text-center">-</td>
+                                                    <td class="text-center">
+                                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.konfirmasiProjek', [$id, $item->id]) }}">
+                                                            <button type="submit" class="btn btn-sm btn-danger">KONFIRMASI</button>
+                                                        </form>
+                                                    </td>
+                                                    <td class="text-center">-</td>
+                                            <?php
+                                                }else{ 
+                                            ?>
+                                                    <td class="text-center">{{$item->persen }}%</td>
+                                                    <td class="text-center">
+                                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.destroy', $item->id) }}" method="POST">
+                                                            <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                            <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            {{-- <button type="submit" class="btn btn-sm btn-danger">HAPUS</button> --}}
+                                                        </form>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="{{ route('chat.indexTim', [$item->parentClient->id, $item->parentTim->id, $item->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
+                                                    </td>
+                                            <?php 
+                                                }
+                                            ?>
                                             </tr>
                                             @empty
                                             <div class="alert alert-danger">
