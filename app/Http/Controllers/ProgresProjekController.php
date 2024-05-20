@@ -35,4 +35,13 @@ class ProgresProjekController extends Controller
 
         return view('progresProjek.progresClient', compact('projek','data','tanggal','id'));
     }
+
+    public function indexAdmin($idp){
+        $projek = Projek::where('id','=',$idp)->first();
+        $data = ProgresProjek::select('tanggal', 'persen')->where('id_projek', '=', $idp)->get();
+        
+        $tanggal = ProgresProjek::select('tanggal')->get();
+
+        return view('progresProjek.progresAdmin', compact('projek','data','tanggal'));
+    }
 }

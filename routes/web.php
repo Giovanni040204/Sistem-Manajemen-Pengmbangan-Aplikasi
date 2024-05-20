@@ -108,3 +108,4 @@ Route::get('/jadwal/update/tim/{idj}/{idt}', '\App\Http\Controllers\JadwalContro
 Route::get('/progresProjek/supervisor/index/{id}/{idp}', '\App\Http\Controllers\ProgresProjekController@indexSupervisor')->name('progres.indexSupervisor');
 Route::get('/progresProjek/tim/index/{id}/{idp}', '\App\Http\Controllers\ProgresProjekController@indexTim')->name('progres.indexTim');
 Route::get('/progresProjek/Client/index/{id}/{idp}', '\App\Http\Controllers\ProgresProjekController@indexClient')->name('progres.indexClient');
+Route::get('/progresProjek/Admin/index/{idp}', '\App\Http\Controllers\ProgresProjekController@indexAdmin')->name('progres.indexAdmin');
