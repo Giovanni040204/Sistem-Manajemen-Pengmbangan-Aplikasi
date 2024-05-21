@@ -25,13 +25,13 @@ class LoginController extends Controller
         ]);
 
         if($request->username=='admin' && $request->password=='admin'){
-            $pesan = "Kamu Berhasil Login pada Sistem Manajemen Pengembangan Aplikasi";
-            $data_email = [
-                'subject' => 'Sistem Manajemen Pengembangan Aplikasi',
-                'sender_name' => 'SMPA@gmail.com',
-                'isi' => $pesan
-            ];
-            Mail::to("giovannitemaluru00@gmail.com")->send(new kirimEmail($data_email));
+            // $pesan = "Kamu Berhasil Login pada Sistem Manajemen Pengembangan Aplikasi";
+            // $data_email = [
+            //     'subject' => 'Sistem Manajemen Pengembangan Aplikasi',
+            //     'sender_name' => 'SMPA@gmail.com',
+            //     'isi' => $pesan
+            // ];
+            // Mail::to("giovannitemaluru00@gmail.com")->send(new kirimEmail($data_email));
             return redirect()->route('tampilanAdmin')->with(['success' => 'Berhasil Login']);            
         }
 

@@ -42,6 +42,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">Nama Client</th>
+                                            <th class="text-center">Email</th>
                                             <th class="text-center">Username</th>
                                             <th class="text-center">Password</th>
                                         </tr>
@@ -50,6 +51,7 @@
                                         @forelse ($client as $item)
                                         <tr>
                                             <td class="text-center">{{ $item->nama }}</td>
+                                            <td class="text-center">{{ $item->email }}</td>
                                             <td class="text-center">{{ $item->username }}</td>
                                             <td class="text-center">
                                                 <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#confirmResetModal{{ $item->id }}">

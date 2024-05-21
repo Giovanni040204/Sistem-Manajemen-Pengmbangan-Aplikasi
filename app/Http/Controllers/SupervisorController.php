@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\kirimEmail;
 use App\Models\Supervisor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class SupervisorController extends Controller
 {
@@ -39,6 +41,21 @@ class SupervisorController extends Controller
             'username' => $request->username,
             'password' => $request->password,
         ]);
+        $supervisor = Supervisor::where('nama','=',$request->nama)->get();
+
+        $pesan = "<p>Akun untuk Sistem Manajemen Pengembangan Aplikasi sudah dibuat dengan rincian :</p>";
+        $pesan .= "<p><b>Nama : ".$supervisor->nama."</b></p>";
+        $pesan .= "<p><b>Email : ".$supervisor->email."</b></p>";
+        $pesan .= "<p><b>Username : ".$supervisor->username."</b></p>";
+        $pesan .= "<p><b>Password : ".$supervisor->password."</b></p>";
+        $pesan = "<p>Silahkan melakukan login pada sistem</p>";
+
+        $data_email = [
+            'subject' => 'Akun Dibuat',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($supervisor->email)->send(new kirimEmail($data_email));  
             
         return redirect()->route('supervisor.index')->with(['success' => 'Data Berhasil Disimpan']);
     }     
@@ -62,6 +79,18 @@ class SupervisorController extends Controller
             'email' => $request->email,
             'username' => $request->username])
         ;
+
+        $pesan = "<p>Data untuk Sistem Manajemen Pengembangan Aplikasi sudah diedit dengan rincian :</p>";
+        $pesan .= "<p><b>Nama : ".$supervisor->nama."</b></p>";
+        $pesan .= "<p><b>Email : ".$supervisor->email."</b></p>";
+        $pesan .= "<p><b>Username : ".$supervisor->username."</b></p>";
+
+        $data_email = [
+            'subject' => 'Data Diedit',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($supervisor->email)->send(new kirimEmail($data_email));   
 
         return redirect()->route('supervisor.index')->with(['success' => 'Data Berhasil Diedit']);
     }
@@ -99,6 +128,20 @@ class SupervisorController extends Controller
         if($request->lama == $supervisor->password){
             if($request->baru == $request->konfirmasi){
                 $supervisor->update(['password' => $request->baru]);
+
+                $pesan = "<p>Password untuk Sistem Manajemen Pengembangan Aplikasi sudah DIUBAH dengan rincian :</p>";
+                $pesan .= "<p><b>Nama : ".$supervisor->nama."</b></p>";
+                $pesan .= "<p><b>Email : ".$supervisor->email."</b></p>";
+                $pesan .= "<p><b>Username : ".$supervisor->username."</b></p>";
+                $pesan .= "<p><b>Password : ".$supervisor->password."</b></p>";
+        
+                $data_email = [
+                    'subject' => 'Ubah Password',
+                    'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+                    'isi' => $pesan
+                ];
+                Mail::to($supervisor->email)->send(new kirimEmail($data_email));
+
                 return redirect()->route('projek.indexbyidSupervisor', compact('id'))->with(['success' => 'Password berhasil diubah']);
             }else{
                 return redirect()->route('supervisor.indexPassword', compact('id'))->withErrors('Password baru dan konfirmasi berbeda')->withInput();
@@ -113,6 +156,19 @@ class SupervisorController extends Controller
         $passwordBaru = $supervisor->username;
         $supervisor->update(['password' => $passwordBaru]);
         
+        $pesan = "<p>Password untuk Sistem Manajemen Pengembangan Aplikasi sudah DIRESET dengan rincian :</p>";
+        $pesan .= "<p><b>Nama : ".$supervisor->nama."</b></p>";
+        $pesan .= "<p><b>Email : ".$supervisor->email."</b></p>";
+        $pesan .= "<p><b>Username : ".$supervisor->username."</b></p>";
+        $pesan .= "<p><b>Password : ".$supervisor->password."</b></p>";
+        $pesan = "<p>Silahkan melakukan login pada sistem</p>";
+
+        $data_email = [
+            'subject' => 'Reset Password',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($supervisor->email)->send(new kirimEmail($data_email));
         return redirect()->route('supervisor.index')->with(['success' => 'Password Berhasil Direset']);
     }
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\kirimEmail;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ClientController extends Controller
 {
@@ -40,6 +42,22 @@ class ClientController extends Controller
             'username' => $request->username,
             'password' => $request->password,
         ]);
+
+        $client = Client::where('nama','=',$request->nama)->get();
+
+        $pesan = "<p>Akun untuk Sistem Manajemen Pengembangan Aplikasi sudah dibuat dengan rincian :</p>";
+        $pesan .= "<p><b>Nama : ".$client->nama."</b></p>";
+        $pesan .= "<p><b>Email : ".$client->email."</b></p>";
+        $pesan .= "<p><b>Username : ".$client->username."</b></p>";
+        $pesan .= "<p><b>Password : ".$client->password."</b></p>";
+        $pesan = "<p>Silahkan melakukan login pada sistem</p>";
+
+        $data_email = [
+            'subject' => 'Akun Dibuat',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($client->email)->send(new kirimEmail($data_email));
             
         return redirect()->route('client.indexClient', compact('id'))->with(['success' => 'Data Berhasil Disimpan']);
     }
@@ -63,6 +81,18 @@ class ClientController extends Controller
             'email' => $request->email,
             'username' => $request->username])
         ;
+
+        $pesan = "<p>Data untuk Sistem Manajemen Pengembangan Aplikasi sudah diedit dengan rincian :</p>";
+        $pesan .= "<p><b>Nama : ".$client->nama."</b></p>";
+        $pesan .= "<p><b>Email : ".$client->email."</b></p>";
+        $pesan .= "<p><b>Username : ".$client->username."</b></p>";
+
+        $data_email = [
+            'subject' => 'Data Diedit',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($client->email)->send(new kirimEmail($data_email));
 
         return redirect()->route('client.indexClient', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
@@ -110,6 +140,20 @@ class ClientController extends Controller
         if($request->lama == $client->password){
             if($request->baru == $request->konfirmasi){
                 $client->update(['password' => $request->baru]);
+
+                $pesan = "<p>Password untuk Sistem Manajemen Pengembangan Aplikasi sudah DIUBAH dengan rincian :</p>";
+                $pesan .= "<p><b>Nama : ".$client->nama."</b></p>";
+                $pesan .= "<p><b>Email : ".$client->email."</b></p>";
+                $pesan .= "<p><b>Username : ".$client->username."</b></p>";
+                $pesan .= "<p><b>Password : ".$client->password."</b></p>";
+        
+                $data_email = [
+                    'subject' => 'Ubah Password',
+                    'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+                    'isi' => $pesan
+                ];
+                Mail::to($client->email)->send(new kirimEmail($data_email));
+
                 return redirect()->route('projek.indexbyidClient', compact('id'))->with(['success' => 'Password berhasil diubah']);
             }else{
                 return redirect()->route('client.indexPassword', compact('id'))->withErrors('Password baru dan konfirmasi berbeda')->withInput();
@@ -133,6 +177,21 @@ class ClientController extends Controller
         $client = Client::where('id','=',$id)->first();
         $passwordBaru = $client->username;
         $client->update(['password' => $passwordBaru]);
+
+        $pesan = "<p>Password untuk Sistem Manajemen Pengembangan Aplikasi sudah DIRESET dengan rincian :</p>";
+        $pesan .= "<p><b>Nama : ".$client->nama."</b></p>";
+        $pesan .= "<p><b>Email : ".$client->email."</b></p>";
+        $pesan .= "<p><b>Username : ".$client->username."</b></p>";
+        $pesan .= "<p><b>Password : ".$client->password."</b></p>";
+        $pesan = "<p>Silahkan melakukan login pada sistem</p>";
+
+        $data_email = [
+            'subject' => 'Reset Password',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($client->email)->send(new kirimEmail($data_email));
+
         return redirect()->route('client.indexAdmin')->with(['success' => 'Password Berhasil Direset']);
     }
 

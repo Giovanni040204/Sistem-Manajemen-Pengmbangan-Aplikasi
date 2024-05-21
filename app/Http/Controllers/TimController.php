@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\kirimEmail;
 use App\Models\Tim;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class TimController extends Controller
 {
@@ -46,6 +48,21 @@ class TimController extends Controller
             'username' => $request->username,
             'password' => $request->password,
         ]);
+        $tim = Tim::where('nama','=',$request->nama)->get();
+
+        $pesan = "<p>Akun untuk Sistem Manajemen Pengembangan Aplikasi sudah dibuat dengan rincian :</p>";
+        $pesan .= "<p><b>Nama : ".$tim->nama."</b></p>";
+        $pesan .= "<p><b>Email : ".$tim->email."</b></p>";
+        $pesan .= "<p><b>Username : ".$tim->username."</b></p>";
+        $pesan .= "<p><b>Password : ".$tim->password."</b></p>";
+        $pesan = "<p>Silahkan melakukan login pada sistem</p>";
+
+        $data_email = [
+            'subject' => 'Akun Dibuat',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($tim->email)->send(new kirimEmail($data_email));        
             
         return redirect()->route('tim.indexTim', compact('id'))->with(['success' => 'Data Berhasil Disimpan']);
     }     
@@ -69,6 +86,18 @@ class TimController extends Controller
             'email' => $request->email,
             'username' => $request->username])
         ;
+
+        $pesan = "<p>Data untuk Sistem Manajemen Pengembangan Aplikasi sudah diedit dengan rincian :</p>";
+        $pesan .= "<p><b>Nama : ".$tim->nama."</b></p>";
+        $pesan .= "<p><b>Email : ".$tim->email."</b></p>";
+        $pesan .= "<p><b>Username : ".$tim->username."</b></p>";
+
+        $data_email = [
+            'subject' => 'Data Diedit',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($tim->email)->send(new kirimEmail($data_email));        
 
         return redirect()->route('tim.indexTim', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
@@ -106,6 +135,19 @@ class TimController extends Controller
         if($request->lama == $tim->password){
             if($request->baru == $request->konfirmasi){
                 $tim->update(['password' => $request->baru]);
+
+                $pesan = "<p>Password untuk Sistem Manajemen Pengembangan Aplikasi sudah DIUBAH dengan rincian :</p>";
+                $pesan .= "<p><b>Nama : ".$tim->nama."</b></p>";
+                $pesan .= "<p><b>Email : ".$tim->email."</b></p>";
+                $pesan .= "<p><b>Username : ".$tim->username."</b></p>";
+                $pesan .= "<p><b>Password : ".$tim->password."</b></p>";
+        
+                $data_email = [
+                    'subject' => 'Ubah Password',
+                    'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+                    'isi' => $pesan
+                ];
+                Mail::to($tim->email)->send(new kirimEmail($data_email));
                 return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'Password berhasil diubah']);
             }else{
                 return redirect()->route('tim.indexPassword', compact('id'))->withErrors('Password baru dan konfirmasi berbeda')->withInput();
@@ -128,6 +170,20 @@ class TimController extends Controller
         $tim = Tim::where('id','=',$id)->first();
         $passwordBaru = $tim->username;
         $tim->update(['password' => $passwordBaru]);
+
+        $pesan = "<p>Password untuk Sistem Manajemen Pengembangan Aplikasi sudah DIRESET dengan rincian :</p>";
+        $pesan .= "<p><b>Nama : ".$tim->nama."</b></p>";
+        $pesan .= "<p><b>Email : ".$tim->email."</b></p>";
+        $pesan .= "<p><b>Username : ".$tim->username."</b></p>";
+        $pesan .= "<p><b>Password : ".$tim->password."</b></p>";
+        $pesan = "<p>Silahkan melakukan login pada sistem</p>";
+
+        $data_email = [
+            'subject' => 'Reset Password',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($tim->email)->send(new kirimEmail($data_email));
         return redirect()->route('tim.indexAdmin')->with(['success' => 'Password Berhasil Direset']);
     }
 

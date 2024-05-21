@@ -118,11 +118,13 @@ class ProjekController extends Controller
         $pesan .= "<p>Menunggu konfirmasi dari tim produksi pada sistem!!</p>";
 
         $data_email = [
-            'subject' => 'Sistem Manajemen Pengembangan Aplikasi',
-            'sender_name' => 'SMPA@gmail.com',
+            'subject' => 'Konfirmasi Projek',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
             'isi' => $pesan
         ];
+        Mail::to($projekBaru->parentSupervisor->email)->send(new kirimEmail($data_email));
         Mail::to($projekBaru->parentTim->email)->send(new kirimEmail($data_email));
+        Mail::to($projekBaru->parentClient->email)->send(new kirimEmail($data_email));
 
         return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Data Berhasil Disimpan']);
     }
@@ -211,6 +213,22 @@ class ProjekController extends Controller
                     'isi' => 'PROJEK TELAH SELESAI'
                 ]);
 
+                $pesan = "<p>Status projek sudah Selesai Dikerjakan oleh Tim Produksi dengan rincian :</p>";
+                $pesan .= "<p><b>Judul : ".$projekSekarang->judul."</b></p>";
+                $pesan .= "<p><b>Deskripsi : ".$projekSekarang->deskripsi."</b></p>";
+                $pesan .= "<p><b>Supervisor : ".$projekSekarang->parentSupervisor->nama."</b></p>";
+                $pesan .= "<p><b>Tim : ".$projekSekarang->parentTim->nama."</b></p>";
+                $pesan .= "<p><b>Client : ".$projekSekarang->parentClient->nama."</b></p>";
+
+                $data_email = [
+                    'subject' => 'Projek Selesai',
+                    'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+                    'isi' => $pesan
+                ];
+                Mail::to($projekSekarang->parentSupervisor->email)->send(new kirimEmail($data_email));   
+                Mail::to($projekSekarang->parentTim->email)->send(new kirimEmail($data_email));   
+                Mail::to($projekSekarang->parentClient->email)->send(new kirimEmail($data_email)); 
+
                 return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'PROJEK TELAH SELESAI']);
             }
         }
@@ -235,6 +253,21 @@ class ProjekController extends Controller
             'tanggal' => $sekarang,
             'isi' => 'Persentase projek sudah ' . $projekSekarang->persen . '% pada tahap ' . $projekSekarang->status
         ]);
+
+        $pesan = "<p>Status projek sudah diubah di sistem oleh Tim Produksi dengan rincian :</p>";
+        $pesan .= "<p><b>Judul : ".$projekSekarang->judul."</b></p>";
+        $pesan .= "<p><b>Deskripsi : ".$projekSekarang->deskripsi."</b></p>";
+        $pesan .= "<p><b>Status : ".$projekSekarang->status."</b></p>";
+        $pesan .= "<p><b>Progres : ".$projekSekarang->persen."%</b></p>";
+
+        $data_email = [
+            'subject' => 'Progres Projek',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($projekSekarang->parentSupervisor->email)->send(new kirimEmail($data_email));   
+        Mail::to($projekSekarang->parentTim->email)->send(new kirimEmail($data_email));   
+        Mail::to($projekSekarang->parentClient->email)->send(new kirimEmail($data_email));        
 
         return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
@@ -268,6 +301,22 @@ class ProjekController extends Controller
             'tanggal' => $sekarang,
             'isi' => 'Projek dibatalkan oleh ' . $projekSekarang->parentSupervisor->nama
         ]);
+
+        $pesan = "<p>Sebuah projek DIBATALKAN oleh Supervisor dengan rincian :</p>";
+        $pesan .= "<p><b>Judul : ".$projekSekarang->judul."</b></p>";
+        $pesan .= "<p><b>Deskripsi : ".$projekSekarang->deskripsi."</b></p>";
+        $pesan .= "<p><b>Supervisor : ".$projekSekarang->parentSupervisor->nama."</b></p>";
+        $pesan .= "<p><b>Tim : ".$projekSekarang->parentTim->nama."</b></p>";
+        $pesan .= "<p><b>Client : ".$projekSekarang->parentClient->nama."</b></p>";
+
+        $data_email = [
+            'subject' => 'Projek Dibatalkan',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($projekSekarang->parentSupervisor->email)->send(new kirimEmail($data_email));
+        Mail::to($projekSekarang->parentTim->email)->send(new kirimEmail($data_email));
+        Mail::to($projekSekarang->parentClient->email)->send(new kirimEmail($data_email));
 
         return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Projek Berhasil DIbatalkan']);
     } 
@@ -343,6 +392,23 @@ class ProjekController extends Controller
             'tanggal' => $sekarang,
             'isi' => 'Projek sudah dikonfirmasi oleh ' . $projek->parentTim->nama
         ]);
+
+        $pesan = "<p>Sebuah projek SUDAH DIKONFIRMASI oleh Tim Produksi dengan rincian :</p>";
+        $pesan .= "<p><b>Judul : ".$projek->judul."</b></p>";
+        $pesan .= "<p><b>Deskripsi : ".$projek->deskripsi."</b></p>";
+        $pesan .= "<p><b>Supervisor : ".$projek->parentSupervisor->nama."</b></p>";
+        $pesan .= "<p><b>Tim : ".$projek->parentTim->nama."</b></p>";
+        $pesan .= "<p><b>Client : ".$projek->parentClient->nama."</b></p>";
+        $pesan .= "<p>Mohon ditunggu email progres dari projek ini</p>";
+
+        $data_email = [
+            'subject' => 'Konfirmasi Projek',
+            'sender_name' => 'sistemmanajemenpengembanganapl@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($projek->parentSupervisor->email)->send(new kirimEmail($data_email));
+        Mail::to($projek->parentTim->email)->send(new kirimEmail($data_email));
+        Mail::to($projek->parentClient->email)->send(new kirimEmail($data_email));
 
         return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'Projek berhasil dikonfirmasi']);
     }

@@ -7,7 +7,6 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">Projek</h1>
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
@@ -16,14 +15,9 @@
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -60,54 +54,87 @@
                                             <td class="text-center">{{$item->judul }}</td>
                                             <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
-                                            <?php 
-                                                if($item->persen == -1){
-                                            ?>
-                                                    <td class="text-center">-</td>
-                                                    <td class="text-center">
-                                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.konfirmasiProjek', [$id, $item->id]) }}">
-                                                            <button type="submit" class="btn btn-sm btn-danger">KONFIRMASI</button>
-                                                        </form>
-                                                    </td>
-                                                    <td class="text-center">-</td>
-                                            <?php
-                                                }else{ 
-                                            ?>
-                                                    <td class="text-center">{{$item->persen }}%</td>
-                                                    <td class="text-center">
-                                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('projek.destroy', $item->id) }}" method="POST">
-                                                            <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                                            <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            {{-- <button type="submit" class="btn btn-sm btn-danger">HAPUS</button> --}}
-                                                        </form>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a href="{{ route('chat.indexTim', [$item->parentClient->id, $item->parentTim->id, $item->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
-                                                    </td>
-                                            <?php 
-                                                }
-                                            ?>
-                                            </tr>
-                                            @empty
-                                            <div class="alert alert-danger">
-                                                Data Projek Tidak Tersedia
-                                            </div>
-                                            @endforelse
-                                        </tbody>
-                                    </table>                                 
-                                </div>
+                                            @if($item->persen == -1)
+                                                <td class="text-center">-</td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-danger" onclick="confirmProjek('{{ route('projek.konfirmasiProjek', [$id, $item->id]) }}')">KONFIRMASI</button>
+                                                </td>
+                                                <td class="text-center">-</td>
+                                            @else
+                                                <td class="text-center">{{$item->persen }}%</td>
+                                                <td class="text-center">
+                                                    <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                    <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
+                                                    <button class="btn btn-sm btn-danger" onclick="deleteProjek('{{ route('projek.destroy', $item->id) }}')">HAPUS</button>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="{{ route('chat.indexTim', [$item->parentClient->id, $item->parentTim->id, $item->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                        @empty
+                                        <div class="alert alert-danger">
+                                            Data Projek Tidak Tersedia
+                                        </div>
+                                        @endforelse
+                                    </tbody>
+                                </table>                                 
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.col-md-6 -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
         </div>
-        
-    @endsection
+    </div>
+
+    <!-- Include SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmProjek(url) {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Projek ini akan dikonfirmasi!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, konfirmasi!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            })
+        }
+
+        function deleteProjek(url) {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Projek ini akan dihapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var form = document.createElement('form');
+                    form.action = url;
+                    form.method = 'POST';
+                    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    var inputCsrf = document.createElement('input');
+                    inputCsrf.type = 'hidden';
+                    inputCsrf.name = '_token';
+                    inputCsrf.value = csrfToken;
+                    form.appendChild(inputCsrf);
+                    var inputMethod = document.createElement('input');
+                    inputMethod.type = 'hidden';
+                    inputMethod.name = '_method';
+                    inputMethod.value = 'DELETE';
+                    form.appendChild(inputMethod);
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            })
+        }
+    </script>
+@endsection

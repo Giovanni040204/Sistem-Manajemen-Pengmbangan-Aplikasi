@@ -39,7 +39,7 @@ class kirimEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Kirim Email',
+            subject: $this->data_email['subject'],
         );
     }
 

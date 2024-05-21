@@ -50,6 +50,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">Nama Tim</th>
+                                            <th class="text-center">Email</th>
                                             <th class="text-center">Username</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
@@ -58,6 +59,7 @@
                                         @forelse ($tim as $item)
                                         <tr>
                                             <td class="text-center">{{$item->nama }}</td>
+                                            <td class="text-center">{{$item->email }}</td>
                                             <td class="text-center">{{$item->username }}</td>
                                             <td class="text-center">
                                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('tim.destroyTim', [$item->id, $id]) }}" method="GET">

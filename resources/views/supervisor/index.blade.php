@@ -45,6 +45,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">Nama Supervisor</th>
+                                            <th class="text-center">Email</th>
                                             <th class="text-center">Username</th>
                                             <th class="text-center">Aksi</th>
                                             <th class="text-center">Password</th>
@@ -54,6 +55,7 @@
                                         @forelse ($supervisor as $item)
                                         <tr>
                                             <td class="text-center">{{ $item->nama }}</td>
+                                            <td class="text-center">{{ $item->email }}</td>
                                             <td class="text-center">{{ $item->username }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('supervisor.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>

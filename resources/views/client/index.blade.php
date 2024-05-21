@@ -50,8 +50,8 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">Nama Client</th>
+                                            <th class="text-center">Email</th>
                                             <th class="text-center">Username</th>
-                                            {{-- <th class="text-center">Password</th> --}}
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -59,8 +59,8 @@
                                         @forelse ($client as $item)
                                         <tr>
                                             <td class="text-center">{{$item->nama }}</td>
+                                            <td class="text-center">{{$item->email }}</td>
                                             <td class="text-center">{{$item->username }}</td>
-                                            {{-- <td class="text-center">{{$item->password }}</td> --}}
                                             <td class="text-center">
                                                 <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('client.destroyClient', [$item->id, $id]) }}" method="GET">
                                                     <a href="{{ route('client.editClient', [$item->id,  $id]) }}" class="btn btn-sm btn-primary">EDIT</a>
