@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\kirimEmail;
 use App\Models\AktivitasProjek;
 use App\Models\Client;
 use App\Models\ProgresProjek;
@@ -11,6 +12,7 @@ use App\Models\Tim;
 use Carbon\Carbon;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ProjekController extends Controller
 {
@@ -106,6 +108,21 @@ class ProjekController extends Controller
             'tanggal' => $sekarang,
             'isi' => 'Projek dibuat oleh ' . $projekBaru->parentSupervisor->nama . ' dan menunggu konfirmasi dari ' . $projekBaru->parentTim->nama
         ]);
+
+        $pesan = "<p>Sebuah projek sudah ditambahkan ke sistem oleh Supervisor dengan rincian :</p>";
+        $pesan .= "<p><b>Judul : ".$projekBaru->judul."</b></p>";
+        $pesan .= "<p><b>Deskripsi : ".$projekBaru->deskripsi."</b></p>";
+        $pesan .= "<p><b>Supervisor : ".$projekBaru->parentSupervisor->nama."</b></p>";
+        $pesan .= "<p><b>Tim : ".$projekBaru->parentTim->nama."</b></p>";
+        $pesan .= "<p><b>Client : ".$projekBaru->parentClient->nama."</b></p>";
+        $pesan .= "<p>Menunggu konfirmasi dari tim produksi pada sistem!!</p>";
+
+        $data_email = [
+            'subject' => 'Sistem Manajemen Pengembangan Aplikasi',
+            'sender_name' => 'SMPA@gmail.com',
+            'isi' => $pesan
+        ];
+        Mail::to($projekBaru->parentTim->email)->send(new kirimEmail($data_email));
 
         return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Data Berhasil Disimpan']);
     }

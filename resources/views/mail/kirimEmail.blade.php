@@ -1,1 +1,1 @@
-{{ $data_email['isi'] }}
+{!! $data_email['isi'] !!}

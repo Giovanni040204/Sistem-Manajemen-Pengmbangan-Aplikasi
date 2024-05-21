@@ -7,7 +7,6 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">Tambah Supervisor</h1>
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
@@ -16,14 +15,9 @@
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -37,6 +31,15 @@
                                         <label class="font-weight-bold">Nama Supervisor</label>
                                         <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" placeholder="Masukkan Nama Supervisor">
                                         @error('nama')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label class="font-weight-bold">Email Supervisor</label>
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Masukkan Email Supervisor">
+                                        @error('email')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

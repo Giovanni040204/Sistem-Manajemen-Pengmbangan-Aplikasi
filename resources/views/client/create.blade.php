@@ -43,6 +43,15 @@
                                         @enderror
                                     </div>
                                     <div class="form-group col-md-12">
+                                        <label class="font-weight-bold">Email Supervisor</label>
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Masukkan Email Client">
+                                        @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group col-md-12">
                                         <label class="font-weight-bold">Username Client</label>
                                         <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" placeholder="Masukkan Username Client">
                                         @error('username')

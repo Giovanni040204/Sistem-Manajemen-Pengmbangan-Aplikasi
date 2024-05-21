@@ -7,14 +7,6 @@ use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    // public function index()
-    // {
-    //     //get posts
-    //     $client = Client::get();
-
-    //     //render view with posts
-    //     return view('client.index', compact('client'));
-    // }
 
     public function indexClient(Request $request, $id){
         if($request->has('search')){
@@ -26,40 +18,17 @@ class ClientController extends Controller
         return view('client.index', compact('client','id'))->with('id', $id);;
     }
 
-    // public function create()
-    // {
-    //     return view('client.create');
-    // }
-
     public function createClient($id)
     {
         return view('client.create', compact('id'));
     }
-
-    // public function store(Request $request)
-    // {
-    //     //Validasi Formulir
-    //     $this->validate($request, [
-    //         'nama' => 'required',
-    //         'username' => 'required',
-    //         'password' => 'required',            
-    //     ]);
-
-    //     //Fungsi Simpan Data ke dalam Database
-    //     Client::create([
-    //         'nama' => $request->nama,
-    //         'username' => $request->username,
-    //         'password' => $request->password,
-    //     ]);
-            
-    //     return redirect()->route('client.indexClient')->with(['success' => 'Data Berhasil Disimpan']);
-    // }
     
     public function storeClient(Request $request, $id)
     {
         //Validasi Formulir
         $this->validate($request, [
             'nama' => 'required',
+            'email' => 'required',
             'username' => 'required',
             'password' => 'required',            
         ]);
@@ -67,46 +36,33 @@ class ClientController extends Controller
         //Fungsi Simpan Data ke dalam Database
         Client::create([
             'nama' => $request->nama,
+            'email' => $request->email,
             'username' => $request->username,
             'password' => $request->password,
         ]);
             
         return redirect()->route('client.indexClient', compact('id'))->with(['success' => 'Data Berhasil Disimpan']);
-    } 
-
-    // public function edit($id){
-    //     $client = Client::whereId($id)->first();
-        
-    //     return view('client.edit')->with('client', $client);
-    // }
+    }
     
     public function editClient($idc, $id){
         $client = Client::whereId($idc)->first();
         
         return view('client.edit', compact('id'))->with('client', $client);
-    } 
-
-    // public function update(Request $request, $id){
-    //     $this->validate($request, [
-    //         'nama' => 'required',
-    //         'username' => 'required',
-    //         'password' => 'required',            
-    //     ]);        
-        
-    //     $client = Client::whereId($id)->first();
-    //     $client->update($request->all());
-
-    //     return redirect()->route('client.index')->with(['success' => 'Data Berhasil Diedit']);
-    // }
+    }
 
     public function updateClient(Request $request, $idc, $id){
         $this->validate($request, [
             'nama' => 'required',
+            'email' => 'required',
             'username' => 'required',           
         ]);        
         
         $client = Client::whereId($idc)->first();
-        $client->update(['nama' => $request->nama,'username' => $request->username]);
+        $client->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'username' => $request->username])
+        ;
 
         return redirect()->route('client.indexClient', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
@@ -139,12 +95,6 @@ class ClientController extends Controller
     public function ubahPassword(Request $request, $id)
     {
         $client = Client::where('id','=',$id)->first();
-        // //render view with posts
-        // $this->validate($request, [
-        //     'lama' => 'required',
-        //     'baru' => 'required',
-        //     'konfirmasi' => 'required',            
-        // ]);
 
         $request->validate([
             'lama' => 'required',

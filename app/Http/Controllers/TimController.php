@@ -9,10 +9,8 @@ class TimController extends Controller
 {
     public function index()
     {
-        //get posts
         $tim = Tim::get();
 
-        //render view with posts
         return view('tim.index', compact('tim'));
     }
 
@@ -36,6 +34,7 @@ class TimController extends Controller
         //Validasi Formulir
         $this->validate($request, [
             'nama' => 'required',
+            'email' => 'required',
             'username' => 'required',
             'password' => 'required',            
         ]);
@@ -43,6 +42,7 @@ class TimController extends Controller
         //Fungsi Simpan Data ke dalam Database
         Tim::create([
             'nama' => $request->nama,
+            'email' => $request->email,
             'username' => $request->username,
             'password' => $request->password,
         ]);
@@ -59,11 +59,16 @@ class TimController extends Controller
     public function updateTim(Request $request, $idc, $id){
         $this->validate($request, [
             'nama' => 'required',
+            'email' => 'required',
             'username' => 'required',          
         ]);        
         
         $tim = Tim::whereId($idc)->first();
-        $tim->update(['nama' => $request->nama,'username' => $request->username]);
+        $tim->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'username' => $request->username])
+        ;
 
         return redirect()->route('tim.indexTim', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
@@ -87,19 +92,12 @@ class TimController extends Controller
     public function ubahPassword(Request $request, $id)
     {
         $tim = Tim::where('id','=',$id)->first();
-        // //render view with posts
-        // $this->validate($request, [
-        //     'lama' => 'required',
-        //     'baru' => 'required',
-        //     'konfirmasi' => 'required',            
-        // ]);
 
         $request->validate([
             'lama' => 'required',
             'baru' => 'required',
             'konfirmasi' => 'required',  
         ],[
-            // 'role.required'=>'Role wajib diisi',
             'lama.required'=>'Tidak boleh kosong',
             'baru.required'=>'Tidak boleh kosong',
             'konfirmasi.required'=>'Tidak boleh kosong',

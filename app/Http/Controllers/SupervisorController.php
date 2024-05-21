@@ -14,8 +14,7 @@ class SupervisorController extends Controller
         }else{
             $supervisor = Supervisor::get();
         }
-        
-        //render view with posts
+
         return view('supervisor.index', compact('supervisor'));
     }
 
@@ -29,13 +28,14 @@ class SupervisorController extends Controller
         //Validasi Formulir
         $this->validate($request, [
             'nama' => 'required',
+            'email' => 'required',
             'username' => 'required',
             'password' => 'required',            
         ]);
 
-        //Fungsi Simpan Data ke dalam Database
         Supervisor::create([
             'nama' => $request->nama,
+            'email' => $request->email,
             'username' => $request->username,
             'password' => $request->password,
         ]);
@@ -52,11 +52,16 @@ class SupervisorController extends Controller
     public function update(Request $request, $id){
         $this->validate($request, [
             'nama' => 'required',
+            'email' => 'required',
             'username' => 'required',           
         ]);        
         
         $supervisor = Supervisor::whereId($id)->first();
-        $supervisor->update(['nama' => $request->nama,'username' => $request->username]);
+        $supervisor->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'username' => $request->username])
+        ;
 
         return redirect()->route('supervisor.index')->with(['success' => 'Data Berhasil Diedit']);
     }
@@ -73,26 +78,19 @@ class SupervisorController extends Controller
     public function indexPassword($id)
     {
         $supervisor = Supervisor::where('id','=',$id)->get();
-        //render view with posts
+
         return view('supervisor.indexPassword', compact('supervisor', 'id'));
     }
 
     public function ubahPassword(Request $request, $id)
     {
         $supervisor = Supervisor::where('id','=',$id)->first();
-        // //render view with posts
-        // $this->validate($request, [
-        //     'lama' => 'required',
-        //     'baru' => 'required',
-        //     'konfirmasi' => 'required',            
-        // ]);
 
         $request->validate([
             'lama' => 'required',
             'baru' => 'required',
             'konfirmasi' => 'required',  
         ],[
-            // 'role.required'=>'Role wajib diisi',
             'lama.required'=>'Tidak boleh kosong',
             'baru.required'=>'Tidak boleh kosong',
             'konfirmasi.required'=>'Tidak boleh kosong',
