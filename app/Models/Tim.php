@@ -18,6 +18,7 @@ class Tim extends Model
     protected $fillable = [
         'id',
         'nama',
+        'email',
         'username',
         'password',
     ]; 
