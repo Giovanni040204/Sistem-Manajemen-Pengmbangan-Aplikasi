@@ -7,7 +7,6 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">Jadwal</h1>
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
@@ -16,29 +15,12 @@
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                {{-- <div class="col-sm-6">
-                    <ol class="float-sm-right">
-                        <form action="{{ route('projek.indexbyidSupervisor', $id) }}" class="form-inline" method="GET">
-                            <input type="search" name="search" class="form-control float-right" placeholder="Masukan Judul Projek">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </ol>
-                </div> --}}
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
@@ -57,43 +39,67 @@
                                     <tbody>
                                         @forelse ($jadwal as $item)
                                         <tr>
-                                            <td class="text-center">{{$item->parentProjek->judul }}</td>
-                                            <td class="text-center">{{$item->topik }}</td>
-                                            <td class="text-center">{{$item->lokasi }}</td>
-                                            <td class="text-center">{{$item->tanggal }}</td>
-                                            <td class="text-center">{{$item->waktu }}</td>
-                                            <?php
-                                                if($item->status == 'Belum Disetujui'){
-                                            ?>
+                                            <td class="text-center">{{ $item->parentProjek->judul }}</td>
+                                            <td class="text-center">{{ $item->topik }}</td>
+                                            <td class="text-center">{{ $item->lokasi }}</td>
+                                            <td class="text-center">{{ $item->tanggal }}</td>
+                                            <td class="text-center">{{ $item->waktu }}</td>
+                                            @if($item->status == 'Belum Disetujui')
                                                 <td class="text-center">
-                                                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('jadwal.updateJadwalByTim', [$item->id,  $id]) }}" method="GET">
-                                                        <button type="submit" class="btn btn-sm btn-danger">KONFIRMASI</button>
-                                                    </form>
+                                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmUpdateModal" data-id="{{ $item->id }}">Konfirmasi</button>
                                                 </td>
-                                            <?php
-                                                }else{
-                                            ?>
+                                            @else
                                                 <td class="text-center">Disetujui</td>
-                                            <?php
-                                                }
-                                            ?>
+                                            @endif
                                         </tr>
                                         @empty
-                                        <div class="alert alert-danger">
-                                            Data Jadwal Tidak Tersedia
-                                        </div>
+                                        <tr>
+                                            <td colspan="6" class="text-center alert alert-danger">
+                                                Data Jadwal Tidak Tersedia
+                                            </td>
+                                        </tr>
                                         @endforelse
                                     </tbody>
                                 </table>                                 
                             </div>
                         </div>
                     </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.col-md-6 -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
         </div>
-    @endsection
+    </div>
+
+    <!-- Modal Konfirmasi Penghapusan -->
+    <div class="modal fade" id="confirmUpdateModal" tabindex="-1" role="dialog" aria-labelledby="confirmUpdateModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmUpdateModalLabel">Konfirmasi Perubahan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin mengkonfirmasi jadwal ini?
+                </div>
+                <div class="modal-footer">
+                    <form id="updateForm" action="" method="GET">
+                        @csrf
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Konfirmasi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script untuk Mengatur Aksi pada Modal -->
+    <script>
+        $('#confirmUpdateModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button yang memicu modal
+            var id = button.data('id'); // Ambil data-id dari button
+            var action = '{{ route('jadwal.updateJadwalByTim', [$id, ':id']) }}'.replace(':id', id);
+            $('#updateForm').attr('action', action);
+        });
+    </script>
+@endsection
