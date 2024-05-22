@@ -52,6 +52,7 @@
                                             <th class="text-center">Nama Tim</th>
                                             <th class="text-center">Nama Client</th>
                                             <th class="text-center">Status</th>
+                                            <th class="text-center">Evaluasi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,6 +64,9 @@
                                             <td class="text-center">{{$item->parentTim->nama }}</td>
                                             <td class="text-center">{{$item->parentClient->nama }}</td>
                                             <td class="text-center">{{$item->status }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('evaluasi.indexAdmin', [$item->id]) }}" class="btn btn-sm btn-primary">EVALUASI</a>
+                                            </td>
                                         </tr>
                                             @empty
                                             <div class="alert alert-danger">

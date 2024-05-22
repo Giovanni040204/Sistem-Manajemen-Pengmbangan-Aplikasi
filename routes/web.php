@@ -116,3 +116,10 @@ Route::get('/tampilan/client/{id}', '\App\Http\Controllers\ClientController@tamp
 Route::get('/tampilan/tim/{id}', '\App\Http\Controllers\TimController@tampilanTim')->name('tampilanTim');
 
 Route::get('/projek/konfirmasi/{id}/{idp}', '\App\Http\Controllers\ProjekController@konfirmasiProjek')->name('projek.konfirmasiProjek');
+
+Route::get('/evaluasi/index/client/{id}/{idp}', '\App\Http\Controllers\EvaluasiController@indexClient')->name('evaluasi.indexClient');
+Route::get('/evaluasi/index/supervisor/{id}/{idp}', '\App\Http\Controllers\EvaluasiController@indexSupervisor')->name('evaluasi.indexSupervisor');
+Route::get('/evaluasi/index/tim/{id}/{idp}', '\App\Http\Controllers\EvaluasiController@indexTim')->name('evaluasi.indexTim');
+Route::get('/evaluasi/index/admin/{idp}', '\App\Http\Controllers\EvaluasiController@indexAdmin')->name('evaluasi.indexAdmin');
+Route::get('/evaluasi/create/{id}/{idp}', '\App\Http\Controllers\EvaluasiController@create')->name('evaluasi.create');
+Route::get('/evaluasi/store/{id}/{idp}', '\App\Http\Controllers\EvaluasiController@store')->name('evaluasi.store');
