@@ -84,6 +84,8 @@ class ProjekController extends Controller
             'deskripsi' => 'required',
             'id_client' => 'required',
             'id_tim' => 'required',
+            'tanggal_mulai' => 'required',
+            'tanggal_selesai' => 'required',
         ]);
 
         //Fungsi Simpan Data ke dalam Database
@@ -94,7 +96,9 @@ class ProjekController extends Controller
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
             'status' => 'Belum Konfirmasi',
-            'persen' => -1
+            'persen' => -1,
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_selesai' => $request->tanggal_selesai
         ]);
 
         $projekBaru = Projek::where('judul','=',$request->judul)->first();

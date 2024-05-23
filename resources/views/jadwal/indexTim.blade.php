@@ -29,10 +29,9 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">Judul Projek</th>
-                                            <th class="text-center">Topik Yang Dibahas</th>
-                                            <th class="text-center">Lokasi</th>
-                                            <th class="text-center">Tanggal</th>
-                                            <th class="text-center">Waktu</th>
+                                            <th class="text-center">Hari</th>
+                                            <th class="text-center">Waktu Mulai</th>
+                                            <th class="text-center">Waktu Selesai</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -40,18 +39,41 @@
                                         @forelse ($jadwal as $item)
                                         <tr>
                                             <td class="text-center">{{ $item->parentProjek->judul }}</td>
-                                            <td class="text-center">{{ $item->topik }}</td>
-                                            <td class="text-center">{{ $item->lokasi }}</td>
-                                            <td class="text-center">{{ $item->tanggal }}</td>
-                                            <td class="text-center">{{ $item->waktu }}</td>
+                                            <td class="text-center">{{ $item->hari }}</td>
+                                            <td class="text-center">{{ $item->waktu_mulai }}</td>
+                                            <td class="text-center">{{ $item->waktu_selesai }}</td>
                                             @if($item->status == 'Belum Disetujui')
                                                 <td class="text-center">
-                                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmUpdateModal" data-id="{{ $item->id }}">Konfirmasi</button>
+                                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmUpdateModal{{ $item->id }}">Konfirmasi</button>
                                                 </td>
                                             @else
                                                 <td class="text-center">Disetujui</td>
                                             @endif
                                         </tr>
+
+                                        <!-- Modal Konfirmasi Penghapusan -->
+                                        <div class="modal fade" id="confirmUpdateModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmUpdateModalLabel{{ $item->id }}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmUpdateModalLabel{{ $item->id }}">Konfirmasi Perubahan</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Apakah Anda yakin ingin mengkonfirmasi jadwal ini?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                        <form action="{{ route('jadwal.updateJadwalByTim', [$item->id, $id]) }}" method="GET" class="d-inline">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger">Konfirmasi</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @empty
                                         <tr>
                                             <td colspan="6" class="text-center alert alert-danger">
@@ -68,38 +90,36 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal Konfirmasi Penghapusan -->
-    <div class="modal fade" id="confirmUpdateModal" tabindex="-1" role="dialog" aria-labelledby="confirmUpdateModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmUpdateModalLabel">Konfirmasi Perubahan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin mengkonfirmasi jadwal ini?
-                </div>
-                <div class="modal-footer">
-                    <form id="updateForm" action="" method="GET">
-                        @csrf
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-danger">Konfirmasi</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Script untuk Mengatur Aksi pada Modal -->
-    <script>
-        $('#confirmUpdateModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); // Button yang memicu modal
-            var id = button.data('id'); // Ambil data-id dari button
-            var action = '{{ route('jadwal.updateJadwalByTim', [$id, ':id']) }}'.replace(':id', id);
-            $('#updateForm').attr('action', action);
-        });
-    </script>
+    <style>
+        .modal-content {
+            border-radius: 10px;
+        }
+        .modal-header {
+            background-color: #f8d7da;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .modal-footer {
+            border-top: none;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
 @endsection

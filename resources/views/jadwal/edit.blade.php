@@ -57,36 +57,41 @@
                                         @enderror
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="font-weight-bold">Topik</label>
-                                        <input type="text" class="form-control @error('topik') is-invalid @enderror" name="topik" value="{{ $jadwal->topik }}" placeholder="Masukkan Topik">
-                                        @error('topik')
+                                        <label class="font-weight-bold">Hari</label>
+                                        <select class="form-control  @error('hari') is-invalid @enderror" name="hari" value="{{ $jadwal->id_projek }}">
+                                            @foreach ($hari as $item)
+                                            <?php
+                                                if($jadwal->hari == $item){
+                                                    ?>
+                                                        <option value="{{ $item }}" selected>{{ $item}}</option>
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                        <option value="{{ $item }}">{{ $item}}</option>
+                                                    <?php
+                                                }
+                                            ?>  
+                                            @endforeach
+                                        </select>
+                                        @error('hari')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="font-weight-bold">Lokasi</label>
-                                        <input type="text" class="form-control @error('lokasi') is-invalid @enderror" name="lokasi" value="{{ $jadwal->lokasi }}" placeholder="Masukkan Lokasi">
-                                        @error('topik')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="font-weight-bold">Tanggal</label>
-                                        <input type="date" class="form-control @error('tanggal') is-invalid @enderror" name="tanggal" value="{{ $jadwal->tanggal }}" placeholder="Masukan tanggal">
-                                            @error('tanggal')
+                                        <label class="font-weight-bold">Waktu Mulai</label>
+                                        <input type="time" class="form-control @error('waktu_mulai') is-invalid @enderror" name="waktu_mulai" value="{{ $jadwal->waktu_mulai }}" placeholder="Masukan Waktu">
+                                            @error('waktu_mulai')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                             @enderror
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label class="font-weight-bold">Waktu</label>
-                                        <input type="time" class="form-control @error('waktu') is-invalid @enderror" name="waktu" value="{{ $jadwal->waktu }}" placeholder="Masukan Waktu">
-                                            @error('waktu')
+                                        <label class="font-weight-bold">Waktu Selesai</label>
+                                        <input type="time" class="form-control @error('waktu_selesai') is-invalid @enderror" name="waktu_selesai" value="{{ $jadwal->waktu_selesai }}" placeholder="Masukan Waktu">
+                                            @error('waktu_selesai')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

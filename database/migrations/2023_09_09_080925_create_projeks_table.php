@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('deskripsi');
             $table->string('status');
             $table->integer('persen');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->timestamps();
         });
     }

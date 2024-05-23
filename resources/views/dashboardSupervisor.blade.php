@@ -115,6 +115,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('jadwalPertemuan.indexSupervisor', $id) }}" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>Jadwal Pertemuan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('tim.indexTim', $id) }}" class="nav-link">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>Daftar Tim</p>

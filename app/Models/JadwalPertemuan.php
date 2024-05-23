@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Jadwal extends Model
+class JadwalPertemuan extends Model
 {
     use HasFactory;
 
@@ -21,6 +21,7 @@ class Jadwal extends Model
         'id_tim',
         'id_projek',
         'hari',
+        'tanggal',
         'waktu_mulai',
         'waktu_selesai',
         'status'
@@ -31,4 +32,5 @@ class Jadwal extends Model
             'nama' => 'Tidak Ada',
         ]);
     }
+
 }

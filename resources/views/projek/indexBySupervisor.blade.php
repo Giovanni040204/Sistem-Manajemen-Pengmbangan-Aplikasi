@@ -46,6 +46,8 @@
                                             <th class="text-center">Deskripsi Projek</th>
                                             <th class="text-center">Status Projek</th>
                                             <th class="text-center">Presentasi Projek</th>
+                                            <th class="text-center">Tanggal Mulai</th>
+                                            <th class="text-center">Tanggal Selesai</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -57,9 +59,13 @@
                                             <td class="text-center">{{ $item->status }}</td>
                                             @if ($item->persen == -1)
                                                 <td class="text-center">-</td>
+                                                <td class="text-center">{{$item->tanggal_mulai }}</td>
+                                                <td class="text-center">{{$item->tanggal_selesai }}</td>
                                                 <td class="text-center">-</td>
                                             @else
                                                 <td class="text-center">{{ $item->persen }}%</td>
+                                                <td class="text-center">{{$item->tanggal_mulai }}</td>
+                                                <td class="text-center">{{$item->tanggal_selesai }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('progres.indexSupervisor', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
                                                     <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmModal{{ $item->id }}">

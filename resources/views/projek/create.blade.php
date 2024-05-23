@@ -79,6 +79,24 @@
                                         </div>
                                         @enderror
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="font-weight-bold">Tanggal Mulai Projek</label>
+                                        <input type="date" class="form-control @error('tanggal_mulai') is-invalid @enderror" name="tanggal_mulai" value="{{ old('tanggal_mulai') }}" placeholder="Masukan tanggal mulai">
+                                            @error('tanggal_mulai')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="font-weight-bold">Tanggal Selesai Projek</label>
+                                        <input type="date" class="form-control @error('tanggal_selesai') is-invalid @enderror" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}" placeholder="Masukan tanggal selesai">
+                                            @error('tanggal_selesai')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-md btn-primary">SIMPAN</button>
                                 <a href="{{ route('projek.indexbyidSupervisor', $supervisor->id) }}" class="btn btn-sm btn-warning" style="font-size : 18px;">CANCEL</a>

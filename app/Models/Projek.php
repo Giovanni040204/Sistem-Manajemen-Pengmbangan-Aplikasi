@@ -23,6 +23,8 @@ class Projek extends Model
         'deskripsi',
         'status',
         'persen',
+        'tanggal_mulai',
+        'tanggal_selesai',
     ];
 
     public function parentSupervisor(){

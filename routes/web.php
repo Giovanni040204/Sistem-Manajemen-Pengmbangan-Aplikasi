@@ -123,3 +123,9 @@ Route::get('/evaluasi/index/tim/{id}/{idp}', '\App\Http\Controllers\EvaluasiCont
 Route::get('/evaluasi/index/admin/{idp}', '\App\Http\Controllers\EvaluasiController@indexAdmin')->name('evaluasi.indexAdmin');
 Route::get('/evaluasi/create/{id}/{idp}', '\App\Http\Controllers\EvaluasiController@create')->name('evaluasi.create');
 Route::get('/evaluasi/store/{id}/{idp}', '\App\Http\Controllers\EvaluasiController@store')->name('evaluasi.store');
+
+Route::get('/jadwal/pertemuan/supervisor/{ids}', '\App\Http\Controllers\JadwalPertemuanController@indexSupervisor')->name('jadwalPertemuan.indexSupervisor');
+Route::get('/jadwal/pertemuan/tim/{idt}', '\App\Http\Controllers\JadwalPertemuanController@indexTim')->name('jadwalPertemuan.indexTim');
+Route::get('/jadwal/pertemuan/client/{idc}', '\App\Http\Controllers\JadwalPertemuanController@indexClient')->name('jadwalPertemuan.indexClient');
+Route::get('/jadwal/pertemuan/admin', '\App\Http\Controllers\JadwalPertemuanController@indexAdmin')->name('jadwalPertemuan.indexAdmin');
+Route::get('/jadwal/pertemuan/store/{ids}', '\App\Http\Controllers\JadwalPertemuanController@store')->name('jadwalPertemuan.store');

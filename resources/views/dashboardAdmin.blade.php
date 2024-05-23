@@ -108,6 +108,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('jadwalPertemuan.indexAdmin') }}" class="nav-link">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>Jadwal Pertemuan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ url('supervisor') }}" class="nav-link">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 <p>Daftar Supervisor</p>

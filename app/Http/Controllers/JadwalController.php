@@ -4,20 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
 use App\Models\Projek;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
     public function indexSupervisor($ids){
+        $jadwalBelumSetuju = Jadwal::where('id_supervisor','=',$ids)->where('Status','=','Belum Disetujui')->get();
+        $jadwalSetuju = Jadwal::where('id_supervisor','=',$ids)->where('Status','=','Disetujui')->get();
         $jadwal = Jadwal::where('id_supervisor','=',$ids)->get();
         $id = $ids;
+        // $cek=0;
 
-        return view('jadwal.indexSupervisor', compact('jadwal','id'));
+        // $today = Carbon::now();
+        // if($today->isSaturday()){
+        //     $cek=1;
+        // }else if($today->isSunday()){
+        //     $cek=1;
+        // }
+
+        return view('jadwal.indexSupervisor', compact('jadwal','jadwalBelumSetuju','jadwalSetuju','id'));
     }
 
     public function createJadwal($id){
         $projek = Projek::where('id_supervisor','=',$id)->where('persen','!=','101')->get();
-        return view('jadwal.create', compact('projek', 'id'));        
+        $hari = ['Senin','Selasa','Rabu','Kamis','Jumat'];
+        return view('jadwal.create', compact('projek','hari','id'));        
     }
 
     public function storeSupervisor(Request $request, $ids)
@@ -25,10 +37,9 @@ class JadwalController extends Controller
         //Validasi Formulir
         $this->validate($request, [
             'id_projek' => 'required',
-            'topik' => 'required',
-            'lokasi' => 'required',
-            'tanggal' => 'required',
-            'waktu' => 'required'        
+            'hari' => 'required',
+            'waktu_mulai' => 'required',
+            'waktu_selesai' => 'required'    
         ]);
 
         $projek = Projek::where('id','=',$request->id_projek)->first();
@@ -38,29 +49,28 @@ class JadwalController extends Controller
             'id_supervisor' => $ids,
             'id_tim' => $projek->id_tim,
             'id_projek' => $request->id_projek,
-            'topik' => $request->topik,
-            'lokasi' => $request->lokasi,
-            'tanggal' => $request->tanggal,
-            'waktu' => $request->waktu,
+            'hari' => $request->hari,
+            'waktu_mulai' => $request->waktu_mulai,
+            'waktu_selesai' => $request->waktu_selesai,
             'status' => 'Belum Disetujui'
         ]);
             
-        return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['success' => 'Pesan Terkirim']);
+        return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['success' => 'Jadwal Berhasil Ditambahkan']);
     } 
 
     public function editJadwal($idj, $id){
         $projek = Projek::where('id_supervisor','=',$id)->where('persen','!=','101')->get();
+        $hari = ['Senin','Selasa','Rabu','Kamis','Jumat'];
         $jadwal = Jadwal::whereId($idj)->first();
-        return view('jadwal.edit', compact('projek','id'))->with('jadwal', $jadwal);
+        return view('jadwal.edit', compact('projek','hari','id'))->with('jadwal', $jadwal);
     }
     
     public function updateJadwalBySupervisor(Request $request, $idj, $ids){
         $this->validate($request, [
             'id_projek' => 'required',
-            'topik' => 'required',
-            'lokasi' => 'required',
-            'tanggal' => 'required',
-            'waktu' => 'required'            
+            'hari' => 'required',
+            'waktu_mulai' => 'required',
+            'waktu_selesai' => 'required'             
         ]);
         
         $projek = Projek::where('id','=',$request->id_projek)->first();
@@ -69,10 +79,9 @@ class JadwalController extends Controller
         $jadwal->update([
             'id_tim' => $projek->id_tim,
             'id_projek' => $request->id_projek,
-            'topik' => $request->topik,
-            'lokasi' => $request->lokasi,
-            'tanggal' => $request->tanggal,
-            'waktu' => $request->waktu,
+            'hari' => $request->hari,
+            'waktu_mulai' => $request->waktu_mulai,
+            'waktu_selesai' => $request->waktu_selesai
         ]);
 
         return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['success' => 'Data Berhasil Diedit']);
