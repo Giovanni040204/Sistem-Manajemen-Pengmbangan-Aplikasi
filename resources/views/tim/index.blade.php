@@ -7,7 +7,6 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">Tim</h1>
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">
@@ -16,14 +15,9 @@
                         <li class="breadcrumb-item active">Index</li>
                     </ol>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -62,31 +56,49 @@
                                             <td class="text-center">{{$item->email }}</td>
                                             <td class="text-center">{{$item->username }}</td>
                                             <td class="text-center">
-                                                <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('tim.destroyTim', [$item->id, $id]) }}" method="GET">
-                                                    <a href="{{ route('tim.editTim', [$item->id, $id]) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                                                </form>
+                                                <a href="{{ route('tim.editTim', [$item->id, $id]) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                <!-- Tombol untuk memicu modal konfirmasi -->
+                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $item->id }}">
+                                                    HAPUS
+                                                </button>
                                             </td>
-                                            </tr>
-                                            @empty
-                                            <div class="alert alert-danger">
-                                                Data Tim Tidak Tersedia
+                                        </tr>
+                                        <!-- Modal Konfirmasi Penghapusan -->
+                                        <div class="modal fade" id="confirmDeleteModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel{{ $item->id }}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmDeleteModalLabel{{ $item->id }}">Konfirmasi Penghapusan</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Apakah Anda yakin ingin menghapus tim ini?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                        <form action="{{ route('tim.destroyTim', [$item->id, $id]) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            @endforelse
-                                        </tbody>
-                                    </table>                                 
-                                </div>
+                                        </div>
+                                        @empty
+                                        <div class="alert alert-danger">
+                                            Data Tim Tidak Tersedia
+                                        </div>
+                                        @endforelse
+                                    </tbody>
+                                </table>                                 
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.col-md-6 -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
         </div>
-    @endsection
+    </div>
+@endsection

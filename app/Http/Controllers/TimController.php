@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\kirimEmail;
+use App\Models\Projek;
 use App\Models\Tim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -48,7 +49,7 @@ class TimController extends Controller
             'username' => $request->username,
             'password' => $request->password,
         ]);
-        $tim = Tim::where('nama','=',$request->nama)->get();
+        $tim = Tim::where('nama','=',$request->nama)->first();
 
         $pesan = "<p>Akun untuk Sistem Manajemen Pengembangan Aplikasi sudah dibuat dengan rincian :</p>";
         $pesan .= "<p><b>Nama : ".$tim->nama."</b></p>";
@@ -102,11 +103,16 @@ class TimController extends Controller
         return redirect()->route('tim.indexTim', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
 
-    public function destroyTim($idc, $id)
+    public function destroyTim($idt, $id)
     {
-        $tim = Tim::whereId($idc)->first();
+        $projek =  Projek::where('id_tim', $idt)->get();
+        $cek = $projek->count();
 
-        Tim::find($idc)->delete();
+        if($cek!=0){
+            return redirect()->route('tim.indexTim', compact('id'))->with(['error' => 'Tim Masih Mempunyai Projek']);
+        }
+
+        Tim::find($idt)->delete();
 
         return redirect()->route('tim.indexTim', compact('id'))->with(['success' => 'Data Berhasil Dihapus']);
     }  

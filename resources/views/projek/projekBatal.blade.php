@@ -52,6 +52,7 @@
                                             <th class="text-center">Nama Tim</th>
                                             <th class="text-center">Nama Client</th>
                                             <th class="text-center">Status</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,7 +64,35 @@
                                             <td class="text-center">{{$item->parentTim->nama }}</td>
                                             <td class="text-center">{{$item->parentClient->nama }}</td>
                                             <td class="text-center">{{$item->status }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ route('progres.indexAdmin', $item->id) }}" class="btn btn-sm btn-primary">DETAIL</a>
+                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $item->id }}">HAPUS</button>
+                                            </td>
                                         </tr>
+                                            <!-- Modal Konfirmasi Penghapusan -->
+                                            <div class="modal fade" id="confirmDeleteModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel{{ $item->id }}" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="confirmDeleteModalLabel{{ $item->id }}">Konfirmasi Penghapusan</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Apakah Anda yakin ingin menghapus projek ini?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                            <form action="{{ route('projek.destroyBatal', $item->id) }}" method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             @empty
                                             <div class="alert alert-danger">
                                                 Projek Tidak Tersedia

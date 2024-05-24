@@ -41,10 +41,8 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">Judul Projek</th>
-                                            <th class="text-center">Deskripsi Projek</th>
                                             <th class="text-center">Status Projek</th>
                                             <th class="text-center">Presentasi Projek</th>
-                                            <th class="text-center">Tanggal Mulai</th>
                                             <th class="text-center">Tanggal Selesai</th>
                                             <th class="text-center">Aksi</th>
                                             <th class="text-center">Obrolan</th>
@@ -54,30 +52,50 @@
                                         @forelse ($projek as $item)
                                         <tr>
                                             <td class="text-center">{{$item->judul }}</td>
-                                            <td class="text-center">{{$item->deskripsi }}</td>
                                             <td class="text-center">{{$item->status }}</td>
                                             @if($item->persen == -1)
                                                 <td class="text-center">-</td>
-                                                <td class="text-center">{{$item->tanggal_mulai }}</td>
                                                 <td class="text-center">{{$item->tanggal_selesai }}</td>
                                                 <td class="text-center">
-                                                    <button class="btn btn-sm btn-danger" onclick="confirmProjek('{{ route('projek.konfirmasiProjek', [$id, $item->id]) }}')">KONFIRMASI</button>
+                                                    <!-- Tombol untuk memicu modal konfirmasi -->
+                                                    <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmProjekModal{{ $item->id }}">KONFIRMASI</button>
                                                 </td>
                                                 <td class="text-center">-</td>
                                             @else
                                                 <td class="text-center">{{$item->persen }}%</td>
-                                                <td class="text-center">{{$item->tanggal_mulai }}</td>
                                                 <td class="text-center">{{$item->tanggal_selesai }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('projek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                                                     <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
-                                                    <button class="btn btn-sm btn-danger" onclick="deleteProjek('{{ route('projek.destroy', $item->id) }}')">HAPUS</button>
                                                 </td>
                                                 <td class="text-center">
                                                     <a href="{{ route('chat.indexTim', [$item->parentClient->id, $item->parentTim->id, $item->id] )}}" class="btn btn-sm btn-primary">Pesan</a>
                                                 </td>
                                             @endif
                                         </tr>
+                                        <!-- Modal Konfirmasi Projek -->
+                                        <div class="modal fade" id="confirmProjekModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmProjekModalLabel{{ $item->id }}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmProjekModalLabel{{ $item->id }}">Konfirmasi Projek</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Apakah Anda yakin ingin mengonfirmasi projek ini?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                        <form action="{{ route('projek.konfirmasiProjek', [$id, $item->id]) }}" method="GET">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger">Konfirmasi</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @empty
                                         <div class="alert alert-danger">
                                             Data Projek Tidak Tersedia
@@ -92,55 +110,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Include SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function confirmProjek(url) {
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Projek ini akan dikonfirmasi!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, konfirmasi!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url;
-                }
-            })
-        }
-
-        function deleteProjek(url) {
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Projek ini akan dihapus!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var form = document.createElement('form');
-                    form.action = url;
-                    form.method = 'POST';
-                    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                    var inputCsrf = document.createElement('input');
-                    inputCsrf.type = 'hidden';
-                    inputCsrf.name = '_token';
-                    inputCsrf.value = csrfToken;
-                    form.appendChild(inputCsrf);
-                    var inputMethod = document.createElement('input');
-                    inputMethod.type = 'hidden';
-                    inputMethod.name = '_method';
-                    inputMethod.value = 'DELETE';
-                    form.appendChild(inputMethod);
-                    document.body.appendChild(form);
-                    form.submit();
-                }
-            })
-        }
-    </script>
 @endsection

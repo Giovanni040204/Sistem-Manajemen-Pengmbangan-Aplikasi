@@ -53,6 +53,7 @@
                                             <th class="text-center">Nama Client</th>
                                             <th class="text-center">Status</th>
                                             <th class="text-center">Evaluasi</th>
+                                            <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,8 +69,14 @@
                                                 <td class="text-center">
                                                     <a href="{{ route('evaluasi.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">EVALUASI</a>
                                                 </td>
+                                                <td class="text-center">
+                                                    <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
+                                                </td>
                                             @else
                                                 <td class="text-center">-</td>
+                                                <td class="text-center">
+                                                    <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
+                                                </td>
                                             @endif
                                         </tr>
                                             @empty

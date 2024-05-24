@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Mail\kirimEmail;
 use App\Models\AktivitasProjek;
+use App\Models\Chat;
 use App\Models\Client;
+use App\Models\Evaluasi;
+use App\Models\Jadwal;
+use App\Models\JadwalPertemuan;
 use App\Models\ProgresProjek;
 use App\Models\Projek;
 use App\Models\Supervisor;
@@ -24,11 +28,11 @@ class ProjekController extends Controller
     public function index(Request $request)
     {
         if($request->has('search')){
-            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('persen','!=','101')->get();
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('persen','!=','100')->get();
         }else if($request->has('tahap')){
-            $projek = Projek::where('status','LIKE','%'.$request->tahap.'%')->where('persen','!=','101')->get();
+            $projek = Projek::where('status','LIKE','%'.$request->tahap.'%')->where('persen','!=','100')->get();
         }else{
-            $projek = Projek::where('persen','!=','101')->get();
+            $projek = Projek::where('persen','!=','100')->get();
         }
 
         $status = ['Requirement Definiton','Design','Development','Intergration and Testing','Intallation and Acceptance'];
@@ -39,9 +43,9 @@ class ProjekController extends Controller
     public function indexbyidSupervisor(Request $request, $id)
     {
         if($request->has('search')){
-            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_supervisor','=',$id)->where('persen','!=','101')->get();
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_supervisor','=',$id)->where('persen','!=','100')->get();
         }else{
-            $projek = Projek::where('id_supervisor','=',$id)->where('persen','!=','101')->get();
+            $projek = Projek::where('id_supervisor','=',$id)->where('persen','!=','100')->get();
         }
         
         //render view with posts
@@ -51,9 +55,9 @@ class ProjekController extends Controller
     public function indexbyidTim(Request $request, $id)
     {
         if($request->has('search')){
-            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_tim','=',$id)->where('persen','!=','101')->get();
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_tim','=',$id)->where('persen','!=','100')->get();
         }else{
-            $projek = Projek::where('id_tim','=',$id)->where('persen','!=','101')->get();
+            $projek = Projek::where('id_tim','=',$id)->where('persen','!=','100')->get();
         }
         //render view with posts
         return view('projek.indexByTim', compact('projek', 'id'));
@@ -62,9 +66,9 @@ class ProjekController extends Controller
     public function indexbyidClient(Request $request, $id)
     {
         if($request->has('search')){
-            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_client','=',$id)->where('persen','!=','101')->get();
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_client','=',$id)->where('persen','!=','100')->get();
         }else{
-            $projek = Projek::where('id_client','=',$id)->where('persen','!=','101')->get();
+            $projek = Projek::where('id_client','=',$id)->where('persen','!=','100')->get();
         }
         //render view with posts
         return view('projek.indexByClient', compact('projek', 'id'));
@@ -204,7 +208,7 @@ class ProjekController extends Controller
                 $projek = Projek::where('id_tim','=',$id)->get();
                 return redirect()->route('projek.indexbyidTim', compact('id'))->with(['error' => 'Persen harus dalam range 80% - 100%']);;
             }else if($request->persen == 100){
-                $projek->update(['status' => 'Selesai','persen' => '101']);
+                $projek->update(['status' => 'Selesai','persen' => '100']);
                 $projekSekarang = $projek;
                 $id = $projek->id_tim;
                 $projek = Projek::where('id_tim','=',$id)->get();
@@ -276,23 +280,37 @@ class ProjekController extends Controller
         return redirect()->route('projek.indexbyidTim', compact('id'))->with(['success' => 'Data Berhasil Diedit']);
     }
 
-    public function destroy($id)
+    public function destroyBatal($id)
     {
-        $projek = Projek::whereId($id)->first();
+        AktivitasProjek::where('id_projek', $id)->delete();
+        Chat::where('id_projek', $id)->delete();
+        Evaluasi::where('id_projek', $id)->delete();
+        Jadwal::where('id_projek', $id)->delete();
+        JadwalPertemuan::where('id_projek', $id)->delete();
+        ProgresProjek::where('id_projek', $id)->delete();
+        Projek::where('id', $id)->delete();
 
-        Projek::find($id)->delete();
+        return redirect()->route('projek.projekBatal')->with(['success' => 'Projek Berhasil DIbatalkan']);
+    }
+    
+    public function destroySelesai($id)
+    {
+        AktivitasProjek::where('id_projek', $id)->delete();
+        Chat::where('id_projek', $id)->delete();
+        Evaluasi::where('id_projek', $id)->delete();
+        Jadwal::where('id_projek', $id)->delete();
+        JadwalPertemuan::where('id_projek', $id)->delete();
+        ProgresProjek::where('id_projek', $id)->delete();
+        Projek::where('id', $id)->delete();
 
-        $id = $projek->id_supervisor;
-        $projek = Projek::where('id_supervisor','=',$id)->get();
-
-        return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Projek Berhasil DIbatalkan']);
+        return redirect()->route('projek.projekSelesai')->with(['success' => 'Projek Berhasil DIbatalkan']);
     } 
 
     public function batalProjek($id)
     {
         $projek = Projek::whereId($id)->first();
 
-        $projek->update(['status' => 'Batal','persen' => '101']);
+        $projek->update(['status' => 'Batal','persen' => '100']);
 
         $id = $projek->id_supervisor;
         $projekSekarang = $projek;
@@ -349,9 +367,9 @@ class ProjekController extends Controller
 
     public function historySupervisor(Request $request, $id){
         if($request->has('search')){
-            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_supervisor','=', $id)->where('persen','=', '101')->get();
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_supervisor','=', $id)->where('persen','=', '100')->get();
         }else{
-            $projek = Projek::where('id_supervisor','=', $id)->where('persen','=', '101')->get();
+            $projek = Projek::where('id_supervisor','=', $id)->where('persen','=', '100')->get();
         }
         
         return view('supervisor.historySupervisor', compact('projek','id'));
@@ -359,9 +377,9 @@ class ProjekController extends Controller
 
     public function historyTim(Request $request, $id){
         if($request->has('search')){
-            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_tim','=', $id)->where('persen','=', '101')->get();
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_tim','=', $id)->where('persen','=', '100')->get();
         }else{
-            $projek = Projek::where('id_tim','=', $id)->where('persen','=', '101')->get();
+            $projek = Projek::where('id_tim','=', $id)->where('persen','=', '100')->get();
         }
         
         //render view with posts
@@ -370,9 +388,9 @@ class ProjekController extends Controller
 
     public function historyClient(Request $request, $id){
         if($request->has('search')){
-            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_client','=', $id)->where('persen','=', '101')->get();
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_client','=', $id)->where('persen','=', '100')->get();
         }else{
-            $projek = Projek::where('id_client','=', $id)->where('persen','=', '101')->get();
+            $projek = Projek::where('id_client','=', $id)->where('persen','=', '100')->get();
         }
         
         //render view with posts

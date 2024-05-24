@@ -43,10 +43,8 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">Judul Projek</th>
-                                            <th class="text-center">Deskripsi Projek</th>
                                             <th class="text-center">Status Projek</th>
                                             <th class="text-center">Presentasi Projek</th>
-                                            <th class="text-center">Tanggal Mulai</th>
                                             <th class="text-center">Tanggal Selesai</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
@@ -55,32 +53,26 @@
                                         @forelse ($projek as $item)
                                         <tr>
                                             <td class="text-center">{{ $item->judul }}</td>
-                                            <td class="text-center">{{ $item->deskripsi }}</td>
                                             <td class="text-center">{{ $item->status }}</td>
                                             @if ($item->persen == -1)
                                                 <td class="text-center">-</td>
-                                                <td class="text-center">{{$item->tanggal_mulai }}</td>
                                                 <td class="text-center">{{$item->tanggal_selesai }}</td>
                                                 <td class="text-center">-</td>
                                             @else
                                                 <td class="text-center">{{ $item->persen }}%</td>
-                                                <td class="text-center">{{$item->tanggal_mulai }}</td>
                                                 <td class="text-center">{{$item->tanggal_selesai }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('progres.indexSupervisor', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
-                                                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmModal{{ $item->id }}">
-                                                        BATALKAN
-                                                    </button>
+                                                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#confirmCancelModal{{ $item->id }}">BATALKAN</button>
                                                 </td>
                                             @endif
                                         </tr>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="confirmModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel{{ $item->id }}" aria-hidden="true">
+                                        <!-- Modal Konfirmasi Pembatalan -->
+                                        <div class="modal fade" id="confirmCancelModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="confirmCancelModalLabel{{ $item->id }}" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="confirmModalLabel{{ $item->id }}">Konfirmasi Pembatalan</h5>
+                                                        <h5 class="modal-title" id="confirmCancelModalLabel{{ $item->id }}">Konfirmasi Pembatalan</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
@@ -91,12 +83,13 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                                         <form action="{{ route('projek.batalProjek', $item->id) }}" method="GET" class="d-inline">
-                                                            <button type="submit" class="btn btn-danger">Batal Projek</button>
+                                                            <button type="submit" class="btn btn-warning">Batal Projek</button>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         @empty
                                         <div class="alert alert-danger">
                                             Data Projek Tidak Tersedia
@@ -111,37 +104,36 @@
             </div>
         </div>
     </div>
-        <style>
-            .modal-content {
-                border-radius: 10px;
-            }
-            .modal-header {
-                background-color: #f8d7da;
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-            }
-            
-            .modal-footer {
-                border-top: none;
-            }
-            
-            .btn-danger {
-                background-color: #dc3545;
-                border: none;
-            }
-            
-            .btn-danger:hover {
-                background-color: #c82333;
-            }
-            
-            .btn-secondary {
-                background-color: #6c757d;
-                border: none;
-            }
-            
-            .btn-secondary:hover {
-                background-color: #5a6268;
-            }
-        </style>
-    
+    <style>
+        .modal-content {
+            border-radius: 10px;
+        }
+        .modal-header {
+            background-color: #f8d7da;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .modal-footer {
+            border-top: none;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
 @endsection

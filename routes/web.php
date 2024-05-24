@@ -32,7 +32,8 @@ Route::get('/supervisor', function () {
 Route::resource('/projek',\App\Http\Controllers\ProjekController::class);
 Route::get('projek/edit/{id}', '\App\Http\Controllers\ProjekController@edit');
 Route::post('projek/update/{id}', '\App\Http\Controllers\ProjekController@update');
-Route::get('supervisor/projek/{id}', '\App\Http\Controllers\ProjekController@destroy')->name('projek.destroy');
+Route::delete('admin/projek/batal/{id}', '\App\Http\Controllers\ProjekController@destroyBatal')->name('projek.destroyBatal');
+Route::delete('admin/projek/selesai/{id}', '\App\Http\Controllers\ProjekController@destroySelesai')->name('projek.destroySelesai');
 Route::get('admin/projek/selesai', '\App\Http\Controllers\ProjekController@projekSelesai')->name('projek.projekSelesai');
 Route::get('history/projek/supervisor/{id}', '\App\Http\Controllers\ProjekController@historySupervisor')->name('projek.historySupervisor');
 Route::get('history/projek/tim/{id}', '\App\Http\Controllers\ProjekController@historyTim')->name('projek.historyTim');
@@ -48,14 +49,14 @@ Route::get('/tim/create/{id}', '\App\Http\Controllers\TimController@createTim')-
 Route::get('/tim/store/{id}', '\App\Http\Controllers\TimController@storeTim')->name('tim.storeTim');
 Route::get('/supervisor/tim/edit/{idc}/{id}', '\App\Http\Controllers\TimController@editTim')->name('tim.editTim');
 Route::get('/supervisor/tim/update/{idc}/{id}', '\App\Http\Controllers\TimController@updateTim')->name('tim.updateTim');
-Route::get('/supervisor/tim/destroy/{idc}/{id}', '\App\Http\Controllers\TimController@destroyTim')->name('tim.destroyTim');
+Route::delete('/supervisor/tim/destroy/{idt}/{id}', '\App\Http\Controllers\TimController@destroyTim')->name('tim.destroyTim');
 
 Route::get('/client/index/{id}', '\App\Http\Controllers\ClientController@indexClient')->name('client.indexClient');
 Route::get('/client/create/{id}', '\App\Http\Controllers\ClientController@createClient')->name('client.createClient');
 Route::get('/client/store/{id}', '\App\Http\Controllers\ClientController@storeClient')->name('client.storeClient');
 Route::get('/supervisor/client/edit/{idc}/{id}', '\App\Http\Controllers\ClientController@editClient')->name('client.editClient');
 Route::get('/supervisor/client/update/{idc}/{id}', '\App\Http\Controllers\ClientController@updateClient')->name('client.updateClient');
-Route::get('/supervisor/client/destroy/{idc}/{id}', '\App\Http\Controllers\ClientController@destroyClient')->name('client.destroyClient');
+Route::delete('/supervisor/client/destroy/{idc}/{id}', '\App\Http\Controllers\ClientController@destroyClient')->name('client.destroyClient');
 
 Route::get('/projek/supervisor/create/{id}', '\App\Http\Controllers\ProjekController@createProjek')->name('projek.createProjek');
 Route::get('/projek/supervisor/store/{id}', '\App\Http\Controllers\ProjekController@storeProjek')->name('projek.storeProjek');

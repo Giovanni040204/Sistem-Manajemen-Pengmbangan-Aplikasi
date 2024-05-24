@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\kirimEmail;
+use App\Models\Projek;
 use App\Models\Supervisor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -41,7 +42,7 @@ class SupervisorController extends Controller
             'username' => $request->username,
             'password' => $request->password,
         ]);
-        $supervisor = Supervisor::where('nama','=',$request->nama)->get();
+        $supervisor = Supervisor::where('nama','=',$request->nama)->first();
 
         $pesan = "<p>Akun untuk Sistem Manajemen Pengembangan Aplikasi sudah dibuat dengan rincian :</p>";
         $pesan .= "<p><b>Nama : ".$supervisor->nama."</b></p>";
@@ -97,7 +98,12 @@ class SupervisorController extends Controller
 
     public function destroy($id)
     {
-        $supervisor = Supervisor::whereId($id)->first();
+        $projek =  Projek::where('id_supervisor', $id)->get();
+        $cek = $projek->count();
+
+        if($cek!=0){
+            return redirect()->route('supervisor.index')->with(['error' => 'Supervisor Masih Mempunyai Projek']);
+        }
 
         Supervisor::find($id)->delete();
 

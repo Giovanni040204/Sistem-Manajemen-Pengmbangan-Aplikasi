@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\kirimEmail;
 use App\Models\Client;
+use App\Models\Projek;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -43,7 +44,7 @@ class ClientController extends Controller
             'password' => $request->password,
         ]);
 
-        $client = Client::where('nama','=',$request->nama)->get();
+        $client = Client::where('nama','=',$request->nama)->first();
 
         $pesan = "<p>Akun untuk Sistem Manajemen Pengembangan Aplikasi sudah dibuat dengan rincian :</p>";
         $pesan .= "<p><b>Nama : ".$client->nama."</b></p>";
@@ -108,7 +109,12 @@ class ClientController extends Controller
 
     public function destroyClient($idc, $id)
     {
-        $client = Client::whereId($idc)->first();
+        $projek =  Projek::where('id_client', $idc)->get();
+        $cek = $projek->count();
+
+        if($cek!=0){
+            return redirect()->route('client.indexClient', compact('id'))->with(['error' => 'Client Masih Mempunyai Projek']);
+        }
 
         Client::find($idc)->delete();
 

@@ -38,7 +38,7 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <form>
-                        <h3 class="text-center">Detail Projek</h3>
+                        <h5 class="text-center">Detail Projek</h5>
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-4">
@@ -94,7 +94,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h3 class="text-center">Aktivitas Projek</h3>
+                    <h5 class="text-center">Aktivitas Projek</h5>
                     <div>
                         @forelse ($aktivitas as $item)
                             <div class="activity-item mb-2">
