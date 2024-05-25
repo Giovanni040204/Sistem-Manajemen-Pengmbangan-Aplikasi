@@ -79,7 +79,12 @@
         <div class="card" onclick="window.location.href='{{ route('jadwal.indexSupervisor', $id) }}'">
             <h2>Daftar Jadwal</h2>
             <p>List jadwal untuk melakukan pertemuan dapat dilihat disini</p>
-            <i class="fas fa-user-tie watermark"></i>
+            <i class="fas fa-calendar watermark"></i>
+        </div>
+        <div class="card" onclick="window.location.href='{{ route('jadwalPertemuan.indexSupervisor', $id) }}'">
+            <h2>Jadwal Pertemuan</h2>
+            <p>Semua jadwal pertemuan proyek dapat dilihat disini</p>
+            <i class="fas fa-calendar-alt watermark"></i>
         </div>
         <div class="card" onclick="window.location.href='{{ route('tim.indexTim', $id) }}'">
             <h2>Daftar Tim</h2>

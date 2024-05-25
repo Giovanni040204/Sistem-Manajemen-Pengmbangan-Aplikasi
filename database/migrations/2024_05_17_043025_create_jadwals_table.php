@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_supervisor');
             $table->integer('id_tim');
+            $table->integer('id_client');
             $table->integer('id_projek'); 
             $table->string('hari');
             $table->time('waktu_mulai');

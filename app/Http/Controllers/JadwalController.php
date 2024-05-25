@@ -48,6 +48,7 @@ class JadwalController extends Controller
         Jadwal::create([
             'id_supervisor' => $ids,
             'id_tim' => $projek->id_tim,
+            'id_client' => $projek->id_client,
             'id_projek' => $request->id_projek,
             'hari' => $request->hari,
             'waktu_mulai' => $request->waktu_mulai,
@@ -78,6 +79,7 @@ class JadwalController extends Controller
         $jadwal = Jadwal::whereId($idj)->first();
         $jadwal->update([
             'id_tim' => $projek->id_tim,
+            'id_client' => $projek->id_client,
             'id_projek' => $request->id_projek,
             'hari' => $request->hari,
             'waktu_mulai' => $request->waktu_mulai,

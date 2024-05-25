@@ -108,12 +108,12 @@
                                 <p>Daftar Projek</p>
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
+                        <li class="nav-item">
                             <a href="{{ route('jadwalPertemuan.indexClient', $id) }}" class="nav-link">
                                 <i class="nav-icon fas fa-calendar-alt"></i>
                                 <p>Jadwal Pertemuan</p>
                             </a>
-                        </li> --}}
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('projek.historyClient', $id) }}" class="nav-link">
                                 <i class="nav-icon fas fa-history"></i>

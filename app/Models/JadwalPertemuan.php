@@ -19,6 +19,7 @@ class JadwalPertemuan extends Model
         'id',
         'id_supervisor',
         'id_tim',
+        'id_client',
         'id_projek',
         'hari',
         'tanggal',

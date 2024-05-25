@@ -110,7 +110,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('jadwal.indexTim', $id) }}" class="nav-link">
-                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <i class="nav-icon fas fa-calendar"></i>
                                 <p>Daftar Jadwal</p>
                             </a>
                         </li>

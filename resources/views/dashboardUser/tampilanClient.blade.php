@@ -75,6 +75,11 @@
             <p>Semua projek yang sedang dalam proses pengerjaan dapat dilihat disini</p>
             <i class="fas fa-cogs watermark"></i>
         </div>
+        <div class="card" onclick="window.location.href='{{ route('jadwalPertemuan.indexClient', $id) }}'">
+            <h2>Jadwal Pertemuan</h2>
+            <p>Semua jadwal pertemuan proyek dapat dilihat disini</p>
+            <i class="fas fa-calendar-alt watermark"></i>
+        </div>
         <div class="card" onclick="window.location.href='{{ route('projek.historyClient', $id) }}'">
             <h2>History Projek</h2>
             <p>List projek-projek yang dikerjakan, baik yang selesai maupun yang dibatalkan dapat dilihat disini</p>

@@ -108,20 +108,20 @@ class JadwalPertemuanController extends Controller
             $tanggal6 = date('d-m-Y', strtotime('+1 day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('+2 day', strtotime($today)));
         }else if($today->isSaturday()){
-            $tanggal1 = date('d-m-Y', strtotime('-5 day', strtotime($today)));
-            $tanggal2 = date('d-m-Y', strtotime('-4 day', strtotime($today))); 
-            $tanggal3 = date('d-m-Y', strtotime('-3 day', strtotime($today))); 
-            $tanggal4 = date('d-m-Y', strtotime('-2 day', strtotime($today))); 
-            $tanggal5 = date('d-m-Y', strtotime('-1 day', strtotime($today))); 
+            $tanggal1 = date('d-m-Y', strtotime('+2 day', strtotime($today)));
+            $tanggal2 = date('d-m-Y', strtotime('+3 day', strtotime($today))); 
+            $tanggal3 = date('d-m-Y', strtotime('+4 day', strtotime($today))); 
+            $tanggal4 = date('d-m-Y', strtotime('+5 day', strtotime($today))); 
+            $tanggal5 = date('d-m-Y', strtotime('+6 day', strtotime($today))); 
             $tanggal6 = date('d-m-Y', strtotime('day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('+1 day', strtotime($today)));
         }else if($today->isSunday()){
-            $tanggal1 = date('d-m-Y', strtotime('-6 day', strtotime($today)));
-            $tanggal2 = date('d-m-Y', strtotime('-5 day', strtotime($today))); 
-            $tanggal3 = date('d-m-Y', strtotime('-4 day', strtotime($today))); 
-            $tanggal4 = date('d-m-Y', strtotime('-3 day', strtotime($today))); 
-            $tanggal5 = date('d-m-Y', strtotime('-2 day', strtotime($today))); 
-            $tanggal6 = date('d-m-Y', strtotime('-1 day', strtotime($today))); 
+            $tanggal1 = date('d-m-Y', strtotime('+1 day', strtotime($today)));
+            $tanggal2 = date('d-m-Y', strtotime('+2 day', strtotime($today))); 
+            $tanggal3 = date('d-m-Y', strtotime('+3 day', strtotime($today))); 
+            $tanggal4 = date('d-m-Y', strtotime('+4 day', strtotime($today))); 
+            $tanggal5 = date('d-m-Y', strtotime('+5 day', strtotime($today))); 
+            $tanggal6 = date('d-m-Y', strtotime('+6 day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('day', strtotime($today)));
         }
 
@@ -230,20 +230,20 @@ class JadwalPertemuanController extends Controller
             $tanggal6 = date('d-m-Y', strtotime('+1 day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('+2 day', strtotime($today)));
         }else if($today->isSaturday()){
-            $tanggal1 = date('d-m-Y', strtotime('-5 day', strtotime($today)));
-            $tanggal2 = date('d-m-Y', strtotime('-4 day', strtotime($today))); 
-            $tanggal3 = date('d-m-Y', strtotime('-3 day', strtotime($today))); 
-            $tanggal4 = date('d-m-Y', strtotime('-2 day', strtotime($today))); 
-            $tanggal5 = date('d-m-Y', strtotime('-1 day', strtotime($today))); 
+            $tanggal1 = date('d-m-Y', strtotime('+2 day', strtotime($today)));
+            $tanggal2 = date('d-m-Y', strtotime('+3 day', strtotime($today))); 
+            $tanggal3 = date('d-m-Y', strtotime('+4 day', strtotime($today))); 
+            $tanggal4 = date('d-m-Y', strtotime('+5 day', strtotime($today))); 
+            $tanggal5 = date('d-m-Y', strtotime('+6 day', strtotime($today))); 
             $tanggal6 = date('d-m-Y', strtotime('day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('+1 day', strtotime($today)));
         }else if($today->isSunday()){
-            $tanggal1 = date('d-m-Y', strtotime('-6 day', strtotime($today)));
-            $tanggal2 = date('d-m-Y', strtotime('-5 day', strtotime($today))); 
-            $tanggal3 = date('d-m-Y', strtotime('-4 day', strtotime($today))); 
-            $tanggal4 = date('d-m-Y', strtotime('-3 day', strtotime($today))); 
-            $tanggal5 = date('d-m-Y', strtotime('-2 day', strtotime($today))); 
-            $tanggal6 = date('d-m-Y', strtotime('-1 day', strtotime($today))); 
+            $tanggal1 = date('d-m-Y', strtotime('+1 day', strtotime($today)));
+            $tanggal2 = date('d-m-Y', strtotime('+2 day', strtotime($today))); 
+            $tanggal3 = date('d-m-Y', strtotime('+3 day', strtotime($today))); 
+            $tanggal4 = date('d-m-Y', strtotime('+4 day', strtotime($today))); 
+            $tanggal5 = date('d-m-Y', strtotime('+5 day', strtotime($today))); 
+            $tanggal6 = date('d-m-Y', strtotime('+6 day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('day', strtotime($today)));
         }
 
@@ -254,7 +254,7 @@ class JadwalPertemuanController extends Controller
     }
 
     public function indexClient($idc){
-        $jadwalPertemuan = JadwalPertemuan::where('id_supervisor','=',$idc)->get();
+        $jadwalPertemuan = JadwalPertemuan::where('id_client','=',$idc)->get();
         $id = $idc;
 
         $jumlah = $jadwalPertemuan->count();
@@ -352,20 +352,20 @@ class JadwalPertemuanController extends Controller
             $tanggal6 = date('d-m-Y', strtotime('+1 day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('+2 day', strtotime($today)));
         }else if($today->isSaturday()){
-            $tanggal1 = date('d-m-Y', strtotime('-5 day', strtotime($today)));
-            $tanggal2 = date('d-m-Y', strtotime('-4 day', strtotime($today))); 
-            $tanggal3 = date('d-m-Y', strtotime('-3 day', strtotime($today))); 
-            $tanggal4 = date('d-m-Y', strtotime('-2 day', strtotime($today))); 
-            $tanggal5 = date('d-m-Y', strtotime('-1 day', strtotime($today))); 
+            $tanggal1 = date('d-m-Y', strtotime('+2 day', strtotime($today)));
+            $tanggal2 = date('d-m-Y', strtotime('+3 day', strtotime($today))); 
+            $tanggal3 = date('d-m-Y', strtotime('+4 day', strtotime($today))); 
+            $tanggal4 = date('d-m-Y', strtotime('+5 day', strtotime($today))); 
+            $tanggal5 = date('d-m-Y', strtotime('+6 day', strtotime($today))); 
             $tanggal6 = date('d-m-Y', strtotime('day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('+1 day', strtotime($today)));
         }else if($today->isSunday()){
-            $tanggal1 = date('d-m-Y', strtotime('-6 day', strtotime($today)));
-            $tanggal2 = date('d-m-Y', strtotime('-5 day', strtotime($today))); 
-            $tanggal3 = date('d-m-Y', strtotime('-4 day', strtotime($today))); 
-            $tanggal4 = date('d-m-Y', strtotime('-3 day', strtotime($today))); 
-            $tanggal5 = date('d-m-Y', strtotime('-2 day', strtotime($today))); 
-            $tanggal6 = date('d-m-Y', strtotime('-1 day', strtotime($today))); 
+            $tanggal1 = date('d-m-Y', strtotime('+1 day', strtotime($today)));
+            $tanggal2 = date('d-m-Y', strtotime('+2 day', strtotime($today))); 
+            $tanggal3 = date('d-m-Y', strtotime('+3 day', strtotime($today))); 
+            $tanggal4 = date('d-m-Y', strtotime('+4 day', strtotime($today))); 
+            $tanggal5 = date('d-m-Y', strtotime('+5 day', strtotime($today))); 
+            $tanggal6 = date('d-m-Y', strtotime('+6 day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('day', strtotime($today)));
         }
 
@@ -473,20 +473,20 @@ class JadwalPertemuanController extends Controller
             $tanggal6 = date('d-m-Y', strtotime('+1 day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('+2 day', strtotime($today)));
         }else if($today->isSaturday()){
-            $tanggal1 = date('d-m-Y', strtotime('-5 day', strtotime($today)));
-            $tanggal2 = date('d-m-Y', strtotime('-4 day', strtotime($today))); 
-            $tanggal3 = date('d-m-Y', strtotime('-3 day', strtotime($today))); 
-            $tanggal4 = date('d-m-Y', strtotime('-2 day', strtotime($today))); 
-            $tanggal5 = date('d-m-Y', strtotime('-1 day', strtotime($today))); 
+            $tanggal1 = date('d-m-Y', strtotime('+2 day', strtotime($today)));
+            $tanggal2 = date('d-m-Y', strtotime('+3 day', strtotime($today))); 
+            $tanggal3 = date('d-m-Y', strtotime('+4 day', strtotime($today))); 
+            $tanggal4 = date('d-m-Y', strtotime('+5 day', strtotime($today))); 
+            $tanggal5 = date('d-m-Y', strtotime('+6 day', strtotime($today))); 
             $tanggal6 = date('d-m-Y', strtotime('day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('+1 day', strtotime($today)));
         }else if($today->isSunday()){
-            $tanggal1 = date('d-m-Y', strtotime('-6 day', strtotime($today)));
-            $tanggal2 = date('d-m-Y', strtotime('-5 day', strtotime($today))); 
-            $tanggal3 = date('d-m-Y', strtotime('-4 day', strtotime($today))); 
-            $tanggal4 = date('d-m-Y', strtotime('-3 day', strtotime($today))); 
-            $tanggal5 = date('d-m-Y', strtotime('-2 day', strtotime($today))); 
-            $tanggal6 = date('d-m-Y', strtotime('-1 day', strtotime($today))); 
+            $tanggal1 = date('d-m-Y', strtotime('+1 day', strtotime($today)));
+            $tanggal2 = date('d-m-Y', strtotime('+2 day', strtotime($today))); 
+            $tanggal3 = date('d-m-Y', strtotime('+3 day', strtotime($today))); 
+            $tanggal4 = date('d-m-Y', strtotime('+4 day', strtotime($today))); 
+            $tanggal5 = date('d-m-Y', strtotime('+5 day', strtotime($today))); 
+            $tanggal6 = date('d-m-Y', strtotime('+6 day', strtotime($today))); 
             $tanggal7 = date('d-m-Y', strtotime('day', strtotime($today)));
         }
 
@@ -582,6 +582,7 @@ class JadwalPertemuanController extends Controller
             JadwalPertemuan::create([
                 'id_supervisor' => $ids,
                 'id_tim' => $jadwalSetuju[$i]->id_tim,
+                'id_client' => $jadwalSetuju[$i]->id_client,
                 'id_projek' => $jadwalSetuju[$i]->id_projek,
                 'hari' => $jadwalSetuju[$i]->hari,
                 'tanggal' => $tanggal,

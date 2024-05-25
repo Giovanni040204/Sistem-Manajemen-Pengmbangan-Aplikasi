@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="{{ route('projek.historyClient', $id) }}" class="btn btn-warning btn-lg">KEMBALI</a>
+                                <a href="{{ route('projek.historyClient', $id) }}" class="btn btn-warning btn-sm" style="font-size : 18px;">KEMBALI</a>
                             </div>
                         </form>
                     </div>

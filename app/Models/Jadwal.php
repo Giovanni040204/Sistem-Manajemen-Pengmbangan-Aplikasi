@@ -19,6 +19,7 @@ class Jadwal extends Model
         'id',
         'id_supervisor',
         'id_tim',
+        'id_client',
         'id_projek',
         'hari',
         'waktu_mulai',
