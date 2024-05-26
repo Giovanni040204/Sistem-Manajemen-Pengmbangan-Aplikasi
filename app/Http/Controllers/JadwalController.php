@@ -42,21 +42,46 @@ class JadwalController extends Controller
             'waktu_selesai' => 'required'    
         ]);
 
-        $projek = Projek::where('id','=',$request->id_projek)->first();
+        if($request->waktu_mulai > $request->waktu_selesai){
+            return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['error' => 'Waktu Mulai Jadwal Lebih Besar Dari Waktu Selesai']);
+        }else{
+            $data = Jadwal::where('hari','=',$request->hari)->Where('waktu_mulai','<=',$request->waktu_mulai)->Where('waktu_selesai','>=',$request->waktu_mulai)->get();
+            $cek = $data->count();
 
-        //Fungsi Simpan Data ke dalam Database
-        Jadwal::create([
-            'id_supervisor' => $ids,
-            'id_tim' => $projek->id_tim,
-            'id_client' => $projek->id_client,
-            'id_projek' => $request->id_projek,
-            'hari' => $request->hari,
-            'waktu_mulai' => $request->waktu_mulai,
-            'waktu_selesai' => $request->waktu_selesai,
-            'status' => 'Belum Disetujui'
-        ]);
-            
-        return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['success' => 'Jadwal Berhasil Ditambahkan']);
+            if($cek!=0){
+                return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['error' => 'Jadwal Pertemuan Bertabrakan Dengan Jadwal Yang Lain!!']);
+            }else{
+                $data = Jadwal::where('hari','=',$request->hari)->Where('waktu_mulai','<=',$request->waktu_selesai)->Where('waktu_selesai','>=',$request->waktu_selesai)->get();
+                $cek = $data->count();
+
+                if($cek!=0){
+                    return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['error' => 'Jadwal Pertemuan Bertabrakan Dengan Jadwal Yang Lain!!']);
+                }else{
+                    $data = Jadwal::where('hari','=',$request->hari)->Where('waktu_mulai','>=',$request->waktu_mulai)->Where('waktu_selesai','<=',$request->waktu_selesai)->get();
+                    $cek = $data->count();
+                    if($cek!=0){
+                        return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['error' => 'Jadwal Pertemuan Bertabrakan Dengan Jadwal Yang Lain!!']);
+                    }else{
+
+                        $projek = Projek::where('id','=',$request->id_projek)->first();
+                
+                        //Fungsi Simpan Data ke dalam Database
+                        Jadwal::create([
+                            'id_supervisor' => $ids,
+                            'id_tim' => $projek->id_tim,
+                            'id_client' => $projek->id_client,
+                            'id_projek' => $request->id_projek,
+                            'hari' => $request->hari,
+                            'waktu_mulai' => $request->waktu_mulai,
+                            'waktu_selesai' => $request->waktu_selesai,
+                            'status' => 'Belum Disetujui'
+                        ]);
+                            
+                        return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['success' => 'Jadwal Berhasil Ditambahkan']);
+                    }
+                }
+            }
+        }
     } 
 
     public function editJadwal($idj, $id){
@@ -73,20 +98,45 @@ class JadwalController extends Controller
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required'             
         ]);
-        
-        $projek = Projek::where('id','=',$request->id_projek)->first();
-        
-        $jadwal = Jadwal::whereId($idj)->first();
-        $jadwal->update([
-            'id_tim' => $projek->id_tim,
-            'id_client' => $projek->id_client,
-            'id_projek' => $request->id_projek,
-            'hari' => $request->hari,
-            'waktu_mulai' => $request->waktu_mulai,
-            'waktu_selesai' => $request->waktu_selesai
-        ]);
 
-        return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['success' => 'Data Berhasil Diedit']);
+        if($request->waktu_mulai > $request->waktu_selesai){
+            return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['error' => 'Waktu Mulai Jadwal Lebih Besar Dari Waktu Selesai']);
+        }else{
+            $data = Jadwal::where('id','!=',$idj)->where('hari','=',$request->hari)->Where('waktu_mulai','<=',$request->waktu_mulai)->Where('waktu_selesai','>=',$request->waktu_mulai)->get();
+            $cek = $data->count();
+
+            if($cek!=0){
+                return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['error' => 'Jadwal Pertemuan Bertabrakan Dengan Jadwal Yang Lain!!']);
+            }else{
+                $data = Jadwal::where('id','!=',$idj)->where('hari','=',$request->hari)->Where('waktu_mulai','<=',$request->waktu_selesai)->Where('waktu_selesai','>=',$request->waktu_selesai)->get();
+                $cek = $data->count();
+
+                if($cek!=0){
+                    return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['error' => 'Jadwal Pertemuan Bertabrakan Dengan Jadwal Yang Lain!!']);
+                }else{
+                    $data = Jadwal::where('id','!=',$idj)->where('hari','=',$request->hari)->Where('waktu_mulai','>=',$request->waktu_mulai)->Where('waktu_selesai','<=',$request->waktu_selesai)->get();
+                    $cek = $data->count();
+                    if($cek!=0){
+                        return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['error' => 'Jadwal Pertemuan Bertabrakan Dengan Jadwal Yang Lain!!']);
+                    }else{        
+                        $projek = Projek::where('id','=',$request->id_projek)->first();
+                        
+                        $jadwal = Jadwal::whereId($idj)->first();
+                        $jadwal->update([
+                            'id_tim' => $projek->id_tim,
+                            'id_client' => $projek->id_client,
+                            'id_projek' => $request->id_projek,
+                            'hari' => $request->hari,
+                            'waktu_mulai' => $request->waktu_mulai,
+                            'waktu_selesai' => $request->waktu_selesai
+                        ]);
+                
+                        return redirect()->route('jadwal.indexSupervisor', compact('ids'))->with(['success' => 'Data Berhasil Diedit']);
+
+                    }
+                }
+            }
+        }
     }    
 
     public function indexTim($idt){
