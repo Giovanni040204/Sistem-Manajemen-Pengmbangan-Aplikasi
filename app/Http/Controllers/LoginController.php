@@ -67,6 +67,12 @@ class LoginController extends Controller
     }
 
     public function tampilanAdmin(){
-        return view('dashboardUser.tampilanAdmin');
+        $sedangDikerjakan = Projek::where('persen','!=','100')->count();
+        $selesai = Projek::where('status','=', 'Selesai')->count();
+        $dibatalkan = Projek::where('status','=', 'Batal')->count();
+
+        $projekBerlangsung = Projek::where('persen','!=','100')->get();
+
+        return view('dashboardUser.tampilanAdmin', compact('sedangDikerjakan', 'selesai', 'dibatalkan', 'projekBerlangsung'));
     }
 }

@@ -2,94 +2,156 @@
 
 @section('content')
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* CSS Font */
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-    
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 20px;
+        .chart-card {
+            max-width: 100%;
         }
-    
-        .card {
-            width: calc(33.33% - 20px);
-            height: 150px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.3s ease;
+        .chart-container {
             position: relative;
+            height: 300px; /* Mengurangi tinggi diagram untuk memperkecil */
         }
-    
-        .card:hover {
-            transform: scale(1.05);
-        }
-    
-        /* Font Style */
-        .card h2 {
-            margin-bottom: 10px;
-            color: #fff;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 700;
-            font-size: 20px;
-        }
-    
-        .card p {
-            color: #f0f0f0;
-            font-family: 'Roboto', sans-serif;
-            font-size: 16px;
-        }
-    
-        .watermark {
+        .chart-inner {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            color: rgba(255, 255, 255, 0.1);
-            font-size: 50px;
-            pointer-events: none;
-        }
-    
-        /* Variasi warna background */
-        .card:nth-child(odd) {
-            background-color: #007bff; /* Biru */
-        }
-    
-        .card:nth-child(even) {
-            background-color: #28a745; /* Hijau */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
-    
 </head>
 <body>
-    <div class="container">
-        <div class="card" onclick="window.location.href='{{ route('projek.indexbyidTim', $id) }}'">
-            <h2>Daftar Projek</h2>
-            <p>Semua projek yang sedang dalam proses pengerjaan dapat dilihat disini</p>
-            <i class="fas fa-cogs watermark"></i>
-        </div>
-        <div class="card" onclick="window.location.href='{{ route('jadwal.indexTim', $id) }}'">
-            <h2>Daftar Jadwal</h2>
-            <p>List jadwal untuk melakukan pertemuan dapat dilihat disini</p>
-            <i class="fas fa-calendar watermark"></i>
-        </div>
-        <div class="card" onclick="window.location.href='{{ route('jadwalPertemuan.indexTim', $id) }}'">
-            <h2>Jadwal Pertemuan</h2>
-            <p>Semua jadwal pertemuan proyek dapat dilihat disini</p>
-            <i class="fas fa-calendar-alt watermark"></i>
-        </div>
-        <div class="card" onclick="window.location.href='{{ route('projek.historyTim', $id) }}'">
-            <h2>History Projek</h2>
-            <p>List projek-projek yang dikerjakan, baik yang selesai maupun yang dibatalkan dapat dilihat disini</p>
-            <i class="fas fa-users watermark"></i>
+    <div class="content-header">
+        <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
         </div>
     </div>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Card for Projects in Progress -->
+            <div class="col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Projek Sedang Dikerjakan</h5>
+                        <p class="card-text">{{ $sedangDikerjakan }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card for Completed Projects -->
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Projek Selesai</h5>
+                        <p class="card-text">{{ $selesai }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card for Cancelled Projects -->
+            <div class="col-md-4">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Projek Dibatalkan</h5>
+                        <p class="card-text">{{ $dibatalkan }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Bar Chart for Project Progress -->
+            <div class="col-md-6">
+                <div class="card mb-3 chart-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Progres Projek Sedang Dikerjakan</h5>
+                        <div class="chart-container">
+                            <canvas id="barChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Doughnut Chart for Project Status Comparison -->
+            <div class="col-md-6">
+                <div class="card mb-3 chart-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Perbandingan Projek</h5>
+                        <div class="chart-container">
+                            <div class="chart-inner"> <!-- Tambahkan container inner untuk diagram -->
+                                <canvas id="doughnutChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Bar Chart
+        var ctxBar = document.getElementById('barChart').getContext('2d');
+        var barChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: @json($projekBerlangsung->pluck('judul')),
+                datasets: [{
+                    label: 'Persentase Projek',
+                    data: @json($projekBerlangsung->pluck('persen')),
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Doughnut Chart
+        var ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
+        var doughnutChart = new Chart(ctxDoughnut, {
+            type: 'doughnut',
+            data: {
+                labels: ['Sedang Dikerjakan', 'Selesai', 'Dibatalkan'],
+                datasets: [{
+                    label: 'Jumlah Projek',
+                    data: [{{ $sedangDikerjakan }}, {{ $selesai }}, {{ $dibatalkan }}],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(255, 99, 132, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom', // Letakkan legenda di bagian bawah
+                    },
+                },
+                layout: {
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                    },
+                },
+            }
+        });
+    </script>
 </body>
 @endsection

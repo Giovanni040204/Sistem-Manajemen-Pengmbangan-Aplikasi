@@ -194,6 +194,12 @@ class TimController extends Controller
     }
 
     public function tampilanTim($id){
-        return view('dashboardUser.tampilanTim', compact('id'));
+        $sedangDikerjakan = Projek::where('persen','!=','100')->count();
+        $selesai = Projek::where('status','=', 'Selesai')->count();
+        $dibatalkan = Projek::where('status','=', 'Batal')->count();
+
+        $projekBerlangsung = Projek::where('persen','!=','100')->get();
+
+        return view('dashboardUser.tampilanTim', compact('sedangDikerjakan', 'selesai', 'dibatalkan', 'projekBerlangsung','id'));
     }
 }

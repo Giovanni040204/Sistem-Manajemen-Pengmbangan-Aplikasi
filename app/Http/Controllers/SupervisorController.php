@@ -179,6 +179,12 @@ class SupervisorController extends Controller
     }
 
     public function tampilanSupervisor($id){
-        return view('dashboardUser.tampilanSupervisor', compact('id'));
+        $sedangDikerjakan = Projek::where('persen','!=','100')->count();
+        $selesai = Projek::where('status','=', 'Selesai')->count();
+        $dibatalkan = Projek::where('status','=', 'Batal')->count();
+
+        $projekBerlangsung = Projek::where('persen','!=','100')->get();
+
+        return view('dashboardUser.tampilanSupervisor', compact('sedangDikerjakan', 'selesai', 'dibatalkan', 'projekBerlangsung','id'));
     }
 }

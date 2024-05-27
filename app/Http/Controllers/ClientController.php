@@ -202,6 +202,12 @@ class ClientController extends Controller
     }
 
     public function tampilanClient($id){
-        return view('dashboardUser.tampilanClient', compact('id'));
+        $sedangDikerjakan = Projek::where('persen','!=','100')->count();
+        $selesai = Projek::where('status','=', 'Selesai')->count();
+        $dibatalkan = Projek::where('status','=', 'Batal')->count();
+
+        $projekBerlangsung = Projek::where('persen','!=','100')->get();
+
+        return view('dashboardUser.tampilanClient', compact('sedangDikerjakan', 'selesai', 'dibatalkan', 'projekBerlangsung','id'));
     }
 }
