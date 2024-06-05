@@ -74,7 +74,7 @@
                                             <td class="text-center">{{$item->persen }}%</td>
                                             <td class="text-center">{{$item->tanggal_selesai }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('progres.indexTim', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
+                                                <a href="{{ route('progres.indexClient', [$id, $item->id]) }}" class="btn btn-sm btn-primary">DETAIL</a>
                                             </td>
                                             <td class="text-center">
                                                 <a href="{{ route('chat.indexClient', [$item->parentClient->id, $item->parentTim->id, $item->id] )}}" class="btn btn-sm btn-primary">Pesan</a>

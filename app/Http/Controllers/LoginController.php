@@ -2,40 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\kirimEmail;
 use App\Models\Client;
 use App\Models\Projek;
 use App\Models\Supervisor;
 use App\Models\Tim;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
     public function cekLogin(Request $request)
     {
         $request->validate([
-            // 'role'=>'required',
             'username'=>'required',
             'password'=>'required'
         ],[
-            // 'role.required'=>'Role wajib diisi',
             'username.required'=>'Username wajib diisi',
             'password.required'=>'Password wajib diisi',
         ]);
 
         if($request->username=='admin' && $request->password=='admin'){
-            // $pesan = "Kamu Berhasil Login pada Sistem Manajemen Pengembangan Aplikasi";
-            // $data_email = [
-            //     'subject' => 'Sistem Manajemen Pengembangan Aplikasi',
-            //     'sender_name' => 'SMPA@gmail.com',
-            //     'isi' => $pesan
-            // ];
-            // Mail::to("giovannitemaluru00@gmail.com")->send(new kirimEmail($data_email));
             return redirect()->route('tampilanAdmin')->with(['success' => 'Berhasil Login']);            
         }
-
-
         $data = Supervisor::where('username','=',$request->username)->where('password','=',$request->password)->get();
         $cek = $data->count();
         

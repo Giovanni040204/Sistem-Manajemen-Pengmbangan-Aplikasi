@@ -162,7 +162,8 @@ class ClientController extends Controller
 
                 return redirect()->route('projek.indexbyidClient', compact('id'))->with(['success' => 'Password berhasil diubah']);
             }else{
-                return redirect()->route('client.indexPassword', compact('id'))->withErrors('Password baru dan konfirmasi berbeda')->withInput();
+                return redirect()->route('client.indexPassword', compact('id'))->withErrors('Password baru dan konfirmasi berbeda')
+                ->withInput();
             }
         }else{
             return redirect()->route('client.indexPassword', compact('id'))->withErrors('Password sebelumnya tidak sesuai')->withInput();

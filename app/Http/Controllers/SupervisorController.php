@@ -150,7 +150,8 @@ class SupervisorController extends Controller
 
                 return redirect()->route('projek.indexbyidSupervisor', compact('id'))->with(['success' => 'Password berhasil diubah']);
             }else{
-                return redirect()->route('supervisor.indexPassword', compact('id'))->withErrors('Password baru dan konfirmasi berbeda')->withInput();
+                return redirect()->route('supervisor.indexPassword', compact('id'))->withErrors('Password baru dan konfirmasi berbeda')
+                ->withInput();
             }
         }else{
             return redirect()->route('supervisor.indexPassword', compact('id'))->withErrors('Password sebelumnya tidak sesuai')->withInput();

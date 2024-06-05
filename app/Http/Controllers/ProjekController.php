@@ -20,11 +20,6 @@ use Illuminate\Support\Facades\Mail;
 
 class ProjekController extends Controller
 {
-    /**
-    * index
-    *
-    * @return void
-    */
     public function index(Request $request)
     {
         if($request->has('search')){
@@ -114,7 +109,8 @@ class ProjekController extends Controller
         AktivitasProjek::create([
             'id_projek' => $projekBaru->id,
             'tanggal' => $sekarang,
-            'isi' => 'Projek dibuat oleh ' . $projekBaru->parentSupervisor->nama . ' dan menunggu konfirmasi dari ' . $projekBaru->parentTim->nama
+            'isi' => 'Projek dibuat oleh ' . $projekBaru->parentSupervisor->nama . 
+            ' dan menunggu konfirmasi dari ' . $projekBaru->parentTim->nama
         ]);
 
         $pesan = "<p>Sebuah projek sudah ditambahkan ke sistem oleh Supervisor dengan rincian :</p>";
@@ -367,7 +363,8 @@ class ProjekController extends Controller
 
     public function historySupervisor(Request $request, $id){
         if($request->has('search')){
-            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_supervisor','=', $id)->where('persen','=', '100')->get();
+            $projek = Projek::where('judul','LIKE','%'.$request->search.'%')->where('id_supervisor','=', $id)
+            ->where('persen','=', '100')->get();
         }else{
             $projek = Projek::where('id_supervisor','=', $id)->where('persen','=', '100')->get();
         }
