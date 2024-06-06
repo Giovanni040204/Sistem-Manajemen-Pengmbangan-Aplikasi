@@ -286,7 +286,7 @@ class ProjekController extends Controller
         ProgresProjek::where('id_projek', $id)->delete();
         Projek::where('id', $id)->delete();
 
-        return redirect()->route('projek.projekBatal')->with(['success' => 'Projek Berhasil DIbatalkan']);
+        return redirect()->route('projek.projekBatal')->with(['success' => 'Projek Berhasil Dihapus']);
     }
     
     public function destroySelesai($id)
@@ -299,7 +299,7 @@ class ProjekController extends Controller
         ProgresProjek::where('id_projek', $id)->delete();
         Projek::where('id', $id)->delete();
 
-        return redirect()->route('projek.projekSelesai')->with(['success' => 'Projek Berhasil DIbatalkan']);
+        return redirect()->route('projek.projekSelesai')->with(['success' => 'Projek Berhasil Dihapus']);
     } 
 
     public function batalProjek($id)
@@ -336,7 +336,7 @@ class ProjekController extends Controller
         Mail::to($projekSekarang->parentTim->email)->send(new kirimEmail($data_email));
         Mail::to($projekSekarang->parentClient->email)->send(new kirimEmail($data_email));
 
-        return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Projek Berhasil DIbatalkan']);
+        return redirect()->route('projek.indexbyidSupervisor', compact('projek','id'))->with(['success' => 'Projek Berhasil Dibatalkan']);
     } 
     
     public function projekSelesai(Request $request){
